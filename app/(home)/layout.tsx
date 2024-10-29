@@ -1,12 +1,5 @@
 import { Button } from '@/components/ui/button'
-import {
-  Facebook,
-  Instagram,
-  Mail,
-  MapPin,
-  Phone,
-  Twitter
-} from 'lucide-react'
+import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react'
 import Link from 'next/link'
 
 const UserPageLayout = ({
@@ -39,7 +32,9 @@ const UserPageLayout = ({
                 Contact
               </Link>
             </nav>
-            <Button className="bg-red-600 hover:bg-red-700">Join Now</Button>
+            <Button asChild className="bg-red-600 hover:bg-red-700">
+              <Link href="/join">Join Now</Link>
+            </Button>
           </div>
         </header>
         {children}
