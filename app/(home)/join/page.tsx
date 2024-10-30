@@ -12,6 +12,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { PasswordInput } from '@/components/ui/password-input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Facebook, Instagram, Twitter } from 'lucide-react'
 import Link from 'next/link'
@@ -22,7 +23,7 @@ export default function LoginRegistrationPage() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    // Handle form submission logic here
+
     console.log('Form submitted')
   }
 
@@ -57,7 +58,11 @@ export default function LoginRegistrationPage() {
                   </div>
                   <div>
                     <Label htmlFor="login-password">Password</Label>
-                    <Input id="login-password" type="password" required />
+                    <PasswordInput
+                      id="login-password"
+                      required
+                      placeholder="Password"
+                    />
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox id="remember" />
@@ -103,16 +108,20 @@ export default function LoginRegistrationPage() {
                   </div>
                   <div>
                     <Label htmlFor="register-password">Password</Label>
-                    <Input id="register-password" type="password" required />
+                    <PasswordInput
+                      id="register-password"
+                      required
+                      placeholder="Password"
+                    />
                   </div>
                   <div>
                     <Label htmlFor="register-confirm-password">
                       Confirm Password
                     </Label>
-                    <Input
+                    <PasswordInput
                       id="register-confirm-password"
-                      type="password"
                       required
+                      placeholder="Password"
                     />
                   </div>
                   <div className="flex items-center space-x-2">

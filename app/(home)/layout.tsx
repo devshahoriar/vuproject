@@ -1,5 +1,23 @@
+import MobileNav from '@/components/shared/MobileNav'
+import { ModeToggle } from '@/components/shared/ThemeControl'
 import { Button } from '@/components/ui/button'
-import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
+import {
+  Facebook,
+  Instagram,
+  Mail,
+  MapPin,
+  Menu,
+  Phone,
+  Twitter,
+} from 'lucide-react'
 import Link from 'next/link'
 
 const UserPageLayout = ({
@@ -13,7 +31,7 @@ const UserPageLayout = ({
         <header className="bg-gray-900 text-white">
           <div className="container mx-auto px-4 py-6 flex justify-between items-center">
             <Link href="/" className="text-2xl font-bold">
-              FitZone
+              Fit<span className="text-primary">Zone</span>
             </Link>
             <nav className="hidden md:flex space-x-6">
               <Link href="/" className="hover:text-gray-300">
@@ -32,9 +50,32 @@ const UserPageLayout = ({
                 Contact
               </Link>
             </nav>
-            <Button asChild className="bg-red-600 hover:bg-red-700">
-              <Link href="/join">Join Now</Link>
-            </Button>
+            <div className="flex items-center gap-2">
+              <ModeToggle />
+              <Button asChild className="bg-red-600 hover:bg-red-700">
+                <Link href="/join">Join Now</Link>
+              </Button>
+              <Sheet>
+                <SheetTrigger asChild className='md:hidden'>
+                  <Button variant="ghost">
+                    <Menu className="!size-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent className='md:hidden'>
+                  <SheetHeader>
+                    <SheetTitle></SheetTitle>
+                  </SheetHeader>
+                  <SheetDescription>
+                    <div>
+                      <Link href="/" className="text-4xl font-bold ">
+                        Fit<span className="text-primary">Zone</span>
+                      </Link>
+                      <MobileNav />
+                    </div>
+                  </SheetDescription>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </header>
         {children}
