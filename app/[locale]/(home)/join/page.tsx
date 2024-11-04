@@ -40,7 +40,7 @@ export default function LoginRegistrationPage() {
         </CardHeader>
         <CardContent>
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-2 bg-black dark:bg-opacity-25 bg-opacity-10">
               <TabsTrigger value="login">Login</TabsTrigger>
               <TabsTrigger value="register">Register</TabsTrigger>
             </TabsList>
@@ -75,7 +75,7 @@ export default function LoginRegistrationPage() {
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-red-600 hover:bg-red-700"
+                    className="w-full bg-primary hover:bg-opacity-30"
                   >
                     Log In
                   </Button>
