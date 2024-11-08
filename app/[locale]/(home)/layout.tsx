@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button'
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -52,7 +51,7 @@ const UserPageLayout = ({
             </nav>
             <div className="flex items-center gap-2">
               <ModeToggle />
-              <Button asChild className="bg-red-600 hover:bg-red-700">
+              <Button asChild className="bg-red-600 hover:bg-red-700 hidden md:block">
                 <Link href="/join">Join Now</Link>
               </Button>
               <Sheet>
@@ -62,17 +61,17 @@ const UserPageLayout = ({
                   </Button>
                 </SheetTrigger>
                 <SheetContent className='md:hidden'>
-                  <SheetHeader>
-                    <SheetTitle></SheetTitle>
+                  <SheetHeader className='hidden'>
+                    <SheetTitle>{""}</SheetTitle>
                   </SheetHeader>
-                  <SheetDescription>
+                  <SheetContent>
                     <div>
                       <Link href="/" className="text-4xl font-bold ">
                         Fit<span className="text-primary">Zone</span>
                       </Link>
                       <MobileNav />
                     </div>
-                  </SheetDescription>
+                  </SheetContent>
                 </SheetContent>
               </Sheet>
             </div>

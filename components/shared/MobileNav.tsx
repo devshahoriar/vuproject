@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { Button } from '../ui/button'
 
 const ActiveLink = ({
   href,
@@ -33,6 +34,9 @@ const MobileNav = () => {
       <ActiveLink href="/membership" path={path} title="Membership" />
       <ActiveLink href="/about" path={path} title="About" />
       <ActiveLink href="/contact" path={path} title="Contact" />
+      <Button asChild className="bg-red-600 hover:bg-red-700">
+        <Link href="/join">Join Now</Link>
+      </Button>
     </div>
   )
 }

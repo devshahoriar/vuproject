@@ -1,9 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
+import { isLogin } from '@/auth'
 import { Button } from '@/components/ui/button'
 import { Clock, Dumbbell, Users } from 'lucide-react'
 import Image from 'next/image'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const {user} = await isLogin()
+  console.log(user)
   return (
     <main className="flex-grow">
       {/* Hero Section */}
@@ -24,7 +27,7 @@ export default function HomePage() {
           </div>
           <div className="md:w-1/2">
             <Image
-              src='https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=sam-moghadam-khamseh-vOZP2LojrHI-unsplash.jpg&w=2400'
+              src="https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=sam-moghadam-khamseh-vOZP2LojrHI-unsplash.jpg&w=2400"
               alt="Gym Interior"
               width={600}
               height={400}
