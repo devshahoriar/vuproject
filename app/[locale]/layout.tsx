@@ -3,7 +3,6 @@ import './globals.css'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { ReactElement } from 'react'
 import { I18nProviderClient } from '@/locales/client'
-import { getSession } from '@/lib/auth-client'
 
 export const metadata: Metadata = {
   title: 'Create Next App',

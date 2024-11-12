@@ -9,7 +9,6 @@ import {
   Instagram,
   Mail,
   MapPin,
-  Menu,
   Phone,
   Twitter,
 } from 'lucide-react'
