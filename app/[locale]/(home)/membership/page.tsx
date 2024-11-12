@@ -93,7 +93,7 @@ export default function MembershipPage() {
               </ul>
             </CardContent>
             <CardFooter>
-              <Button className="w-full bg-red-600 hover:bg-red-700">
+              <Button className="w-full">
                 Choose Plan
               </Button>
             </CardFooter>

@@ -17,4 +17,11 @@ export const auth = betterAuth({
     expiresIn: 60 * 60 * 24 * 7,
     updateAge: 60 * 60 * 24 * 2,
   },
+  advanced: {
+    cookies: {
+      session_token: {
+        name: 'token',
+      },
+    },
+  },
 })

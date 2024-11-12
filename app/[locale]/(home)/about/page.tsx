@@ -176,7 +176,7 @@ export default function AboutPage() {
                 (555) 123-4567
               </p>
             </div>
-            <Button className="bg-red-600 hover:bg-red-700">
+            <Button className="">
               Get Directions
             </Button>
           </CardContent>

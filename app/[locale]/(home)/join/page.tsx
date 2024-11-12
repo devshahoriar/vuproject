@@ -15,7 +15,7 @@ import { Label } from '@/components/ui/label'
 import { PasswordInput } from '@/components/ui/password-input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { signIn, signUp, useSession } from '@/lib/auth-client'
-import { Facebook, Instagram, Loader2, Twitter } from 'lucide-react'
+import { Facebook, Instagram, Loader, Loader2, Twitter } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -63,6 +63,7 @@ export default function LoginRegistrationPage() {
 
   const _hendelLogin = async (e: FormEvent) => {
     e.preventDefault()
+    setLoading(true)
     const { error } = await signIn.email({
       email: loginData.email,
       password: loginData.pass,
@@ -71,11 +72,12 @@ export default function LoginRegistrationPage() {
     if (error) {
       setLoginError(error?.message as string)
     }
+    setLoading(false)
   }
 
   return (
     <main className="flex-grow container mx-auto px-4 py-8 flex items-center justify-center">
-      <Card className="w-full max-w-md dark:bg-zinc-800 dark:text-white">
+      <Card className="w-full max-w-md  dark:text-white">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
             Welcome to FitZone
@@ -125,9 +127,9 @@ export default function LoginRegistrationPage() {
                   <Button
                     type="submit"
                     className="w-full bg-primary hover:bg-opacity-30"
-                    // disabled={isPendingLg}
+                    disabled={loading}
                   >
-                    Log In
+                    {loading ? <Loader className='animate-spin'/>: "Log In"}
                   </Button>
                 </div>
               </form>
@@ -223,7 +225,7 @@ export default function LoginRegistrationPage() {
                   <Button
                     disabled={loading}
                     type="submit"
-                    className="w-full bg-red-600 hover:bg-red-700"
+                    className="w-full"
                   >
                     {loading ? (
                       <Loader2 className="animate-spin" />
@@ -240,7 +242,7 @@ export default function LoginRegistrationPage() {
           <div className="w-full space-y-4">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
+                <span className="w-full border-t border-foreground" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-background px-2 text-muted-foreground">

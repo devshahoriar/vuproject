@@ -160,7 +160,7 @@ export default function ClassesPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="w-full bg-red-600 hover:bg-red-700">
+              <Button className="w-full">
                 Book Class
               </Button>
             </CardFooter>

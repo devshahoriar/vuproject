@@ -41,7 +41,7 @@ export default function ContactPage() {
             </div>
             <Button
               type="submit"
-              className="w-full bg-red-600 hover:bg-red-700"
+              className="w-full"
             >
               Send Message
             </Button>
@@ -110,7 +110,7 @@ export default function ContactPage() {
               ></iframe>
             </div>
             <div className="mt-4 flex justify-center">
-              <Button className="bg-red-600 hover:bg-red-700">
+              <Button className="">
                 Get Directions
               </Button>
             </div>

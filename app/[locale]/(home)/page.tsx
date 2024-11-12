@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Clock, Dumbbell, Users } from 'lucide-react'
 
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default async function HomePage() {
   
@@ -21,7 +22,7 @@ export default async function HomePage() {
               trainers, state-of-the-art equipment, and a supportive community
               await you.
             </p>
-            <Button className="bg-red-600 hover:bg-red-700 text-lg px-8 py-3">
+            <Button className="text-lg px-8 py-3">
               Get Started
             </Button>
           </div>
@@ -90,11 +91,11 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Locker room access</li>
                 <li className="mb-2">✓ Free WiFi</li>
               </ul>
-              <Button className="w-full bg-red-600 hover:bg-red-700">
+              <Button className="w-full">
                 Choose Plan
               </Button>
             </div>
-            <div className="bg-white p-8 rounded-lg shadow-md border-2 border-red-600">
+            <div className="bg-white p-8 rounded-lg shadow-md border-2 border-primary">
               <h3 className="text-2xl font-semibold mb-4">Pro</h3>
               <p className="text-4xl font-bold mb-4">
                 $49<span className="text-xl font-normal">/month</span>
@@ -104,7 +105,7 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Group fitness classes</li>
                 <li className="mb-2">✓ Personalized workout plan</li>
               </ul>
-              <Button className="w-full bg-red-600 hover:bg-red-700">
+              <Button className="w-full">
                 Choose Plan
               </Button>
             </div>
@@ -118,7 +119,7 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Personal training sessions</li>
                 <li className="mb-2">✓ Nutrition consultation</li>
               </ul>
-              <Button className="w-full bg-red-600 hover:bg-red-700">
+              <Button className="w-full">
                 Choose Plan
               </Button>
             </div>
@@ -156,7 +157,7 @@ export default async function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-red-600 text-white py-20">
+      <section className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">
             Ready to Start Your Fitness Journey?
@@ -164,8 +165,8 @@ export default async function HomePage() {
           <p className="text-xl mb-8">
             Join FitZone today and get your first month at 50% off!
           </p>
-          <Button className="bg-white text-red-600 hover:bg-gray-100 text-lg px-8 py-3">
-            Sign Up Now
+          <Button asChild className="bg-white hover:bg-gray-100 text-lg px-8 py-3 text-black dark:text-black">
+           <Link href='/join'>Sign Up Now</Link>
           </Button>
         </div>
       </section>

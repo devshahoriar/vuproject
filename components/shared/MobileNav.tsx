@@ -71,13 +71,14 @@ const MobileNav = () => {
                 <Button
                   onClick={async () => {
                     await signOut()
+                    setOpen(false)
                     refresh()
                   }}
                 >
                   Log Out
                 </Button>
               ) : (
-                <Button asChild className="bg-red-600 hover:bg-red-700">
+                <Button asChild className="">
                   <Link href="/join">Join Now</Link>
                 </Button>
               )}
