@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
-import { isLogin } from '@/auth'
+
 import { Button } from '@/components/ui/button'
 import { Clock, Dumbbell, Users } from 'lucide-react'
+
 import Image from 'next/image'
 
 export default async function HomePage() {
-  const {user} = await isLogin()
-  console.log(user)
+  
   return (
     <main className="flex-grow">
       {/* Hero Section */}

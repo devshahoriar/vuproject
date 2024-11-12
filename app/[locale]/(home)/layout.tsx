@@ -1,13 +1,9 @@
 import MobileNav from '@/components/shared/MobileNav'
 import { ModeToggle } from '@/components/shared/ThemeControl'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet'
+
+import { getSession } from '@/lib/auth-client'
 import {
   Facebook,
   Instagram,
@@ -17,13 +13,21 @@ import {
   Phone,
   Twitter,
 } from 'lucide-react'
+import { headers } from 'next/headers'
 import Link from 'next/link'
 
-const UserPageLayout = ({
+const UserPageLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) => {
+  const { data } = await getSession({
+    fetchOptions: {
+      headers: await headers(),
+    },
+  })
+  const user = data?.user
+
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -51,29 +55,21 @@ const UserPageLayout = ({
             </nav>
             <div className="flex items-center gap-2">
               <ModeToggle />
-              <Button asChild className="bg-red-600 hover:bg-red-700 hidden md:block">
-                <Link href="/join">Join Now</Link>
-              </Button>
-              <Sheet>
-                <SheetTrigger asChild className='md:hidden'>
-                  <Button variant="ghost">
-                    <Menu className="!size-6" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent className='md:hidden'>
-                  <SheetHeader className='hidden'>
-                    <SheetTitle>{""}</SheetTitle>
-                  </SheetHeader>
-                  <SheetContent>
-                    <div>
-                      <Link href="/" className="text-4xl font-bold ">
-                        Fit<span className="text-primary">Zone</span>
-                      </Link>
-                      <MobileNav />
-                    </div>
-                  </SheetContent>
-                </SheetContent>
-              </Sheet>
+              {user ? (
+                <Avatar>
+                  <AvatarImage src={user?.image} />
+                  <AvatarFallback>{user?.name?.substring(0, 2)}</AvatarFallback>
+                </Avatar>
+              ) : (
+                <Button
+                  asChild
+                  className="bg-red-600 hover:bg-red-700 hidden md:block"
+                >
+                  <Link href="/join">Join Now</Link>
+                </Button>
+              )}
+
+              <MobileNav />
             </div>
           </div>
         </header>

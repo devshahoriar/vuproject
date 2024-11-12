@@ -1,9 +1,8 @@
 'use server'
 
-import { createSession, generateSessionToken, SESSION_NAME } from '@/auth'
+
 import prisma from '@/prisma/db'
 import bcrypt from 'bcrypt'
-import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 type BodyType = {
@@ -43,35 +42,3 @@ export const register = async (pv: unknown, fromData: FormData) => {
   return redirect('/join?registered=true')
 }
 
-export const login = async (pv: unknown, fromData: FormData) => {
-  const { email, pass } = Object.fromEntries(fromData) as unknown as {
-    email: string
-    pass: string
-  }
-
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-    select: {
-      id: true,
-      email: true,
-      password: true,
-    },
-  })
-
-  if (!user) {
-    return 'User not found'
-  }
-  const match = await bcrypt.compare(pass, user.password)
-  if (!match) {
-    return 'Invalid password'
-  }
-  const token = generateSessionToken()
-  const session = await createSession(token, user.id)
-  const cookie = await cookies()
-  cookie.set(SESSION_NAME, session.id, {
-    expires: session.expiresAt,
-  })
-  return redirect('/')
-}

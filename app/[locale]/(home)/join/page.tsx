@@ -1,6 +1,5 @@
 'use client'
 
-import { login, register } from '@/actions/authAction'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -15,21 +14,64 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { PasswordInput } from '@/components/ui/password-input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Facebook, Instagram, Twitter } from 'lucide-react'
+import { signIn, signUp, useSession } from '@/lib/auth-client'
+import { Facebook, Instagram, Loader2, Twitter } from 'lucide-react'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
-import { useActionState, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 
 export default function LoginRegistrationPage() {
   const [activeTab, setActiveTab] = useState('login')
-  const [registerMessage, regisAction, isPendingRe] = useActionState(
-    register,
-    null
-  )
-  const isRegisterd = Boolean(useSearchParams().get('registered'))
+  const [registerData, setRegisterData] = useState<any>({})
+  const [loginData, setLoginData] = useState<any>({})
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [loginError, setLoginError] = useState('')
+  const { data } = useSession()
+  const { replace } = useRouter()
+  useEffect(() => {
+    if (data !== null) {
+      replace('/')
+    }
+  }, [])
 
-  const [loginMessage, loginAction, isPendingLg] = useActionState(login, null)
+  const _hendelRegister = async (e: FormEvent) => {
+    e.preventDefault()
+    await signUp.email(
+      {
+        email: registerData?.email,
+        name: registerData?.name,
+        password: registerData?.pass,
+      },
+      {
+        onSuccess: () => {
+          console.log('done register')
+          setLoading(false)
+        },
+        onError: (v) => {
+          setError(v.error.message)
+          setLoading(false)
+        },
+        onRequest: () => {
+          setError('')
+          setLoading(true)
+        },
+      }
+    )
+  }
+
+  const _hendelLogin = async (e: FormEvent) => {
+    e.preventDefault()
+    const { error } = await signIn.email({
+      email: loginData.email,
+      password: loginData.pass,
+      callbackURL: '/',
+    })
+    if (error) {
+      setLoginError(error?.message as string)
+    }
+  }
 
   return (
     <main className="flex-grow container mx-auto px-4 py-8 flex items-center justify-center">
@@ -49,7 +91,7 @@ export default function LoginRegistrationPage() {
               <TabsTrigger value="register">Register</TabsTrigger>
             </TabsList>
             <TabsContent value="login">
-              <form action={loginAction}>
+              <form onSubmit={_hendelLogin}>
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="login-email">Email</Label>
@@ -59,6 +101,9 @@ export default function LoginRegistrationPage() {
                       name="email"
                       placeholder="your@email.com"
                       required
+                      onChange={(e) =>
+                        setLoginData({ ...loginData, email: e.target.value })
+                      }
                     />
                   </div>
                   <div>
@@ -68,18 +113,19 @@ export default function LoginRegistrationPage() {
                       required
                       name="pass"
                       placeholder="Password"
+                      onChange={(e) =>
+                        setLoginData({ ...loginData, pass: e.target.value })
+                      }
                     />
                   </div>
-                  {isRegisterd && (
-                    <p className="text-green-500 text-sm">
-                      Registration Success
-                    </p>
+                  {loginError && (
+                    <p className="text-red-500 text-sm">{loginError}</p>
                   )}
-                  <p className="text-sm text-red-600">{loginMessage}</p>
+                  {/* <p className="text-sm text-red-600">{loginMessage}</p> */}
                   <Button
                     type="submit"
                     className="w-full bg-primary hover:bg-opacity-30"
-                    disabled={isPendingLg}
+                    // disabled={isPendingLg}
                   >
                     Log In
                   </Button>
@@ -95,7 +141,7 @@ export default function LoginRegistrationPage() {
               </div>
             </TabsContent>
             <TabsContent value="register">
-              <form action={regisAction}>
+              <form onSubmit={_hendelRegister}>
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="register-name">Full Name</Label>
@@ -104,6 +150,12 @@ export default function LoginRegistrationPage() {
                       name="name"
                       placeholder="John Doe"
                       required
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          name: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div>
@@ -113,6 +165,12 @@ export default function LoginRegistrationPage() {
                       type="email"
                       name="email"
                       placeholder="your@email.com"
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          email: e.target.value,
+                        })
+                      }
                       required
                     />
                   </div>
@@ -124,6 +182,12 @@ export default function LoginRegistrationPage() {
                       id="register-password"
                       required
                       placeholder="Password"
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          pass: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div>
@@ -135,6 +199,12 @@ export default function LoginRegistrationPage() {
                       id="register-confirm-password"
                       required
                       placeholder="Password"
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          conPass: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div className="flex items-center space-x-2">
@@ -149,15 +219,17 @@ export default function LoginRegistrationPage() {
                       </Link>
                     </label>
                   </div>
-                  <p className="text-sm text-red-600">
-                    {registerMessage as string}
-                  </p>
+                  <p className="text-sm text-red-600">{error}</p>
                   <Button
-                    disabled={isPendingRe}
+                    disabled={loading}
                     type="submit"
                     className="w-full bg-red-600 hover:bg-red-700"
                   >
-                    Register
+                    {loading ? (
+                      <Loader2 className="animate-spin" />
+                    ) : (
+                      'Register'
+                    )}
                   </Button>
                 </div>
               </form>
