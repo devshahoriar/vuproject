@@ -113,7 +113,7 @@ export default function ClassesPage() {
             className="w-full"
           />
         </div>
-        <div className="w-full md:w-1/3 dark:text-black">
+        <div className="w-full md:w-1/3">
           <Select>
             <SelectTrigger>
               <SelectValue placeholder="Filter by category" />
