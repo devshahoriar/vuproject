@@ -3,7 +3,7 @@ import ClientImage from './ClientImage'
 const baseUrl =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000/'
-    : process.env.NEXT_PUBLIC_DOMAIN
+    : process.env.NEXT_PUBLIC_BETTER_AUTH_URL
 
 async function dynamicBlurDataUrl(url: String) {
   const base64str = await fetch(
