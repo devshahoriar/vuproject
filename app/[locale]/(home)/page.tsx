@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 
+import ServerImage from '@/components/shared/ServerImage'
 import { Button } from '@/components/ui/button'
 import { Clock, Dumbbell, Users } from 'lucide-react'
 
@@ -7,7 +8,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function HomePage() {
-  
   return (
     <main className="flex-grow">
       {/* Hero Section */}
@@ -22,13 +22,11 @@ export default async function HomePage() {
               trainers, state-of-the-art equipment, and a supportive community
               await you.
             </p>
-            <Button className="text-lg px-8 py-3">
-              Get Started
-            </Button>
+            <Button className="text-lg px-8 py-3">Get Started</Button>
           </div>
           <div className="md:w-1/2">
-            <Image
-              src="https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=sam-moghadam-khamseh-vOZP2LojrHI-unsplash.jpg&w=2400"
+            <ServerImage
+              src="https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=sam-moghadam-khamseh-vOZP2LojrHI-unsplash.jpg"
               alt="Gym Interior"
               width={600}
               height={400}
@@ -91,9 +89,7 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Locker room access</li>
                 <li className="mb-2">✓ Free WiFi</li>
               </ul>
-              <Button className="w-full">
-                Choose Plan
-              </Button>
+              <Button className="w-full">Choose Plan</Button>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-md border-2 border-primary">
               <h3 className="text-2xl font-semibold mb-4">Pro</h3>
@@ -105,9 +101,7 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Group fitness classes</li>
                 <li className="mb-2">✓ Personalized workout plan</li>
               </ul>
-              <Button className="w-full">
-                Choose Plan
-              </Button>
+              <Button className="w-full">Choose Plan</Button>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-semibold mb-4">Elite</h3>
@@ -119,9 +113,7 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Personal training sessions</li>
                 <li className="mb-2">✓ Nutrition consultation</li>
               </ul>
-              <Button className="w-full">
-                Choose Plan
-              </Button>
+              <Button className="w-full">Choose Plan</Button>
             </div>
           </div>
         </div>
@@ -145,6 +137,7 @@ export default async function HomePage() {
                 alt="Sarah J."
                 width={100}
                 height={100}
+                // placeholder='blur'
                 className="rounded-full mr-4 object-cover aspect-square size-14"
               />
               <div>
@@ -165,8 +158,11 @@ export default async function HomePage() {
           <p className="text-xl mb-8">
             Join FitZone today and get your first month at 50% off!
           </p>
-          <Button asChild className="bg-white hover:bg-gray-100 text-lg px-8 py-3 text-black dark:text-black">
-           <Link href='/join'>Sign Up Now</Link>
+          <Button
+            asChild
+            className="bg-white hover:bg-gray-100 text-lg px-8 py-3 text-black dark:text-black"
+          >
+            <Link href="/join">Sign Up Now</Link>
           </Button>
         </div>
       </section>

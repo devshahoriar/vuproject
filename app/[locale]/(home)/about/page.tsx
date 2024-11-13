@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import ServerImage from '@/components/shared/ServerImage'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -66,8 +67,8 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="order-first md:order-last">
-            <Image
-              src="/placeholder.svg?height=400&width=600"
+            <ServerImage
+              src="https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=geert-pieters-3RnkZpDqsEI-unsplash.jpg"
               alt="FitZone Gym Interior"
               width={600}
               height={400}

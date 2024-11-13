@@ -1,3 +1,4 @@
+import ServerImage from '@/components/shared/ServerImage'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -133,7 +134,7 @@ export default function ClassesPage() {
         {gymClasses.map((gymClass) => (
           <Card key={gymClass.id}>
             <CardHeader>
-              <Image
+              <ServerImage
                 src={gymClass.image}
                 alt={gymClass.name}
                 width={300}
