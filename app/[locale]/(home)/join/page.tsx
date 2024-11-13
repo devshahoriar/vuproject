@@ -46,7 +46,7 @@ export default function LoginRegistrationPage() {
       },
       {
         onSuccess: () => {
-          console.log('done register')
+          replace('/')
           setLoading(false)
         },
         onError: (v) => {
@@ -135,7 +135,7 @@ export default function LoginRegistrationPage() {
               </form>
               <div className="mt-4 text-center">
                 <Link
-                  href="#"
+                  href="/forgot-password"
                   className="text-sm text-blue-600 hover:underline"
                 >
                   Forgot password?
@@ -228,7 +228,7 @@ export default function LoginRegistrationPage() {
                     className="w-full"
                   >
                     {loading ? (
-                      <Loader2 className="animate-spin" />
+                      <Loader className="animate-spin" />
                     ) : (
                       'Register'
                     )}
