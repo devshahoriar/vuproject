@@ -2,12 +2,20 @@
 
 import ServerImage from '@/components/shared/ServerImage'
 import { Button } from '@/components/ui/button'
+import { getSession } from '@/lib/auth-client'
 import { Clock, Dumbbell, Users } from 'lucide-react'
+import { headers } from 'next/headers'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function HomePage() {
+  const session = await getSession({
+    fetchOptions: {
+      headers: await headers(),
+    },
+  })
+  console.log(session)
   return (
     <main className="flex-grow">
       {/* Hero Section */}

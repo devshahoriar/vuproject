@@ -14,7 +14,7 @@ const ClientImage = ({ className, ...props }: ComponentProps<typeof Image>) => {
       <Image
         {...props}
         className={` transition duration-300 ease-in-out ${
-          isReady ? 'blur-0 scale-100' : 'blur-2xl scale-105'
+          isReady ? 'blur-0 scale-100 opacity-100' : 'blur-2xl scale-105 opacity-0'
         } ${className}`}
         onLoad={onLoadCallback}
       />

@@ -8,16 +8,19 @@ datasource db {
 }
 
 model User {
-  id            String   @id
-  name          String
-  email         String
-  emailVerified Boolean
-  image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
-
-  Session Session[]
-  Account Account[]
+  id             String    @id
+  name           String
+  email          String
+  emailVerified  Boolean
+  image          String?
+  createdAt      DateTime
+  updatedAt      DateTime
+  accountType    String    @default("user")
+  profileImageId Int?
+  profileImage   File?     @relation(fields: [profileImageId], references: [id])
+  Session        Session[]
+  Account        Account[]
+  Class          Class[]
 
   @@unique([email])
   @@map("user")
@@ -58,8 +61,32 @@ model Verification {
   @@map("verification")
 }
 
+model File {
+  id     Int     @id @default(autoincrement())
+  fileId String
+  url    String
+  Class  Class[]
+  User   User[]
+}
+
 model ClassCategory {
   id    Int     @id @default(autoincrement())
   title String
   desc  String?
+  Class Class[]
+}
+
+model Class {
+  id           Int     @id @default(autoincrement())
+  title        String
+  desc         String?
+  instructorId String
+  categoryId   Int
+  duration     Int
+  schedule     String
+  coverImageId Int?
+
+  coverImage File?         @relation(fields: [coverImageId], references: [id])
+  instructor User          @relation(fields: [instructorId], references: [id])
+  category   ClassCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }

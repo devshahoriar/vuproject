@@ -19,25 +19,25 @@ const teamMembers = [
   {
     name: 'John Doe',
     role: 'Founder & Head Trainer',
-    image: '/placeholder.svg?height=300&width=300',
+    image: 'https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=drew-hays-agGIKYs4mYs-unsplash.jpg',
     bio: 'With over 15 years of experience in fitness and nutrition, John founded FitZone to help people achieve their health goals.',
   },
   {
     name: 'Jane Smith',
     role: 'Yoga Instructor',
-    image: '/placeholder.svg?height=300&width=300',
+    image: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=christian-buehner-DItYlc26zVI-unsplash.jpg',
     bio: 'Jane is a certified yoga instructor with a passion for helping people find balance in their lives through mindfulness and movement.',
   },
   {
     name: 'Mike Johnson',
     role: 'Strength Coach',
-    image: '/placeholder.svg?height=300&width=300',
+    image: 'https://images.unsplash.com/photo-1441786485319-5e0f0c092803?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=christopher-campbell-i4OHxtxiMtk-unsplash.jpg',
     bio: 'As a former competitive powerlifter, Mike brings his expertise in strength training to help members build muscle and increase their overall fitness.',
   },
   {
     name: 'Sarah Lee',
     role: 'Nutritionist',
-    image: '/placeholder.svg?height=300&width=300',
+    image: 'https://images.unsplash.com/photo-1664575602554-2087b04935a5?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=microsoft-365-7mBictB_urk-unsplash.jpg',
     bio: 'Sarah is a registered dietitian who works with our members to develop personalized nutrition plans that complement their fitness goals.',
   },
 ]
@@ -103,12 +103,12 @@ export default function AboutPage() {
           {teamMembers.map((member) => (
             <Card key={member.name}>
               <CardHeader>
-                <Image
+                <ServerImage
                   src={member.image}
                   alt={member.name}
                   width={300}
                   height={300}
-                  className="rounded-full w-32 h-32 mx-auto mb-4"
+                  className="rounded-full w-32 h-32 mx-auto mb-4 object-cover"
                 />
                 <CardTitle>{member.name}</CardTitle>
                 <CardDescription>{member.role}</CardDescription>

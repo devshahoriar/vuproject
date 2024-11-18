@@ -1,9 +1,11 @@
 import type { NextConfig } from 'next'
 
-
 const nextConfig: NextConfig = {
   experimental: {
     reactCompiler: true,
+    serverActions: {
+      bodySizeLimit: '5mb',
+    },
   },
   images: {
     remotePatterns: [
@@ -12,9 +14,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  eslint:{
-    ignoreDuringBuilds : true
-  }
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 export default nextConfig

@@ -23,6 +23,7 @@ const ForGotPassword = () => {
     setError('')
     try {
       await forgetPassword({ email: email, redirectTo: '/reset-password' })
+      setEmail('')
       setMessage('Reset link sent to your email.')
     } catch (error: any) {
       console.log(error)

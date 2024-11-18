@@ -1,3 +1,4 @@
+import { ComponentProps } from 'react'
 import ClientImage from './ClientImage'
 
 const baseUrl =
@@ -6,9 +7,11 @@ const baseUrl =
     : process.env.NEXT_PUBLIC_BETTER_AUTH_URL
 
 async function dynamicBlurDataUrl(url: String) {
-  const base64str = await fetch(
-    `${baseUrl}/_next/image?url=${url}&w=20&q=75`
-  ).then(async (res) => Buffer.from(await res.arrayBuffer()).toString('base64'))
+  const base64str = await fetch(`${baseUrl}/_next/image?url=${url}&w=15&q=75`, {
+    cache: 'force-cache',
+  }).then(async (res) =>
+    Buffer.from(await res.arrayBuffer()).toString('base64')
+  )
 
   const blurSvg = `
     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 5'>
@@ -35,10 +38,11 @@ export type ServerImageProps = {
   width: number
   height: number
   className?: string
-}
+} & ComponentProps<typeof ClientImage>
 
 const ServerImage = async (prop: ServerImageProps) => {
   const blurDataURL = await dynamicBlurDataUrl(prop.src)
+  
   return (
     <ClientImage
       {...prop}

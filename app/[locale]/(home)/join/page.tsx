@@ -29,12 +29,13 @@ export default function LoginRegistrationPage() {
   const [error, setError] = useState('')
   const [loginError, setLoginError] = useState('')
   const { data } = useSession()
+  
   const { replace } = useRouter()
   useEffect(() => {
     if (data !== null) {
       replace('/')
     }
-  }, [])
+  }, [data?.session])
 
   const _hendelRegister = async (e: FormEvent) => {
     e.preventDefault()
