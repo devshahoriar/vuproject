@@ -1,3 +1,4 @@
+import ServerImage from "@/components/shared/ServerImage"
 import FileMeneger from "@/lib/FileMeneger"
 
 
@@ -28,11 +29,13 @@ const onSubmit = async (e:FormData) => {
 
 const test = () => {
   return (
-    <form action={onSubmit}>
-      <input type="file" name="files" />
-      <input type="text" name="name" />
-      <button type="submit">Submit</button>
-    </form>
+    <ServerImage
+    src="https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=geert-pieters-3RnkZpDqsEI-unsplash.jpg"
+    alt="FitZone Gym Interior"
+    width={600}
+    height={400}
+    className="rounded-lg shadow-lg"
+  />
   )
 }
 

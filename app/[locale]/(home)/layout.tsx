@@ -26,6 +26,7 @@ const UserPageLayout = async ({
     },
   })
   const user = data?.user
+ 
 
   return (
     <>
