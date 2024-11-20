@@ -1,4 +1,5 @@
 import {
+  Blinds,
   Bookmark,
   Home,
   LayoutGrid,
@@ -28,7 +29,7 @@ type Group = {
   menus: Menu[]
 }
 
-export function getMenuList(): Group[] {
+export function getMenuList(role: string): Group[] {
   return [
     {
       groupLabel: '',
@@ -45,6 +46,16 @@ export function getMenuList(): Group[] {
           icon: Home,
           submenus: [],
         },
+        ...(role === 'user'
+          ? [
+              {
+                href: '/admin',
+                label: 'Admin Panel',
+                icon: Settings,
+                submenus: [],
+              },
+            ]
+          : []),
       ],
     },
     {
@@ -52,7 +63,7 @@ export function getMenuList(): Group[] {
       menus: [
         {
           href: '',
-          label: 'Posts',
+          label: 'posts',
           icon: SquarePen,
           submenus: [
             {
@@ -65,26 +76,48 @@ export function getMenuList(): Group[] {
             },
           ],
         },
-        {
-          href: '/categories',
-          label: 'Categories',
-          icon: Bookmark,
-        },
+
         {
           href: '/tags',
           label: 'Tags',
           icon: Tag,
         },
+        ...(role === 'admin'
+          ? [
+              {
+                href: '/d/manage-categories',
+                label: 'Categories',
+                icon: Bookmark,
+              },
+              {
+                href: '/d/manage-class',
+                label: 'Manage Class',
+                icon: Blinds,
+                submenus: [],
+              },
+              {
+                href: '',
+                label: 'Users',
+                icon: SquarePen,
+                submenus: [
+                  {
+                    href: '/d/manage-users',
+                    label: 'Manage Users',
+                  },
+                ],
+              },
+            ]
+          : []),
       ],
     },
     {
       groupLabel: 'Settings',
       menus: [
-        {
-          href: '/users',
-          label: 'Users',
-          icon: Users,
-        },
+        // {
+        //   href: '/users',
+        //   label: 'Users',
+        //   icon: Users,
+        // },
         {
           href: '/d/account',
           label: 'Account',

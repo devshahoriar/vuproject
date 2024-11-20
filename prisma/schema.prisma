@@ -15,7 +15,7 @@ model User {
   image          String?
   createdAt      DateTime
   updatedAt      DateTime
-  accountType    String    @default("user")
+  role           String    @default("user")
   profileImageId Int?
   profileImage   File?     @relation(fields: [profileImageId], references: [id])
   Session        Session[]
@@ -84,9 +84,9 @@ model Class {
   categoryId   Int
   duration     Int
   schedule     String
-  coverImageId Int?
+  coverImageId Int
 
-  coverImage File?         @relation(fields: [coverImageId], references: [id])
+  coverImage File          @relation(fields: [coverImageId], references: [id])
   instructor User          @relation(fields: [instructorId], references: [id])
   category   ClassCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }

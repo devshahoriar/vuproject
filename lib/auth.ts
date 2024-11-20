@@ -1,7 +1,7 @@
-import prisma from '@/prisma/db'
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import sendMail from './sendEmail'
+import prisma from '@/prisma/db'
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -20,7 +20,15 @@ export const auth = betterAuth({
       }
     },
   },
-
+  user: {
+    additionalFields: {
+      role: {
+        type: 'string',
+        defaultValue: 'user',
+        required: true,
+      },
+    },
+  },
   session: {
     cookieCache: {
       enabled: true,
@@ -37,4 +45,5 @@ export const auth = betterAuth({
     },
   },
 })
+
 

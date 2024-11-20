@@ -15,7 +15,7 @@ export default async function HomePage() {
       headers: await headers(),
     },
   })
-  console.log(session)
+
   return (
     <main className="flex-grow">
       {/* Hero Section */}

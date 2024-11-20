@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { PanelsTopLeft } from "lucide-react";
 import Link from "next/link";
 
-export function Sidebar() {
+export function Sidebar({role}:{role:string}) {
   const sidebar = useStore(useSidebar, (x) => x);
   if (!sidebar) return null;
   const { isOpen, toggleOpen, getOpenState, setIsHover, settings } = sidebar;
@@ -48,7 +48,7 @@ export function Sidebar() {
             </h1>
           </Link>
         </Button>
-        <Menu isOpen={getOpenState()} />
+        <Menu role={role} isOpen={getOpenState()} />
       </div>
     </aside>
   );

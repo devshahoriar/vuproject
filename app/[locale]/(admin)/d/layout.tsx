@@ -17,7 +17,9 @@ const DashBoardLayout = async ({
   if (!data) {
     return <SignInRequeredPage />
   }
-  return <AdminPanelLayout>{children}</AdminPanelLayout>
+  const { user } = data
+  
+  return <AdminPanelLayout role={user?.role}>{children}</AdminPanelLayout>
 }
 
 export default DashBoardLayout

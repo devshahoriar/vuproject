@@ -1,7 +1,14 @@
 import { ContentLayout } from '@/components/admin-panel/content-layout'
-import React from 'react'
+import { getSession } from '@/lib/auth-client'
+import { headers } from 'next/headers'
 
-const DashBoardHomePage = () => {
+const DashBoardHomePage = async () => {
+  const session = await getSession({
+    fetchOptions: {
+      headers: await headers(),
+    },
+  })
+
   return (
     <ContentLayout title="Test">
       <div>Test</div>
