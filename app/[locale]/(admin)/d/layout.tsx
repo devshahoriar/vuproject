@@ -1,6 +1,7 @@
 import AdminPanelLayout from '@/components/admin-panel/admin-panel-layout'
 import SignInRequeredPage from '@/components/shared/SignInRequered'
 import { getSession } from '@/lib/auth-client'
+import { UserRole } from '@prisma/client'
 import { headers } from 'next/headers'
 import React from 'react'
 
@@ -19,7 +20,7 @@ const DashBoardLayout = async ({
   }
   const { user } = data
   
-  return <AdminPanelLayout role={user?.role}>{children}</AdminPanelLayout>
+  return <AdminPanelLayout role={user?.role as UserRole}>{children}</AdminPanelLayout>
 }
 
 export default DashBoardLayout

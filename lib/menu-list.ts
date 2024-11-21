@@ -1,6 +1,6 @@
+import { UserRole } from '@prisma/client'
 import {
   Blinds,
-  Bookmark,
   Home,
   LayoutGrid,
   LucideIcon,
@@ -29,7 +29,7 @@ type Group = {
   menus: Menu[]
 }
 
-export function getMenuList(role: string): Group[] {
+export function getMenuList(role: UserRole): Group[] {
   return [
     {
       groupLabel: '',
@@ -46,7 +46,7 @@ export function getMenuList(role: string): Group[] {
           icon: Home,
           submenus: [],
         },
-        ...(role === 'user'
+        ...(role === UserRole.USER
           ? [
               {
                 href: '/admin',
@@ -82,23 +82,27 @@ export function getMenuList(role: string): Group[] {
           label: 'Tags',
           icon: Tag,
         },
-        ...(role === 'admin'
+        ...(role === UserRole.ADMIN
           ? [
               {
-                href: '/d/manage-categories',
-                label: 'Categories',
-                icon: Bookmark,
-              },
-              {
-                href: '/d/manage-class',
-                label: 'Manage Class',
+                href: '',
+                label: 'Class',
                 icon: Blinds,
-                submenus: [],
+                submenus: [
+                  {
+                    href: '/d/manage-categories',
+                    label: 'Categories',
+                  },
+                  {
+                    href: '/d/manage-class',
+                    label: 'Classes',
+                  },
+                ],
               },
               {
                 href: '',
                 label: 'Users',
-                icon: SquarePen,
+                icon: Users,
                 submenus: [
                   {
                     href: '/d/manage-users',
@@ -113,11 +117,6 @@ export function getMenuList(role: string): Group[] {
     {
       groupLabel: 'Settings',
       menus: [
-        // {
-        //   href: '/users',
-        //   label: 'Users',
-        //   icon: Users,
-        // },
         {
           href: '/d/account',
           label: 'Account',

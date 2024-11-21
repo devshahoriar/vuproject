@@ -2,6 +2,7 @@ import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import sendMail from './sendEmail'
 import prisma from '@/prisma/db'
+import { UserRole } from '@prisma/client'
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -24,7 +25,7 @@ export const auth = betterAuth({
     additionalFields: {
       role: {
         type: 'string',
-        defaultValue: 'user',
+        defaultValue: UserRole.USER,
         required: true,
       },
     },
@@ -45,5 +46,3 @@ export const auth = betterAuth({
     },
   },
 })
-
-

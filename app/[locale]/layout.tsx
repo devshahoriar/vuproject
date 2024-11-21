@@ -3,6 +3,7 @@ import './globals.css'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { ReactElement } from 'react'
 import { I18nProviderClient } from '@/locales/client'
+import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
   title: 'Fitzon',
@@ -30,6 +31,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <Toaster />
           </ThemeProvider>
         </body>
       </I18nProviderClient>

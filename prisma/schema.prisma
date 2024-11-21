@@ -7,6 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  USER
+  ADMIN
+  INSTRUCTOR
+}
+
 model User {
   id             String    @id
   name           String
@@ -15,7 +21,7 @@ model User {
   image          String?
   createdAt      DateTime
   updatedAt      DateTime
-  role           String    @default("user")
+  role           UserRole  @default(USER)
   profileImageId Int?
   profileImage   File?     @relation(fields: [profileImageId], references: [id])
   Session        Session[]

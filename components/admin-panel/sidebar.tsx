@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { useStore } from "@/hooks/use-store";
 import { cn } from "@/lib/utils";
+import { UserRole } from "@prisma/client";
 import { PanelsTopLeft } from "lucide-react";
 import Link from "next/link";
 
-export function Sidebar({role}:{role:string}) {
+export function Sidebar() {
   const sidebar = useStore(useSidebar, (x) => x);
   if (!sidebar) return null;
   const { isOpen, toggleOpen, getOpenState, setIsHover, settings } = sidebar;
@@ -48,7 +49,7 @@ export function Sidebar({role}:{role:string}) {
             </h1>
           </Link>
         </Button>
-        <Menu role={role} isOpen={getOpenState()} />
+        <Menu  isOpen={getOpenState()} />
       </div>
     </aside>
   );
