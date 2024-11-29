@@ -1,8 +1,17 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import {
+  Credenza,
+  CredenzaBody,
+  CredenzaContent,
+  CredenzaFooter,
+  CredenzaHeader,
+  CredenzaTitle,
+  CredenzaTrigger,
+} from '@/components/ui/credenza'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import {
   Select,
   SelectContent,
@@ -10,20 +19,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import {
-  Credenza,
-  CredenzaTrigger,
-  CredenzaContent,
-  CredenzaHeader,
-  CredenzaTitle,
-  CredenzaBody,
-  CredenzaFooter,
-} from '@/components/ui/credenza'
-import { useState } from 'react'
+import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 import { ImageIcon, X } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
 import { z } from 'zod'
-import { Checkbox } from '@/components/ui/checkbox'
 
 // Define the validation schema
 const ClassFormSchema = z.object({
@@ -39,12 +40,32 @@ const ClassFormSchema = z.object({
 type Props = {
   categories: { id: number; title: string }[]
   instructors: { id: string; name: string }[]
+  initialData?: any // Add this line
 }
 
-export function ClassForm({ categories, instructors }: Props) {
+export function ClassForm({ categories, instructors, initialData }: Props) {
   const [open, setOpen] = useState(false)
   const [preview, setPreview] = useState<string | null>(null)
   const [file, setFile] = useState<File | null>(null)
+  const { refresh } = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const isEditing = !!initialData
+
+  useEffect(() => {
+    if (isEditing && initialData) {
+      setFormData({
+        title: initialData.title,
+        description: initialData.desc,
+        categoryId: initialData.categoryId.toString(),
+        instructorId: initialData.instructorId,
+        duration: initialData.duration.toString(),
+        schedule: initialData.schedule,
+        coverImage: null,
+      })
+      setPreview(initialData.coverImage?.url || null)
+    }
+  }, [initialData])
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -66,6 +87,10 @@ export function ClassForm({ categories, instructors }: Props) {
       }
       reader.readAsDataURL(file)
       setFormData({ ...formData, coverImage: file })
+      setErrors((prevErrors) => {
+        const { coverImage, ...rest } = prevErrors
+        return rest
+      })
     }
   }
 
@@ -74,68 +99,115 @@ export function ClassForm({ categories, instructors }: Props) {
     setFile(null)
   }
 
-  const handleScheduleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target
-    if (checked) {
-      setFormData((prevData) => ({
-        ...prevData,
-        schedule: [...prevData.schedule, value],
-      }))
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        schedule: prevData.schedule.filter((day) => day !== value),
-      }))
-    }
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Parse and validate form data
+    setIsLoading(true)
+
+    // Validate form data
     const result = ClassFormSchema.safeParse({
       ...formData,
       duration: Number(formData.duration),
     })
+
     if (!result.success) {
-      // Collect and set errors
       const fieldErrors = result.error.flatten().fieldErrors
       setErrors(
         Object.fromEntries(
-          Object.entries(fieldErrors).map(([field, messages]) => [field, messages?.[0] || ''])
+          Object.entries(fieldErrors).map(([field, messages]) => [
+            field,
+            messages?.[0] || '',
+          ])
         )
       )
+      setIsLoading(false)
       return
     }
-    console.log(result)
-    // ...submit form data...
+
+    if (!file) {
+      setErrors({ coverImage: 'Cover Image is required' })
+      setIsLoading(false)
+      return
+    }
+   
+    try {
+  
+      const formDataToSend = new FormData()
+      formDataToSend.append('title', formData.title)
+      formDataToSend.append('description', formData.description)
+      formDataToSend.append('categoryId', formData.categoryId)
+      formDataToSend.append('instructorId', formData.instructorId)
+      formDataToSend.append('duration', formData.duration)
+      formDataToSend.append('schedule', JSON.stringify(formData.schedule))
+      formDataToSend.append('coverImage', file)
+
+      const response = await fetch(
+        isEditing ? `/api/class/${initialData.id}` : '/api/class',
+        {
+          method: isEditing ? 'PUT' : 'POST',
+          body: formDataToSend,
+        }
+      )
+
+      const data = await response.json()
+      if (data?.error) {
+        throw new Error(data.error)
+      }
+
+      // Reset form and close modal
+      setFormData({
+        title: '',
+        description: '',
+        categoryId: '',
+        instructorId: '',
+        duration: '',
+        schedule: [],
+        coverImage: null,
+      })
+      refresh()
+      setPreview(null)
+      setFile(null)
+      
+      setOpen(false)
+    } catch (error:any) {
+      console.log('Error creating class:', error)
+      setErrors({ submit: error?.message ? error?.message :'Failed to create class. Please try again.' })
+    } finally {
+      setIsLoading(false)
+    }
   }
+
+  const triggerButton = isEditing ? (
+    <Button variant="outline">Edit Class</Button>
+  ) : (
+    <Button>Add New Class</Button>
+  )
 
   return (
     <Credenza open={open} onOpenChange={setOpen}>
-      <CredenzaTrigger asChild>
-        <Button>Add New Class</Button>
-      </CredenzaTrigger>
+      <CredenzaTrigger asChild>{triggerButton}</CredenzaTrigger>
       <CredenzaContent>
         <CredenzaHeader>
-          <CredenzaTitle>Add New Class</CredenzaTitle>
+          <CredenzaTitle>{isEditing ? 'Edit Class' : 'Add New Class'}</CredenzaTitle>
         </CredenzaHeader>
         <form onSubmit={handleSubmit}>
           <CredenzaBody>
-            <div className="space-y-4">
+            <div className="space-y-4 mx-1">
               <div className="grid gap-4">
                 <label className="font-medium">Cover Image</label>
-                <div className={cn(
-                  "border-2 border-dashed rounded-lg p-4 hover:bg-accent/50 transition-colors",
-                  "cursor-pointer relative flex items-center justify-center",
-                  preview ? "h-[200px]" : "h-[120px]"
-                )}>
+                <div
+                  className={cn(
+                    'border-2 border-dashed rounded-lg p-4 hover:bg-accent/50 transition-colors',
+                    'cursor-pointer relative flex items-center justify-center',
+                    preview ? 'h-[200px]' : 'h-[120px]'
+                  )}
+                >
                   <input
                     type="file"
                     accept="image/*"
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     onChange={handleImageChange}
                   />
-                  
+
                   {preview ? (
                     <div className="relative w-full h-full">
                       <img
@@ -165,20 +237,34 @@ export function ClassForm({ categories, instructors }: Props) {
                   )}
                 </div>
               </div>
+              {errors.coverImage && (
+                <p className="text-sm text-red-600">{errors.coverImage}</p>
+              )}
               <Input
                 placeholder="Class Title"
                 value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
               />
-              {errors.title && <p className="text-sm text-red-600">{errors.title}</p>}
+              {errors.title && (
+                <p className="text-sm text-red-600">{errors.title}</p>
+              )}
               <Textarea
                 placeholder="Description"
                 value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
               />
-              {errors.description && <p className="text-sm text-red-600">{errors.description}</p>}
+              {errors.description && (
+                <p className="text-sm text-red-600">{errors.description}</p>
+              )}
               <Select
-                onValueChange={(value) => setFormData({ ...formData, categoryId: value })}
+                value={formData.categoryId}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, categoryId: value })
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select Category" />
@@ -191,9 +277,14 @@ export function ClassForm({ categories, instructors }: Props) {
                   ))}
                 </SelectContent>
               </Select>
-              {errors.categoryId && <p className="text-sm text-red-600">{errors.categoryId}</p>}
+              {errors.categoryId && (
+                <p className="text-sm text-red-600">{errors.categoryId}</p>
+              )}
               <Select
-                onValueChange={(value) => setFormData({ ...formData, instructorId: value })}
+                value={formData.instructorId}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, instructorId: value })
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select Instructor" />
@@ -206,18 +297,32 @@ export function ClassForm({ categories, instructors }: Props) {
                   ))}
                 </SelectContent>
               </Select>
-              {errors.instructorId && <p className="text-sm text-red-600">{errors.instructorId}</p>}
+              {errors.instructorId && (
+                <p className="text-sm text-red-600">{errors.instructorId}</p>
+              )}
               <Input
                 type="number"
                 placeholder="Duration (minutes)"
                 value={formData.duration}
-                onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, duration: e.target.value })
+                }
               />
-              {errors.duration && <p className="text-sm text-red-600">{errors.duration}</p>}
+              {errors.duration && (
+                <p className="text-sm text-red-600">{errors.duration}</p>
+              )}
               <div className="grid gap-2">
                 <label className="font-medium">Schedule</label>
                 <div className="flex flex-wrap gap-4">
-                  {['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map((day) => (
+                  {[
+                    'Saturday',
+                    'Sunday',
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday',
+                  ].map((day) => (
                     <div key={day} className="flex items-center space-x-1">
                       <Checkbox
                         id={day}
@@ -231,7 +336,9 @@ export function ClassForm({ categories, instructors }: Props) {
                           } else {
                             setFormData((prevData) => ({
                               ...prevData,
-                              schedule: prevData.schedule.filter((d) => d !== day),
+                              schedule: prevData.schedule.filter(
+                                (d) => d !== day
+                              ),
                             }))
                           }
                         }}
@@ -242,15 +349,26 @@ export function ClassForm({ categories, instructors }: Props) {
                     </div>
                   ))}
                 </div>
-                {errors.schedule && <p className="text-sm text-red-600">{errors.schedule}</p>}
+                {errors.schedule && (
+                  <p className="text-sm text-red-600">{errors.schedule}</p>
+                )}
               </div>
             </div>
+            {errors.submit && (
+              <p className="text-sm text-red-600 mt-2">{errors.submit}</p>
+            )}
           </CredenzaBody>
-          <CredenzaFooter className='mt-2'>
-            <Button variant="outline" onClick={() => setOpen(false)}>
+          <CredenzaFooter className="mt-2">
+            <Button
+              variant="outline"
+              onClick={() => setOpen(false)}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
-            <Button type="submit">Save Class</Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? 'Saving...' : 'Save Class'}
+            </Button>
           </CredenzaFooter>
         </form>
       </CredenzaContent>

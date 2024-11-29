@@ -12,12 +12,15 @@ const nextConfig: NextConfig = {
       {
         hostname: 'images.unsplash.com',
       },
+      {
+        hostname: 'ik.imagekit.io',
+      },
     ],
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  reactStrictMode: false
+  reactStrictMode: false,
 }
 
 export default nextConfig

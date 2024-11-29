@@ -14,13 +14,34 @@ import { School2 } from 'lucide-react' // Add this import
 import { getSession } from '@/lib/auth-client'
 import { headers } from 'next/headers'
 import { UserRole } from '@prisma/client'
+import Image from 'next/image'
 
 async function getClasses() {
   const [classes, count, categories, instructors] = await Promise.all([
     prisma.class.findMany({
-      include: {
-        instructor: true,
-        category: true,
+      select: {
+        id: true,
+        title: true,
+        coverImage: {
+          select: {
+            url: true,
+          },
+        },
+        desc: true,
+        categoryId: true,
+        instructorId: true,
+        category: {
+          select: {
+            title: true,
+          },
+        },
+        instructor: {
+          select: {
+            name: true,
+          },
+        },
+        duration: true,
+        schedule: true,
       },
     }),
     prisma.class.count(),
@@ -69,20 +90,32 @@ export default async function ManageClass() {
           <TableHeader>
             <TableRow>
               <TableHead>Title</TableHead>
+              <TableHead>Image</TableHead>
               <TableHead>Category</TableHead>
               <TableHead>Instructor</TableHead>
               <TableHead>Duration</TableHead>
               <TableHead>Schedule</TableHead>
+              <TableHead>Edit</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {classes.map((cls) => (
               <TableRow key={cls.id}>
                 <TableCell>{cls.title}</TableCell>
+                <TableCell>
+                  <Image src={cls.coverImage.url} alt="cover image" height={100} width={100} className='size-14 object-cover' />
+                </TableCell>
                 <TableCell>{cls.category.title}</TableCell>
                 <TableCell>{cls.instructor.name}</TableCell>
                 <TableCell>{cls.duration} min</TableCell>
                 <TableCell>{cls.schedule}</TableCell>
+                <TableCell>
+                  <ClassForm
+                    categories={categories}
+                    instructors={instructors}
+                    initialData={cls} // Pass class data for editing
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

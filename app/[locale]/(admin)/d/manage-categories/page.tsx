@@ -44,7 +44,12 @@ const ClassCategoryPage = async () => {
     <ContentLayout title="Class Categories">
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <p>Total Categories: {categories.length}</p>
+          <div className="space-y-2">
+            <p>Total Categories: {categories.length}</p>
+            <p className="text-sm text-yellow-600 dark:text-yellow-500">
+              Warning: Categories cannot be removed once created.
+            </p>
+          </div>
           <NewCategoryForm />
         </div>
 
@@ -53,7 +58,6 @@ const ClassCategoryPage = async () => {
             <TableRow>
               <TableHead>Category Name</TableHead>
               <TableHead>Number of Classes</TableHead>
-              <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -61,13 +65,6 @@ const ClassCategoryPage = async () => {
               <TableRow key={category.id}>
                 <TableCell>{category.title}</TableCell>
                 <TableCell>{category._count.Class}</TableCell>
-                <TableCell>
-                  <Link href={`/d/manage-categories/${category.id}/edit`}>
-                    <Button variant="ghost" size="sm">
-                      Edit
-                    </Button>
-                  </Link>
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>

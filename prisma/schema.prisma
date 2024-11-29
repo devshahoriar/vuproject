@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -83,9 +83,9 @@ model ClassCategory {
 }
 
 model Class {
-  id           Int     @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   title        String
-  desc         String?
+  desc         String
   instructorId String
   categoryId   Int
   duration     Int

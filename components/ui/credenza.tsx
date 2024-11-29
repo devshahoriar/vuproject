@@ -25,6 +25,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { useMediaQuery } from "@/hooks/useMediaQuery"
+import { ScrollArea } from "./scroll-area"
 
 interface BaseProps {
   children: React.ReactNode
@@ -76,8 +77,10 @@ const CredenzaContent = ({ className, children, ...props }: CredenzaProps) => {
   const CredenzaContent = isDesktop ? DialogContent : DrawerContent
 
   return (
-    <CredenzaContent className={className} {...props}>
+    <CredenzaContent className={cn(className,'max-h-[80vh] sm:max-h-fit')} {...props}>
+      <ScrollArea className="h-full overflow-auto">
       {children}
+      </ScrollArea>
     </CredenzaContent>
   )
 }
