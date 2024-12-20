@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 
-import ServerImage from '@/components/shared/ServerImage'
 import { Button } from '@/components/ui/button'
 import { getSession } from '@/lib/auth-client'
+import getPlaceholderImage from '@/lib/getPlaceholderImage'
 import { Clock, Dumbbell, Users } from 'lucide-react'
 import { headers } from 'next/headers'
 
@@ -33,9 +33,13 @@ export default async function HomePage() {
             <Button className="text-lg px-8 py-3">Get Started</Button>
           </div>
           <div className="md:w-1/2">
-            <ServerImage
+            <Image
               src="https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=sam-moghadam-khamseh-vOZP2LojrHI-unsplash.jpg"
               alt="Gym Interior"
+              placeholder="blur"
+              blurDataURL={await getPlaceholderImage(
+                'https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=sam-moghadam-khamseh-vOZP2LojrHI-unsplash.jpg'
+              )}
               width={600}
               height={400}
               className="rounded-lg shadow-lg w-full"

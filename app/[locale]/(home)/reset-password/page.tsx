@@ -1,4 +1,4 @@
-import { ResetPassWord } from '@/components/page-components/ResetPasswordPageComponent'
+import { ResetPassWord } from './client' 
 import {
   Card,
   CardContent,

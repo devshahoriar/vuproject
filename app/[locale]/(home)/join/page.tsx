@@ -30,7 +30,7 @@ export default function LoginRegistrationPage() {
   const [loginError, setLoginError] = useState('')
   const { data } = useSession()
   
-  const { replace } = useRouter()
+  const { replace,refresh } = useRouter()
   useEffect(() => {
     if (data !== null) {
       replace('/')
@@ -47,6 +47,7 @@ export default function LoginRegistrationPage() {
       },
       {
         onSuccess: () => {
+          refresh()
           replace('/')
           setLoading(false)
         },
@@ -59,6 +60,7 @@ export default function LoginRegistrationPage() {
           setLoading(true)
         },
       }
+      
     )
   }
 

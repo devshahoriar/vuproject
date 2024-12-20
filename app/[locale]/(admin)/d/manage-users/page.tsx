@@ -1,11 +1,12 @@
 import { ContentLayout } from '@/components/admin-panel/content-layout'
+import { UsersTable } from './client' 
 import { getSession } from '@/lib/auth-client'
 import prisma from '@/prisma/db'
 import { UserRole } from '@prisma/client'
+import { GraduationCap, Shield, Users } from 'lucide-react'
 import { headers } from 'next/headers'
-import { Users, Shield, GraduationCap, Users2 } from 'lucide-react'
 
-import { UsersTable } from '@/components/page-components/users/users-table'
+
 
 const ManageUser = async () => {
   const { data } = await getSession({
@@ -27,7 +28,7 @@ const ManageUser = async () => {
     prisma.user.count(),
     prisma.user.count({ where: { role: UserRole.ADMIN } }),
     prisma.user.count({ where: { role: UserRole.INSTRUCTOR } }),
-    prisma.user.findMany({ orderBy: { createdAt: 'desc' } })
+    prisma.user.findMany({ orderBy: { createdAt: 'desc' } }),
   ])
 
   return (
@@ -40,7 +41,9 @@ const ManageUser = async () => {
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-sm text-muted-foreground">Total Users</div>
-                <div className="text-2xl font-bold text-primary mt-1">{totalUser}</div>
+                <div className="text-2xl font-bold text-primary mt-1">
+                  {totalUser}
+                </div>
               </div>
               <Users className="h-8 w-8 text-primary/50" />
             </div>
@@ -49,7 +52,9 @@ const ManageUser = async () => {
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-sm text-muted-foreground">Admins</div>
-                <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">{adminCount}</div>
+                <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">
+                  {adminCount}
+                </div>
               </div>
               <Shield className="h-8 w-8 text-emerald-500/50" />
             </div>
@@ -58,7 +63,9 @@ const ManageUser = async () => {
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-sm text-muted-foreground">Instructors</div>
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">{instructorCount}</div>
+                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">
+                  {instructorCount}
+                </div>
               </div>
               <GraduationCap className="h-8 w-8 text-blue-500/50" />
             </div>

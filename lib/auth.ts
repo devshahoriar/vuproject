@@ -6,11 +6,12 @@ import { UserRole } from '@prisma/client'
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
-    provider: 'mysql',
+    provider: 'postgresql',
   }),
   emailAndPassword: {
     enabled: true,
     sendResetPassword: async (user, url) => {
+      
       const result = await sendMail(
         user.email,
         'Reset Password',

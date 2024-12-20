@@ -115,7 +115,7 @@ export function getMenuList(role: UserRole): Group[] {
       ],
     },
     {
-      groupLabel: 'Settings',
+      groupLabel: '',
       menus: [
         {
           href: '/d/account',
