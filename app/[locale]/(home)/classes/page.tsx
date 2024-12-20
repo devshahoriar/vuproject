@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import getPlaceholderImage from '@/lib/getPlaceholderImage'
 import { Calendar, Clock, Users } from 'lucide-react'
 import Image from 'next/image'
 
@@ -87,7 +88,8 @@ const gymClasses = [
     instructor: 'Sarah Johnson',
     duration: '30 min',
     schedule: 'Mon, Wed, Fri - 12:00 PM',
-    image: 'https://images.unsplash.com/photo-1604900067458-5901533f99cc?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=gayatri-malhotra-5obnzS2eOsc-unsplash.jpg',
+    image:
+      'https://images.unsplash.com/photo-1604900067458-5901533f99cc?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=gayatri-malhotra-5obnzS2eOsc-unsplash.jpg',
   },
   {
     id: 6,
@@ -97,11 +99,12 @@ const gymClasses = [
     instructor: 'David Lee',
     duration: '45 min',
     schedule: 'Tue, Thu, Sat - 5:30 PM',
-    image: 'https://images.unsplash.com/photo-1520877880798-5ee004e3f11e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=trust-tru-katsande-A_ftsTh53lM-unsplash.jpg',
+    image:
+      'https://images.unsplash.com/photo-1520877880798-5ee004e3f11e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=trust-tru-katsande-A_ftsTh53lM-unsplash.jpg',
   },
 ]
 
-export default function ClassesPage() {
+export default async function ClassesPage() {
   return (
     <main className="flex-grow container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-8">Our Classes</h1>
@@ -131,7 +134,7 @@ export default function ClassesPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {gymClasses.map((gymClass) => (
+        {gymClasses.map(async (gymClass) => (
           <Card key={gymClass.id}>
             <CardHeader>
               <ServerImage
@@ -161,9 +164,7 @@ export default function ClassesPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">
-                Book Class
-              </Button>
+              <Button className="w-full">Book Class</Button>
             </CardFooter>
           </Card>
         ))}

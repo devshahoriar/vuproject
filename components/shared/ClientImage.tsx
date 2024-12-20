@@ -1,31 +1,17 @@
 'use client'
 
-import { ComponentProps, useState } from 'react'
-
 import Image from 'next/image'
+import { ComponentProps, Suspense, Usable, use } from 'react'
 
-const ClientImage = ({ className, ...props }: ComponentProps<typeof Image>) => {
-  const [isReady, setIsReady] = useState(true)
-
-  const onLoadCallback = () => {
-    setIsReady(true)
-  }
-
+const ClientImage = ({
+  blFun,
+  ...props
+}: { blFun: Usable<unknown> } & ComponentProps<typeof Image>) => {
+  const bldata = use(blFun) as string
   return (
-    <div className="overflow-hidden">
-      <Image
-        {...props}
-        className={` transition duration-300 ease-in-out
-           ${
-             isReady
-               ? 'blur-0 scale-100 opacity-100'
-               : 'blur-3xl scale-105 opacity-0'
-           }
-         ${className}`}
-        onLoad={onLoadCallback}
-     
-      />
-    </div>
+    <Suspense fallback={null}>
+      <Image placeholder="blur" blurDataURL={bldata} {...props} />
+    </Suspense>
   )
 }
 

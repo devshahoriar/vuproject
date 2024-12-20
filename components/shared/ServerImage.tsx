@@ -1,8 +1,13 @@
-import { ComponentProps } from 'react'
+import { ComponentProps, Suspense } from 'react'
+import Image from 'next/image'
+import getPlaceholderImage from '@/lib/getPlaceholderImage'
 import ClientImage from './ClientImage'
 
-const ServerImage = async (prop: ServerImageProps) => {
-  return <ClientImage {...prop}  />
+const ServerImage = ({ src, ...props }: ServerImageProps) => {
+  const bldata = getPlaceholderImage(src)
+  return (
+    <ClientImage blFun={bldata} {...props} src={src} />
+  )
 }
 
 type ServerImageProps = {
@@ -11,5 +16,5 @@ type ServerImageProps = {
   width: number
   height: number
   className?: string
-} & ComponentProps<typeof ClientImage>
+} & ComponentProps<typeof Image>
 export default ServerImage
