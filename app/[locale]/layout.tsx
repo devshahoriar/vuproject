@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider'
 import { ReactElement } from 'react'
 import { I18nProviderClient } from '@/locales/client'
 import { Toaster } from 'sonner'
+import NextTopLoader from 'nextjs-toploader'
 
 export const metadata: Metadata = {
   title: 'Fitzon',
@@ -24,6 +25,12 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <I18nProviderClient locale={locale}>
         <body className={`antialiased`}>
+          <NextTopLoader 
+          showSpinner={false} 
+          
+          color="#b91c1c"
+          
+          />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
