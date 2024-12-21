@@ -25,12 +25,7 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <I18nProviderClient locale={locale}>
         <body className={`antialiased`}>
-          <NextTopLoader 
-          showSpinner={false} 
-          
-          color="#b91c1c"
-          
-          />
+          <NextTopLoader showSpinner={false} color="#b91c1c" />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -38,6 +33,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             {children}
+          
             <Toaster />
           </ThemeProvider>
         </body>

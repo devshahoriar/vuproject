@@ -4,29 +4,22 @@ import { Button } from '@/components/ui/button'
 
 import LayOutUserAvater from '@/components/shared/LayOutUserAvater'
 import { getSession } from '@/lib/auth-client'
-import {
-  Facebook,
-  Instagram,
-  Mail,
-  MapPin,
-  Phone,
-  Twitter
-} from 'lucide-react'
+import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react'
 import { headers } from 'next/headers'
 import Link from 'next/link'
 
-const UserPageLayout = async ({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) => {
+const UserPageLayout = async (
+  props: Readonly<{
+    children: React.ReactNode
+    modal?: React.ReactNode
+  }>
+) => {
   const { data } = await getSession({
     fetchOptions: {
       headers: await headers(),
     },
   })
   const user = data?.user
- 
 
   return (
     <>
@@ -57,11 +50,13 @@ const UserPageLayout = async ({
               <ModeToggle />
               {user ? (
                 <>
-                 <LayOutUserAvater user={user}/>
+                  <LayOutUserAvater user={user} />
                 </>
               ) : (
                 <Button asChild className=" hidden md:block">
-                  <Link href="/join">Join Now</Link>
+                  <Link passHref scroll={false} href="/join">
+                    Join Now
+                  </Link>
                 </Button>
               )}
 
@@ -69,7 +64,9 @@ const UserPageLayout = async ({
             </div>
           </div>
         </header>
-        {children}
+        <div id="modal-root" />
+        {props.children}
+        {props.modal}
         <footer className="bg-background py-12">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">

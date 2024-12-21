@@ -83,7 +83,7 @@ model ClassCategory {
 }
 
 model Class {
-  id           Int      @id @default(autoincrement())
+  id           Int    @id @default(autoincrement())
   title        String
   desc         String
   instructorId String
@@ -95,4 +95,10 @@ model Class {
   coverImage File          @relation(fields: [coverImageId], references: [id])
   instructor User          @relation(fields: [instructorId], references: [id])
   category   ClassCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+enum MembershipType {
+  BASIC
+  PRO
+  ELIT
 }
