@@ -26,18 +26,22 @@ export const auth = betterAuth({
       role: {
         type: 'string',
         defaultValue: UserRole.USER,
+        required: false,
       },
       createdAt: {
         returned: false,
         type: 'date',
+        required: false,
       },
       updatedAt: {
         returned: false,
         type: 'date',
+        required: false,
       },
       suspended: {
         type: 'boolean',
         defaultValue: false,
+        required: false,
       },
     },
   },
