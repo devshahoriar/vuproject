@@ -1,6 +1,4 @@
 import { ContentLayout } from '@/components/admin-panel/content-layout'
-import prisma from '@/prisma/db'
-import { NewCategoryForm } from './NewCategoryForm'
 import {
   Table,
   TableBody,
@@ -9,17 +7,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { getSession } from '@/lib/auth-client'
-import { headers } from 'next/headers'
+import { getLoginUser, getSession } from '@/lib/auth-client'
+import { getCategoryWithCountOfClass } from '@/query/get/category'
 import { UserRole } from '@prisma/client'
+import { headers } from 'next/headers'
+import { NewCategoryForm } from './NewCategoryForm'
 
 const ClassCategoryPage = async () => {
-  const { data } = await getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  })
-  const user = data?.user
+
+  const user = await getLoginUser(headers)
 
   if (user?.role !== UserRole.ADMIN) {
     return (
@@ -28,15 +24,7 @@ const ClassCategoryPage = async () => {
       </ContentLayout>
     )
   }
-  const categories = await prisma.classCategory.findMany({
-    include: {
-      _count: {
-        select: {
-          Class: true,
-        },
-      },
-    },
-  })
+  const categories = await getCategoryWithCountOfClass()
 
   return (
     <ContentLayout title="Class Categories">
@@ -55,6 +43,7 @@ const ClassCategoryPage = async () => {
           <TableHeader>
             <TableRow>
               <TableHead>Category Name</TableHead>
+              <TableHead>Description</TableHead>
               <TableHead>Number of Classes</TableHead>
             </TableRow>
           </TableHeader>
@@ -62,6 +51,7 @@ const ClassCategoryPage = async () => {
             {categories.map((category) => (
               <TableRow key={category.id}>
                 <TableCell>{category.title}</TableCell>
+                <TableCell>{category.desc}</TableCell>
                 <TableCell>{category._count.Class}</TableCell>
               </TableRow>
             ))}

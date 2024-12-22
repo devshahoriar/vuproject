@@ -1,46 +1,63 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Credenza, CredenzaContent, CredenzaDescription, CredenzaFooter, CredenzaHeader, CredenzaTitle, CredenzaTrigger } from '@/components/ui/credenza'
+import {
+  Credenza,
+  CredenzaContent,
+  CredenzaDescription,
+  CredenzaFooter,
+  CredenzaHeader,
+  CredenzaTitle,
+  CredenzaTrigger,
+} from '@/components/ui/credenza'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { User, UserRole } from '@prisma/client'
+} from '@/components/ui/select'
+import { UserRole } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Checkbox } from '@/components/ui/checkbox'
 import { formatDate } from '@/lib/utils'
 import { Users2 } from 'lucide-react'
 
-
-
-
-
-
 type RoleOption = {
-  label: string;
-  value: UserRole;
-};
+  label: string
+  value: UserRole
+}
 
 interface UpdateRoleDialogProps {
-  user: User
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    image: string | null;
+    createdAt: Date;
+    role: UserRole;
+    suspended: boolean | null;
+}
   currentUserId: string
-  onRoleUpdate: (userId: string, role: UserRole) => Promise<void>
+  onRoleUpdate: (
+    userId: string,
+    role: UserRole,
+    suspended: boolean
+  ) => Promise<void>
 }
 
 export function UpdateRoleDialog({
   user,
-  currentUserId, // Add this parameter
+  currentUserId,
   onRoleUpdate,
 }: UpdateRoleDialogProps) {
   const [open, setOpen] = useState(false)
   const [role, setRole] = useState<UserRole>(user.role)
+  const [suspended, setSuspended] = useState(user?.suspended || false)
   const [isLoading, setIsLoading] = useState(false)
 
   const roleOptions: RoleOption[] = [
@@ -52,7 +69,7 @@ export function UpdateRoleDialog({
   const handleUpdateRole = async () => {
     try {
       setIsLoading(true)
-      await onRoleUpdate(user.id, role)
+      await onRoleUpdate(user.id, role, suspended)
       setOpen(false)
     } catch (error) {
       console.error(error)
@@ -62,17 +79,20 @@ export function UpdateRoleDialog({
   }
 
   const isSelfUpdate = currentUserId === user.id
+  const isUnchanged = role === user.role && suspended === (user.suspended || false)
 
   return (
     <Credenza open={open} onOpenChange={setOpen}>
       <CredenzaTrigger asChild>
-        <Button 
-          variant="ghost" 
+        <Button
+          variant="ghost"
           size="sm"
           disabled={isSelfUpdate}
-          title={isSelfUpdate ? "You cannot update your own role" : "Update role"}
+          title={
+            isSelfUpdate ? 'You cannot update your own role' : 'Update role'
+          }
         >
-          Update Role
+          Update
         </Button>
       </CredenzaTrigger>
       <CredenzaContent>
@@ -82,7 +102,7 @@ export function UpdateRoleDialog({
             Change the role for user {user.name}
           </CredenzaDescription>
         </CredenzaHeader>
-        <div className="p-4">
+        <div className="p-4 space-y-4">
           <Select
             value={role}
             onValueChange={(value: UserRole) => setRole(value)}
@@ -98,10 +118,24 @@ export function UpdateRoleDialog({
               ))}
             </SelectContent>
           </Select>
+
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="suspended"
+              checked={suspended}
+              onCheckedChange={(checked) => setSuspended(checked as boolean)}
+            />
+            <label
+              htmlFor="suspended"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Suspend User
+            </label>
+          </div>
         </div>
         <CredenzaFooter>
           <Button
-            disabled={isLoading || role === user.role || isSelfUpdate}
+            disabled={isLoading || isUnchanged || isSelfUpdate}
             onClick={handleUpdateRole}
           >
             {isLoading ? 'Updating...' : 'Update role'}
@@ -113,7 +147,15 @@ export function UpdateRoleDialog({
 }
 
 interface UsersTableProps {
-  users: User[]
+  users: {
+    id: string;
+    name: string;
+    email: string;
+    image: string | null;
+    createdAt: Date;
+    role: UserRole;
+    suspended: boolean | null;
+}[]
   currentUserId: string
 }
 export function UsersTable({ users, currentUserId }: UsersTableProps) {
@@ -121,20 +163,24 @@ export function UsersTable({ users, currentUserId }: UsersTableProps) {
   const [isPending, startTransition] = useTransition()
   const { refresh } = useRouter()
 
-  const handleRoleUpdate = async (userId: string, role: UserRole) => {
+  const handleRoleUpdate = async (
+    userId: string,
+    role: UserRole,
+    suspended: boolean
+  ) => {
     startTransition(async () => {
       try {
         const response = await fetch(`/api/users/${userId}/role`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ role }),
+          body: JSON.stringify({ role, suspended }),
         })
 
-        if (!response.ok) throw new Error('Failed to update role')
-        toast.success('User role updated successfully')
+        if (!response.ok) throw new Error('Failed to update user')
+        toast.success('User updated successfully')
         refresh()
       } catch (error) {
-        toast.error('Failed to update user role')
+        toast.error('Failed to update user')
         console.error(error)
       }
     })
@@ -151,11 +197,10 @@ export function UsersTable({ users, currentUserId }: UsersTableProps) {
         {/* Add Filter Section */}
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Filter by role:</span>
-            <Select
-              value={selectedRole}
-              onValueChange={setSelectedRole}
-            >
+            <span className="text-sm text-muted-foreground">
+              Filter by role:
+            </span>
+            <Select value={selectedRole} onValueChange={setSelectedRole}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
@@ -208,9 +253,16 @@ export function UsersTable({ users, currentUserId }: UsersTableProps) {
                         </Avatar>
                         <div className="flex flex-col">
                           <span className="font-medium">{user.name}</span>
-                          <span className="text-xs text-muted-foreground">
-                            {user.email}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-muted-foreground">
+                              {user.email}
+                            </span>
+                            {user.suspended && (
+                              <span className="text-xs font-medium text-red-500 bg-red-100 dark:bg-red-500/10 px-1.5 py-0.5 rounded-sm">
+                                Suspended
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </td>

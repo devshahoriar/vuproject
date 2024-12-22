@@ -22,6 +22,7 @@ model User {
   createdAt      DateTime
   updatedAt      DateTime
   role           UserRole  @default(USER)
+  suspended      Boolean?   @default(false)
   profileImageId Int?
   profileImage   File?     @relation(fields: [profileImageId], references: [id])
   Session        Session[]

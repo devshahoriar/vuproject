@@ -1,26 +1,29 @@
 import AdminPanelLayout from '@/components/admin-panel/admin-panel-layout'
 import SignInRequeredPage from '@/components/shared/SignInRequered'
-import { getSession } from '@/lib/auth-client'
+import { getLoginUser } from '@/lib/auth-client'
 import { UserRole } from '@prisma/client'
 import { headers } from 'next/headers'
-import React from 'react'
+import { redirect } from 'next/navigation'
+import { ReactNode } from 'react'
 
 const DashBoardLayout = async ({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) => {
-  const { data } = await getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  })
-  if (!data) {
+  const user = await getLoginUser(headers)
+  if (user?.suspended) {
+    return redirect('/suspended')
+  }
+  if (!user) {
     return <SignInRequeredPage />
   }
-  const { user } = data
-  
-  return <AdminPanelLayout role={user?.role as UserRole}>{children}</AdminPanelLayout>
+
+  return (
+    <AdminPanelLayout role={user?.role as UserRole}>
+      {children}
+    </AdminPanelLayout>
+  )
 }
 
 export default DashBoardLayout

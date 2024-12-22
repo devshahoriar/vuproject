@@ -18,17 +18,20 @@ export async function PATCH(
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const { role } = await req.json()
+    const { role, suspended } = await req.json()
     const userId = (await params).userId
 
     const updatedUser = await prisma.user.update({
       where: { id: userId },
-      data: { role },
+      data: { 
+        role,
+        suspended
+      },
     })
 
     return NextResponse.json(updatedUser)
   } catch (error) {
-    console.error('[USER_ROLE_UPDATE]', error)
+    console.error('[USER_UPDATE]', error)
     return new NextResponse('Internal error', { status: 500 })
   }
 }

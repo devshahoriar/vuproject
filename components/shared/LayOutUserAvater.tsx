@@ -11,18 +11,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { signOut } from '@/lib/auth-client'
-import { type User as T_User } from 'better-auth'
-import {
-  LayoutGrid,
-  LogOut,
-  User
-} from 'lucide-react'
+import { signOut, USER } from '@/lib/auth-client'
+
+import { LayoutGrid, LogOut, User } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-const LayOutUserAvater = ({user}:{user:T_User}) => {
-  const {refresh} = useRouter()
+const LayOutUserAvater = ({ user }: { user: USER }) => {
+  const { refresh } = useRouter()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -59,10 +55,13 @@ const LayOutUserAvater = ({user}:{user:T_User}) => {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="hover:cursor-pointer" onClick={async() => {
+        <DropdownMenuItem
+          className="hover:cursor-pointer"
+          onClick={async () => {
             await signOut()
             refresh()
-        }}>
+          }}
+        >
           <LogOut className="w-4 h-4 mr-3 text-muted-foreground" />
           Sign out
         </DropdownMenuItem>

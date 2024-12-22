@@ -1,22 +1,18 @@
 import { ContentLayout } from '@/components/admin-panel/content-layout'
-import { UsersTable } from './client' 
-import { getSession } from '@/lib/auth-client'
+import { getLoginUser, notIsAdmin, USER } from '@/lib/auth-client'
 import prisma from '@/prisma/db'
+import { countUser, getAllUser } from '@/query/get/user'
 import { UserRole } from '@prisma/client'
 import { GraduationCap, Shield, Users } from 'lucide-react'
 import { headers } from 'next/headers'
-
+import { UsersTable } from './client'
 
 
 const ManageUser = async () => {
-  const { data } = await getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  })
-  const user = data?.user
 
-  if (user?.role !== UserRole.ADMIN) {
+  const user = await getLoginUser(headers) as USER
+  console.log(user)
+  if (notIsAdmin(user)) {
     return (
       <ContentLayout title="Users">
         <h1>You have not permission this page.</h1>
@@ -25,10 +21,10 @@ const ManageUser = async () => {
   }
 
   const [totalUser, adminCount, instructorCount, users] = await Promise.all([
-    prisma.user.count(),
+    countUser(),
     prisma.user.count({ where: { role: UserRole.ADMIN } }),
     prisma.user.count({ where: { role: UserRole.INSTRUCTOR } }),
-    prisma.user.findMany({ orderBy: { createdAt: 'desc' } }),
+    getAllUser(),
   ])
 
   return (

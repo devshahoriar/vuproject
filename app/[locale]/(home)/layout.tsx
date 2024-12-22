@@ -3,10 +3,11 @@ import { ModeToggle } from '@/components/shared/ThemeControl'
 import { Button } from '@/components/ui/button'
 
 import LayOutUserAvater from '@/components/shared/LayOutUserAvater'
-import { getSession } from '@/lib/auth-client'
+import { getLoginUser } from '@/lib/auth-client'
 import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react'
 import { headers } from 'next/headers'
 import Link from 'next/link'
+import { ChangeLanguage } from './client'
 
 const UserPageLayout = async (
   props: Readonly<{
@@ -14,12 +15,7 @@ const UserPageLayout = async (
     modal?: React.ReactNode
   }>
 ) => {
-  const { data } = await getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  })
-  const user = data?.user
+  const user = await getLoginUser(headers)
 
   return (
     <>
@@ -47,6 +43,7 @@ const UserPageLayout = async (
               </Link>
             </nav>
             <div className="flex items-center gap-2">
+              <ChangeLanguage />
               <ModeToggle />
               {user ? (
                 <>

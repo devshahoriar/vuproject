@@ -1,8 +1,8 @@
+import prisma from '@/prisma/db'
+import { UserRole } from '@prisma/client'
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import sendMail from './sendEmail'
-import prisma from '@/prisma/db'
-import { UserRole } from '@prisma/client'
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -11,7 +11,6 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     sendResetPassword: async (user, url) => {
-      
       const result = await sendMail(
         user.email,
         'Reset Password',
@@ -27,7 +26,18 @@ export const auth = betterAuth({
       role: {
         type: 'string',
         defaultValue: UserRole.USER,
-        required: true,
+      },
+      createdAt: {
+        returned: false,
+        type: 'date',
+      },
+      updatedAt: {
+        returned: false,
+        type: 'date',
+      },
+      suspended: {
+        type: 'boolean',
+        defaultValue: false,
       },
     },
   },

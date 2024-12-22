@@ -1,4 +1,4 @@
-import { ContentLayout } from '@/components/admin-panel/content-layout'
+import { ContentLayout } from '@/components/admin-panel/content-layout';
 
 import {
   Table,
@@ -7,61 +7,31 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import prisma from '@/prisma/db'
-import { ClassForm } from './class-form'
-import { School2 } from 'lucide-react' // Add this import
-import { getSession } from '@/lib/auth-client'
-import { headers } from 'next/headers'
-import { UserRole } from '@prisma/client'
-import Image from 'next/image'
+} from '@/components/ui/table';
+import { getLoginUser, notIsAdmin } from '@/lib/auth-client';
+import { getAllCategories } from '@/query/get/category';
+import { countClass, getClassWithUserCatIns } from '@/query/get/class';
+import { getOnlyInstructor } from '@/query/get/user';
+import { School2 } from 'lucide-react';
+import { headers } from 'next/headers';
+import Image from 'next/image';
+import { ClassForm } from './class-form';
 
 async function getClasses() {
   const [classes, count, categories, instructors] = await Promise.all([
-    prisma.class.findMany({
-      select: {
-        id: true,
-        title: true,
-        coverImage: {
-          select: {
-            url: true,
-          },
-        },
-        desc: true,
-        categoryId: true,
-        instructorId: true,
-        category: {
-          select: {
-            title: true,
-          },
-        },
-        instructor: {
-          select: {
-            name: true,
-          },
-        },
-        duration: true,
-        schedule: true,
-      },
-    }),
-    prisma.class.count(),
-    prisma.classCategory.findMany(),
-    prisma.user.findMany({
-      where: { role: 'INSTRUCTOR' },
-    }),
+    getClassWithUserCatIns(),
+    countClass(),
+    getAllCategories(),
+    getOnlyInstructor(),
   ])
+
   return { classes, count, categories, instructors }
 }
 
 export default async function ManageClass() {
-  const { data } = await getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  })
-  const user = data?.user
+  const user = await getLoginUser(headers)
 
-  if (user?.role !== UserRole.ADMIN) {
+  if (notIsAdmin(user)) {
     return (
       <ContentLayout title="Users">
         <h1>You have not permission this page.</h1>
@@ -103,7 +73,13 @@ export default async function ManageClass() {
               <TableRow key={cls.id}>
                 <TableCell>{cls.title}</TableCell>
                 <TableCell>
-                  <Image src={cls.coverImage.url} alt="cover image" height={100} width={100} className='size-14 object-cover' />
+                  <Image
+                    src={cls.coverImage.url}
+                    alt="cover image"
+                    height={100}
+                    width={100}
+                    className="size-14 object-cover"
+                  />
                 </TableCell>
                 <TableCell>{cls.category.title}</TableCell>
                 <TableCell>{cls.instructor.name}</TableCell>

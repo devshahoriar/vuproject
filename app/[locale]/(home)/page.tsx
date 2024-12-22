@@ -1,21 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 
 import { Button } from '@/components/ui/button'
-import { getSession } from '@/lib/auth-client'
 import getPlaceholderImage from '@/lib/getPlaceholderImage'
+import { getScopedI18n } from '@/locales/server'
 import { Clock, Dumbbell, Users } from 'lucide-react'
-import { headers } from 'next/headers'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function HomePage() {
-  const session = await getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  })
-
+  const t = await getScopedI18n('home')
   return (
     <main className="flex-grow">
       {/* Hero Section */}
@@ -23,12 +17,10 @@ export default async function HomePage() {
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0">
             <h1 className="text-4xl md:text-6xl font-bold mb-4">
-              Transform Your Body, Transform Your Life
+              {t('bannerSlogan')}
             </h1>
             <p className="text-xl mb-6">
-              Join FitZone and start your fitness journey today. Expert
-              trainers, state-of-the-art equipment, and a supportive community
-              await you.
+              {t('sloganSub')}
             </p>
             <Button className="text-lg px-8 py-3">Get Started</Button>
           </div>
