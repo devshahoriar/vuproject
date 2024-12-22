@@ -7,7 +7,7 @@ import { getLoginUser } from '@/lib/auth-client'
 import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react'
 import { headers } from 'next/headers'
 import Link from 'next/link'
-import { ChangeLanguage } from './client'
+import { ChangeLanguage, JoinButton } from './client'
 
 const UserPageLayout = async (
   props: Readonly<{
@@ -47,14 +47,14 @@ const UserPageLayout = async (
               <ModeToggle />
               {user ? (
                 <>
-                  <LayOutUserAvater user={user} />
+                  <LayOutUserAvater
+                    email={user.email}
+                    image={user.image}
+                    name={user?.name}
+                  />
                 </>
               ) : (
-                <Button asChild className=" hidden md:block">
-                  <Link passHref scroll={false} href="/join">
-                    Join Now
-                  </Link>
-                </Button>
+                <JoinButton />
               )}
 
               <MobileNav />
