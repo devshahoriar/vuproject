@@ -19,13 +19,41 @@ export async function PATCH(
     }
 
     const { role, suspended } = await req.json()
+
     const userId = (await params).userId
+
+    const upUser = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        role: true,
+        id: true,
+      },
+    })
+    if (
+      upUser?.id &&
+      upUser.role === UserRole.INSTRUCTOR &&
+      role !== UserRole.INSTRUCTOR
+    ) {
+      const useClassInstructorCount = await prisma.class.count({
+        where: {
+          instructorId: upUser.id,
+        },
+      })
+      if (useClassInstructorCount > 0) {
+        return NextResponse.json(
+          {
+            error: 'Instructor has classes, please remove classes first',
+          },
+          { status: 400 }
+        )
+      }
+    }
 
     const updatedUser = await prisma.user.update({
       where: { id: userId },
-      data: { 
+      data: {
         role,
-        suspended
+        suspended,
       },
     })
 

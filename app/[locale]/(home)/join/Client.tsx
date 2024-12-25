@@ -1,5 +1,6 @@
 'use client'
 
+import { FcGoogle } from 'react-icons/fc'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -76,7 +77,14 @@ export const JoinPage = () => {
     }
     setLoading(false)
   }
-  
+
+  const _hendelGogleLogin = async () => {
+    await signIn.social({
+      provider: 'google',
+      callbackURL: '/',
+    })
+  }
+
   return (
     <Card className="w-[85vw] sm:w-[448px]  dark:text-white">
       <CardHeader>
@@ -247,8 +255,8 @@ export const JoinPage = () => {
             <Button variant="outline" size="icon">
               <Facebook className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon">
-              <Twitter className="h-4 w-4" />
+            <Button onClick={_hendelGogleLogin} variant="outline" size="icon">
+              <FcGoogle className="h-4 w-4" />
             </Button>
             <Button variant="outline" size="icon">
               <Instagram className="h-4 w-4" />

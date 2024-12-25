@@ -5,6 +5,7 @@ import { UserRole } from '@prisma/client'
 import { headers } from 'next/headers'
 import FileMeneger from '@/lib/FileMeneger'
 import prisma from '@/prisma/db'
+import { revalidateTag } from 'next/cache'
 
 export async function PUT(req: Request) {
   try {
@@ -99,7 +100,7 @@ export async function PUT(req: Request) {
         ...(file && { coverImageId: file.id }),
       },
     })
-
+    revalidateTag('class')
     return NextResponse.json({
       title,
       description,
@@ -185,7 +186,7 @@ export async function POST(req: Request) {
         coverImageId: file.id,
       },
     })
-
+    revalidateTag('class')
     return NextResponse.json({
       title,
       description,

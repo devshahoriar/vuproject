@@ -2,7 +2,7 @@
 
 import { Ellipsis, LogOut } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import { CollapseMenuButton } from '@/components/admin-panel/collapse-menu-button'
 import { Button } from '@/components/ui/button'
@@ -10,6 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { getMenuList } from '@/lib/menu-list'
 import { cn } from '@/lib/utils'
 import { useRole } from './admin-panel-layout'
+import { signOut } from '@/lib/auth-client'
 
 
 interface MenuProps {
@@ -19,6 +20,7 @@ interface MenuProps {
 export function Menu({ isOpen }: MenuProps) {
   const role = useRole((state) => state.role)
   const pathname = usePathname()
+  const {replace} = useRouter()
   const menuList = getMenuList(role)
 
   return (
@@ -79,7 +81,10 @@ export function Menu({ isOpen }: MenuProps) {
           ))}
           <li className="w-full grow flex items-end">
             <Button
-              onClick={() => {}}
+               onClick={async () => {
+                          await signOut()
+                          replace('/')
+                        }}
               variant="outline"
               className="w-full justify-center h-10 mt-5"
             >

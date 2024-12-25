@@ -11,7 +11,7 @@ import { UsersTable } from './client'
 const ManageUser = async () => {
 
   const user = await getLoginUser(headers) as USER
-  console.log(user)
+
   if (notIsAdmin(user)) {
     return (
       <ContentLayout title="Users">

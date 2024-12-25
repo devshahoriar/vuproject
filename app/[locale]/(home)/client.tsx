@@ -6,6 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { cn } from '@/lib/utils'
 import { useChangeLocale, useCurrentLocale } from '@/locales/client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -38,5 +39,52 @@ export const JoinButton = () => {
         Join Now
       </Link>
     </Button>
+  )
+}
+
+export const NavBar = () => {
+  const path = usePathname()
+
+  return (
+    <nav className="hidden md:flex space-x-6 font-medium">
+      <Link
+        href="/"
+        className={cn('hover:text-primary', { 'text-primary': path === '/' })}
+      >
+        Home
+      </Link>
+      <Link
+        href="/classes"
+        className={cn('hover:text-primary', {
+          'text-primary': path === '/classes',
+        })}
+      >
+        Classes
+      </Link>
+      <Link
+        href="/membership"
+        className={cn('hover:text-primary', {
+          'text-primary': path === '/membership',
+        })}
+      >
+        Membership
+      </Link>
+      <Link
+        href="/about"
+        className={cn('hover:text-primary', {
+          'text-primary': path === '/about',
+        })}
+      >
+        About
+      </Link>
+      <Link
+        href="/contact"
+        className={cn('hover:text-primary', {
+          'text-primary': path === '/contact',
+        })}
+      >
+        Contact
+      </Link>
+    </nav>
   )
 }

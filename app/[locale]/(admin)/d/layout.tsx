@@ -12,11 +12,12 @@ const DashBoardLayout = async ({
   children: ReactNode
 }>) => {
   const user = await getLoginUser(headers)
-  if (user?.suspended) {
-    return redirect('/suspended')
-  }
+
   if (!user) {
     return <SignInRequeredPage />
+  }
+  if (user?.suspended) {
+    return redirect('/suspended')
   }
 
   return (

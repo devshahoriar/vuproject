@@ -88,9 +88,6 @@ export function UpdateRoleDialog({
           variant="ghost"
           size="sm"
           disabled={isSelfUpdate}
-          title={
-            isSelfUpdate ? 'You cannot update your own role' : 'Update role'
-          }
         >
           Update
         </Button>
@@ -175,12 +172,12 @@ export function UsersTable({ users, currentUserId }: UsersTableProps) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ role, suspended }),
         })
-
-        if (!response.ok) throw new Error('Failed to update user')
+   
+        if (!response.ok) throw new Error((await response.json()).error)  
         toast.success('User updated successfully')
         refresh()
-      } catch (error) {
-        toast.error('Failed to update user')
+      } catch (error :any) {
+        toast.error(error?.message ? error?.message :'Failed to update user')
         console.error(error)
       }
     })

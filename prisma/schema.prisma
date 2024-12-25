@@ -14,20 +14,24 @@ enum UserRole {
 }
 
 model User {
-  id             String    @id
+  id             String   @id
   name           String
   email          String
   emailVerified  Boolean
   image          String?
   createdAt      DateTime
   updatedAt      DateTime
-  role           UserRole  @default(USER)
-  suspended      Boolean?   @default(false)
+  role           UserRole @default(USER)
+  suspended      Boolean? @default(false)
   profileImageId Int?
-  profileImage   File?     @relation(fields: [profileImageId], references: [id])
-  Session        Session[]
-  Account        Account[]
-  Class          Class[]
+  enrolledClassId Int?    @unique
+  profileImage   File?    @relation(fields: [profileImageId], references: [id])
+
+  memberships     MembershipType @default(USER)
+  Session         Session[]
+  Account         Account[]
+  teachingClasses Class[]        @relation("InstructorClass")
+  enrolledClass   Class?         @relation("StudentClass", fields: [enrolledClassId], references: [id])
 
   @@unique([email])
   @@map("user")
@@ -87,18 +91,21 @@ model Class {
   id           Int    @id @default(autoincrement())
   title        String
   desc         String
-  instructorId String
+  instructorId String @unique
   categoryId   Int
   duration     Int
   schedule     String
   coverImageId Int
 
   coverImage File          @relation(fields: [coverImageId], references: [id])
-  instructor User          @relation(fields: [instructorId], references: [id])
+  instructor User          @relation("InstructorClass", fields: [instructorId], references: [id])
   category   ClassCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  students   User[]        @relation("StudentClass")
 }
 
+
 enum MembershipType {
+  USER
   BASIC
   PRO
   ELIT

@@ -35,7 +35,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <I18nProviderClient locale={locale}>
-        <body className={`antialiased ${pop.className} ${hind.className}`}>
+        <body className={`antialiased ${pop.className} ${hind.className} selection:bg-green-500 selection:text-white`}>
           <NextTopLoader showSpinner={false} color="#b91c1c" />
           <ThemeProvider
             attribute="class"
@@ -45,7 +45,13 @@ export default async function RootLayout({
           >
             {children}
 
-            <Toaster />
+            <Toaster
+              richColors
+              toastOptions={{
+                duration: 5000,
+              }}
+            />
+            <div id="modal-root" />
           </ThemeProvider>
         </body>
       </I18nProviderClient>

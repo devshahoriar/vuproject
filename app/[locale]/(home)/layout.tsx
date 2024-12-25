@@ -1,13 +1,12 @@
 import MobileNav from '@/components/shared/MobileNav'
 import { ModeToggle } from '@/components/shared/ThemeControl'
-import { Button } from '@/components/ui/button'
 
 import LayOutUserAvater from '@/components/shared/LayOutUserAvater'
 import { getLoginUser } from '@/lib/auth-client'
 import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react'
 import { headers } from 'next/headers'
 import Link from 'next/link'
-import { ChangeLanguage, JoinButton } from './client'
+import { ChangeLanguage, JoinButton, NavBar } from './client'
 
 const UserPageLayout = async (
   props: Readonly<{
@@ -25,23 +24,7 @@ const UserPageLayout = async (
             <Link href="/" className="text-2xl font-bold">
               Fit<span className="text-primary">Zone</span>
             </Link>
-            <nav className="hidden md:flex space-x-6 font-medium">
-              <Link href="/" className="hover:text-primary">
-                Home
-              </Link>
-              <Link href="/classes" className="hover:text-primary">
-                Classes
-              </Link>
-              <Link href="/membership" className="hover:text-primary">
-                Membership
-              </Link>
-              <Link href="/about" className="hover:text-primary">
-                About
-              </Link>
-              <Link href="/contact" className="hover:text-primary">
-                Contact
-              </Link>
-            </nav>
+            <NavBar />
             <div className="flex items-center gap-2">
               <ChangeLanguage />
               <ModeToggle />
@@ -61,7 +44,7 @@ const UserPageLayout = async (
             </div>
           </div>
         </header>
-        <div id="modal-root" />
+        
         {props.children}
         {props.modal}
         <footer className="bg-background py-12">

@@ -42,7 +42,7 @@ export function getMenuList(role: UserRole): Group[] {
         },
         {
           href: '/',
-          label: 'Home',
+          label: 'Go to Site',
           icon: Home,
           submenus: [],
         },
@@ -82,6 +82,16 @@ export function getMenuList(role: UserRole): Group[] {
           label: 'Tags',
           icon: Tag,
         },
+        ...(role === UserRole.USER
+          ? [
+              {
+                href: '/admin',
+                label: 'Admin Panel',
+                icon: Settings,
+                submenus: [],
+              },
+            ]
+          : []),
         ...(role === UserRole.ADMIN
           ? [
               {

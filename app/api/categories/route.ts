@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { getSession } from '@/lib/auth-client';
 import { headers } from 'next/headers';
 import { UserRole } from '@prisma/client';
+import { revalidateTag } from 'next/cache';
 
 const categorySchema = z.object({
   title: z.string().min(1, "Category name is required"),
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
         desc,
       },
     });
-
+    revalidateTag('class-category');
     return NextResponse.json(newCategory);
   } catch (error) {
     console.error('[CATEGORY_CREATE]', error);
