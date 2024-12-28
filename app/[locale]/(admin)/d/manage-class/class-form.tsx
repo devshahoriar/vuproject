@@ -53,13 +53,14 @@ export function ClassForm({ categories, instructors, initialData }: Props) {
 
   useEffect(() => {
     if (isEditing && initialData) {
+      
       setFormData({
         title: initialData.title,
         description: initialData.desc,
         categoryId: initialData.categoryId.toString(),
         instructorId: initialData.instructorId,
         duration: initialData.duration.toString(),
-        schedule: initialData.schedule,
+        schedule: initialData.schedule ? initialData.schedule.split(',') : [],
         coverImage: null,
       })
       setPreview(initialData.coverImage?.url || null)
@@ -108,7 +109,7 @@ export function ClassForm({ categories, instructors, initialData }: Props) {
       ...formData,
       duration: Number(formData.duration),
     })
-
+   
     if (!result.success) {
       const fieldErrors = result.error.flatten().fieldErrors
       setErrors(
@@ -149,6 +150,7 @@ export function ClassForm({ categories, instructors, initialData }: Props) {
       )
 
       const data = await response.json()
+
       if (data?.error) {
         throw new Error(data.error)
       }
@@ -185,7 +187,7 @@ export function ClassForm({ categories, instructors, initialData }: Props) {
   return (
     <Credenza open={open} onOpenChange={setOpen}>
       <CredenzaTrigger asChild>{triggerButton}</CredenzaTrigger>
-      <CredenzaContent>
+      {open && <CredenzaContent>
         <CredenzaHeader>
           <CredenzaTitle>{isEditing ? 'Edit Class' : 'Add New Class'}</CredenzaTitle>
         </CredenzaHeader>
@@ -371,7 +373,7 @@ export function ClassForm({ categories, instructors, initialData }: Props) {
             </Button>
           </CredenzaFooter>
         </form>
-      </CredenzaContent>
+      </CredenzaContent>}
     </Credenza>
   )
 }

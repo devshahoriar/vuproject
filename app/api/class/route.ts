@@ -115,6 +115,7 @@ export async function PUT(req: Request) {
   }
 }
 
+let fileNew:any = null;
 export async function POST(req: Request) {
   try {
     const session = await getSession({
@@ -165,17 +166,17 @@ export async function POST(req: Request) {
       fileName: coverImage.name,
       folder: '/vuproject/class',
     })
-
+    
     const file = await prisma.file.create({
       data: {
         fileId: res.fileId,
         url: res.url,
       },
     })
-
+    fileNew = file;
     const schedule = JSON.parse(scheduleRaw)
-
-    await prisma.class.create({
+   
+     await prisma.class.create({
       data: {
         desc: description,
         duration: Number(duration),
@@ -186,17 +187,18 @@ export async function POST(req: Request) {
         coverImageId: file.id,
       },
     })
+
     revalidateTag('class')
     return NextResponse.json({
-      title,
-      description,
-      categoryId,
-      instructorId,
-      duration,
-      scheduleRaw,
+      message: 'Class created',
     })
-  } catch (error) {
-    console.error('[CLASS_POST]', error)
-    return new NextResponse('Internal Error', { status: 500 })
+  } catch (error :any) {
+    console.error('[CLASS_POST]', JSON.stringify(error, null, 2))
+    if (error?.code === 'P2002' && error?.meta?.target.includes('instructorId')) {
+      await FileMeneger.deleteFile(fileNew.fileId);
+      await prisma.file.delete({ where: { id: fileNew.id } })
+      return NextResponse.json({ error: 'One Instructor can take one class only.' }, { status: 400 })
+    }
+    return NextResponse.json({ error: 'Internal Error' }, { status: 500 })
   }
 }
