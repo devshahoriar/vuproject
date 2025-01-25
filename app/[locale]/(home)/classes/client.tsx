@@ -12,7 +12,6 @@ import { Search, X } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-
 type SelectExType = {
   id: number
   title: string
@@ -30,11 +29,13 @@ export const SelectExType = ({ classCat }: { classCat: SelectExType }) => {
     const params = new URLSearchParams(searchParams)
     if (term) {
       params.set('category', term)
+      setSelected(term)
+      replace(`${pathname}?${params.toString()}`)
     } else {
       params.delete('category')
+      setSelected(null)
+      replace(`${pathname}`)
     }
-    setSelected(term)
-    replace(`${pathname}?${params.toString()}`)
   }
   useEffect(() => {
     const query = searchParams.get('category')
@@ -44,7 +45,7 @@ export const SelectExType = ({ classCat }: { classCat: SelectExType }) => {
     <div className="flex items-center justify-between gap-2">
       <Select
         onValueChange={(value) => handleSearch(value)}
-        value={selected ? selected : undefined}
+        value={selected ? selected : ''}
       >
         <SelectTrigger>
           <SelectValue placeholder="Filter by category" />
@@ -57,13 +58,11 @@ export const SelectExType = ({ classCat }: { classCat: SelectExType }) => {
           ))}
         </SelectContent>
       </Select>
-      {
-        selected && (
-          <Button variant="outline" onClick={() => handleSearch('')}>
-            <X />
-          </Button>
-        )
-      }
+      {selected && (
+        <Button variant="outline" onClick={() => handleSearch('')}>
+          <X />
+        </Button>
+      )}
     </div>
   )
 }
@@ -91,10 +90,13 @@ export const SearchBox = () => {
   }
 
   return (
-    <form onSubmit={handleSearch} className="flex items-center justify-between gap-2">
-      <Input 
-        type="text" 
-        placeholder="Search classes..." 
+    <form
+      onSubmit={handleSearch}
+      className="flex items-center justify-between gap-2"
+    >
+      <Input
+        type="text"
+        placeholder="Search classes..."
         className="w-full"
         value={term}
         onChange={(e) => setTerm(e.target.value)}
@@ -102,6 +104,17 @@ export const SearchBox = () => {
       <Button type="submit" variant="outline">
         <Search />
       </Button>
+      {term && (
+        <Button
+          variant="outline"
+          onClick={() => {
+            replace(pathname)
+            setTerm('')
+          }}
+        >
+          <X />
+        </Button>
+      )}
     </form>
   )
 }

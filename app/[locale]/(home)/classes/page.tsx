@@ -1,12 +1,6 @@
 import ServerImage from '@/components/shared/ServerImage'
 import { Button } from '@/components/ui/button'
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import {
   Card,
   CardContent,
   CardDescription,
@@ -14,16 +8,39 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 
 import prisma from '@/prisma/db'
 import { Calendar, Clock, Users } from 'lucide-react'
 import { SearchBox, SelectExType } from './client'
 
+export default async function ClassesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q: string; category: string }>
+}) {
+  const { q, category } = await searchParams
 
-
-export default async function ClassesPage() {
   const classes = await prisma.class.findMany({
+    where: {
+      AND: [
+        {
+          OR: [
+            {
+              title: { contains: q, mode: 'insensitive' },
+            },
+            {
+              desc: { contains: q, mode: 'insensitive' },
+            },
+          ],
+        },
+        {
+          category: {
+            title: { contains: category, mode: 'insensitive' },
+          },
+        },
+      ],
+    },
+
     select: {
       category: { select: { title: true } },
       coverImage: { select: { url: true } },
@@ -61,10 +78,10 @@ export default async function ClassesPage() {
 
       <div className="flex flex-col md:flex-row justify-between mb-8">
         <div className="w-full md:w-1/3 mb-4 md:mb-0">
-        <SearchBox/>
+          <SearchBox />
         </div>
         <div className="w-full md:w-1/3">
-         <SelectExType classCat={classCat} />
+          <SelectExType classCat={classCat} />
         </div>
       </div>
 
@@ -94,21 +111,9 @@ export default async function ClassesPage() {
                 </p>
                 <div className="flex items-center">
                   <Calendar className="w-5 h-5 mr-2" />
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <p>
-                    
-                          Schedule:{' '}
-                          {gymClass.schedule.split(',').slice(0, 2).join(', ')}
-                          ...
-                        </p>
-                      </TooltipTrigger>
-                      <TooltipContent asChild>
-                         <p>{gymClass.schedule}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <p title={
+                    gymClass.schedule.split(',').join('\n')
+                  } className='whitespace-pre-line'>Schedule: {gymClass.schedule.split(',').slice(0,3).join(',')}...</p>
                 </div>
               </div>
             </CardContent>

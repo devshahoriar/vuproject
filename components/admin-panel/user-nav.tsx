@@ -6,12 +6,6 @@ import { LayoutGrid, LogOut, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipProvider,
-} from '@/components/ui/tooltip'
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -32,26 +26,19 @@ export function UserNav() {
   const user = data?.user
   return (
     <DropdownMenu>
-      <TooltipProvider disableHoverableContent>
-        <Tooltip delayDuration={100}>
-          <TooltipTrigger asChild>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                className="relative h-8 w-8 rounded-full"
-              >
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={user?.image} alt="Avatar" />
-                  <AvatarFallback className="bg-transparent uppercase">
-                    {user?.name?.substring(0, 2)}
-                  </AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-          </TooltipTrigger>
-          <TooltipContent side="bottom">Profile</TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          className="relative h-8 w-8 rounded-full"
+        >
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={user?.image} alt="Avatar" />
+            <AvatarFallback className="bg-transparent uppercase">
+              {user?.name?.substring(0, 2)}
+            </AvatarFallback>
+          </Avatar>
+        </Button>
+      </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">

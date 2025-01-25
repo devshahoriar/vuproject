@@ -13,7 +13,6 @@ import {
   MapPin,
   Users
 } from 'lucide-react'
-import Image from 'next/image'
 
 const teamMembers = [
   {
@@ -68,7 +67,7 @@ export default function AboutPage() {
           </div>
           <div className="order-first md:order-last">
             <ServerImage
-              src="https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=geert-pieters-3RnkZpDqsEI-unsplash.jpg"
+              src="https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-4.0.3&q=55&fm=jpg&crop=entropy&cs=srgb&dl=geert-pieters-3RnkZpDqsEI-unsplash.jpg"
               alt="FitZone Gym Interior"
               width={600}
               height={400}

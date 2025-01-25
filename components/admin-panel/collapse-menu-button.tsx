@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronDown, Dot, LucideIcon } from 'lucide-react'
+import { ArrowRight, ChevronDown, Dot, LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -103,7 +103,7 @@ export function CollapseMenuButton({
           >
             <Link href={href}>
               <span className="mr-4 ml-2">
-                <Dot size={18} />
+              <ArrowRight className='!size-3' />
               </span>
               <p
                 className={cn(
