@@ -45,7 +45,7 @@ export function Menu({ isOpen }: MenuProps) {
                   <div className="w-full" key={index}>
                     <Button
                       variant={pathname.endsWith(href) ? 'secondary' : 'ghost'}
-                      className="w-full justify-start h-10 mb-1"
+                      className="w-full justify-start h-10 mb-1 !gap-0"
                       asChild
                     >
                       <Link href={href}>
@@ -70,7 +70,6 @@ export function Menu({ isOpen }: MenuProps) {
                     <CollapseMenuButton
                       icon={Icon}
                       label={label}
-                      
                       submenus={submenus}
                       isOpen={isOpen}
                     />

@@ -22,7 +22,9 @@ export default async function HomePage() {
             <p className="text-xl mb-6">
               {t('sloganSub')}
             </p>
-            <Button className="text-lg px-8 py-3">Get Started</Button>
+            <Button className="text-lg px-8 py-3" asChild>
+              <a href="#membership">Get Started</a>
+            </Button>
           </div>
           <div className="md:w-1/2">
             <Image
@@ -77,7 +79,7 @@ export default async function HomePage() {
       </section>
 
       {/* Membership Plans Section */}
-      <section className="bg-gray-100 py-20 dark:text-black">
+      <section className="bg-gray-100 py-20 dark:text-black" id='membership'>
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
             Membership Plans

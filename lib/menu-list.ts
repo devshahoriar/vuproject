@@ -35,7 +35,7 @@ export function getMenuList(role: UserRole): Group[] {
       groupLabel: '',
       menus: [
         {
-          href: '/d',
+          href: '/dashboard',
           label: 'Dashboard',
           icon: LayoutGrid,
           submenus: [],
@@ -100,11 +100,11 @@ export function getMenuList(role: UserRole): Group[] {
                 icon: Blinds,
                 submenus: [
                   {
-                    href: '/d/manage-categories',
+                    href: '/dashboard/manage-categories',
                     label: 'Categories',
                   },
                   {
-                    href: '/d/manage-class',
+                    href: '/dashboard/manage-class',
                     label: 'Classes',
                   },
                 ],
@@ -115,7 +115,7 @@ export function getMenuList(role: UserRole): Group[] {
                 icon: Users,
                 submenus: [
                   {
-                    href: '/d/manage-users',
+                    href: '/dashboard/manage-users',
                     label: 'Manage Users',
                   },
                 ],
@@ -128,7 +128,7 @@ export function getMenuList(role: UserRole): Group[] {
       groupLabel: '',
       menus: [
         {
-          href: '/d/account',
+          href: '/dashboard/account',
           label: 'Account',
           icon: Settings,
         },
