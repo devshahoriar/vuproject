@@ -33,9 +33,9 @@ export default async function RootLayout({
   const { locale } = await params
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning className='scroll-smooth'>
       <I18nProviderClient locale={locale}>
-        <body className={`antialiased ${pop.className} ${hind.className} selection:bg-green-500 selection:text-white`}>
+        <body className={`antialiased ${pop.className} ${hind.className} selection:bg-green-500 selection:text-white scroll-smooth`}>
           <NextTopLoader showSpinner={false} color="#b91c1c" />
           <ThemeProvider
             attribute="class"
