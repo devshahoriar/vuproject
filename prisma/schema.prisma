@@ -1,11 +1,10 @@
 generator client {
   provider = "prisma-client-js"
-  output = "./out"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DATABASE_URL_DIRECT")
 }
 
@@ -16,18 +15,18 @@ enum UserRole {
 }
 
 model User {
-  id             String   @id
-  name           String
-  email          String
-  emailVerified  Boolean
-  image          String?
-  createdAt      DateTime
-  updatedAt      DateTime
-  role           UserRole @default(USER)
-  suspended      Boolean? @default(false)
-  profileImageId Int?
-  enrolledClassId Int?    @unique
-  profileImage   File?    @relation(fields: [profileImageId], references: [id])
+  id              String   @id
+  name            String
+  email           String
+  emailVerified   Boolean
+  image           String?
+  createdAt       DateTime
+  updatedAt       DateTime
+  role            UserRole @default(USER)
+  suspended       Boolean? @default(false)
+  profileImageId  Int?
+  enrolledClassId Int?     @unique
+  profileImage    File?    @relation(fields: [profileImageId], references: [id])
 
   memberships     MembershipType @default(USER)
   Session         Session[]
@@ -104,7 +103,6 @@ model Class {
   category   ClassCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   students   User[]        @relation("StudentClass")
 }
-
 
 enum MembershipType {
   USER

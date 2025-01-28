@@ -1,15 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
 
 import { Button } from '@/components/ui/button'
+import { getLoginUser } from '@/lib/auth-client'
 import getPlaceholderImage from '@/lib/getPlaceholderImage'
 import { getScopedI18n } from '@/locales/server'
 import { Clock, Dumbbell, Users } from 'lucide-react'
+import { headers } from 'next/headers'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function HomePage() {
   const t = await getScopedI18n('home')
+  const user = await getLoginUser(headers)
+  console.log(user)
   return (
     <main className="flex-grow">
       {/* Hero Section */}
@@ -19,9 +23,7 @@ export default async function HomePage() {
             <h1 className="text-4xl md:text-6xl font-bold mb-4">
               {t('bannerSlogan')}
             </h1>
-            <p className="text-xl mb-6">
-              {t('sloganSub')}
-            </p>
+            <p className="text-xl mb-6">{t('sloganSub')}</p>
             <Button className="text-lg px-8 py-3" asChild>
               <a href="#membership">Get Started</a>
             </Button>
@@ -79,7 +81,7 @@ export default async function HomePage() {
       </section>
 
       {/* Membership Plans Section */}
-      <section className="bg-gray-100 py-20 dark:text-black" id='membership'>
+      <section className="bg-gray-100 py-20 dark:text-black" id="membership">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
             Membership Plans
@@ -95,7 +97,9 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Locker room access</li>
                 <li className="mb-2">✓ Free WiFi</li>
               </ul>
-              <Button className="w-full">Choose Plan</Button>
+              <Button className="w-full" asChild>
+                <Link href={user ? '/plan/basic' : '/join'}>Choose Plan</Link>
+              </Button>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-md border-2 border-primary">
               <h3 className="text-2xl font-semibold mb-4">Pro</h3>
@@ -107,7 +111,9 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Group fitness classes</li>
                 <li className="mb-2">✓ Personalized workout plan</li>
               </ul>
-              <Button className="w-full">Choose Plan</Button>
+              <Button className="w-full" asChild>
+                <Link href={user ? '/plan/pro' : '/join'}>Choose Plan</Link>
+              </Button>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-semibold mb-4">Elite</h3>
@@ -119,7 +125,9 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Personal training sessions</li>
                 <li className="mb-2">✓ Nutrition consultation</li>
               </ul>
-              <Button className="w-full">Choose Plan</Button>
+              <Button className="w-full" asChild>
+                <Link href={user ? '/plan/elite' : '/join'}>Choose Plan</Link>
+              </Button>
             </div>
           </div>
         </div>

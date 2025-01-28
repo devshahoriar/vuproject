@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:sync" :"prisma generate --no-engine"
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",

@@ -1,5 +1,5 @@
 import { withAccelerate } from '@prisma/extension-accelerate'
-import { PrismaClient } from './out/edge'
+import { PrismaClient } from '@prisma/client/edge'
 
 const prismaClientSingleton = (): PrismaClient => {
   const x = new PrismaClient({}).$extends(withAccelerate())
