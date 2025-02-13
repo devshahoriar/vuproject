@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from "@/prisma/db"
-import { UserRole } from "@prisma/client"
+import { UserRole } from '@/prisma/out'
 
 export const getOnlyInstructor = async () => await prisma.user.findMany({
   where: { role: UserRole.INSTRUCTOR },
