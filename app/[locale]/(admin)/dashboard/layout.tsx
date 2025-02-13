@@ -1,7 +1,8 @@
 import AdminPanelLayout from '@/components/admin-panel/admin-panel-layout'
 import SignInRequeredPage from '@/components/shared/SignInRequered'
 import { getLoginUser } from '@/lib/auth-client'
-import { UserRole } from '@prisma/client'
+import { UserRole } from '@/prisma/out'
+
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { ReactNode } from 'react'
