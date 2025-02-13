@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -34,6 +35,7 @@ const membershipPlans = [
       'Nutrition consultation',
       '24/7 access',
     ],
+    url: '/plan/basic',
   },
   {
     name: 'Pro',
@@ -46,6 +48,7 @@ const membershipPlans = [
       '24/7 access',
     ],
     notIncluded: ['Personal training sessions', 'Nutrition consultation'],
+    url: '/plan/pro',
   },
   {
     name: 'Elite',
@@ -58,6 +61,7 @@ const membershipPlans = [
       'Unlimited guest passes',
     ],
     notIncluded: [],
+    url: '/plan/elite',
   },
 ]
 
@@ -93,8 +97,8 @@ export default function MembershipPage() {
               </ul>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">
-                Choose Plan
+              <Button asChild className="w-full">
+                <Link href={plan.url}>Choose Plan</Link>
               </Button>
             </CardFooter>
           </Card>

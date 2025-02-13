@@ -1,11 +1,11 @@
 generator client {
   provider = "prisma-client-js"
+  output = "./out"
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DATABASE_URL_DIRECT")
 }
 
 enum UserRole {
@@ -33,6 +33,7 @@ model User {
   Account         Account[]
   teachingClasses Class[]        @relation("InstructorClass")
   enrolledClass   Class?         @relation("StudentClass", fields: [enrolledClassId], references: [id])
+  payments        Payment[]
 
   @@unique([email])
   @@map("user")
@@ -109,4 +110,19 @@ enum MembershipType {
   BASIC
   PRO
   ELIT
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  amount        Float
+  currency      String   @default("usd")
+  status        String   // success, failed, pending
+  sessionId     String   @unique
+  membershipType MembershipType
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("payment")
 }

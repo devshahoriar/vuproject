@@ -1,19 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
 
+import ServerImage from '@/components/shared/ServerImage'
 import { Button } from '@/components/ui/button'
 import { getLoginUser } from '@/lib/auth-client'
-import getPlaceholderImage from '@/lib/getPlaceholderImage'
 import { getScopedI18n } from '@/locales/server'
 import { Clock, Dumbbell, Users } from 'lucide-react'
 import { headers } from 'next/headers'
 
-import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function HomePage() {
   const t = await getScopedI18n('home')
   const user = await getLoginUser(headers)
-  console.log(user)
+
   return (
     <main className="flex-grow">
       {/* Hero Section */}
@@ -29,13 +28,9 @@ export default async function HomePage() {
             </Button>
           </div>
           <div className="md:w-1/2">
-            <Image
+            <ServerImage
               src="https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=sam-moghadam-khamseh-vOZP2LojrHI-unsplash.jpg"
               alt="Gym Interior"
-              placeholder="blur"
-              blurDataURL={await getPlaceholderImage(
-                'https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=sam-moghadam-khamseh-vOZP2LojrHI-unsplash.jpg'
-              )}
               width={600}
               height={400}
               className="rounded-lg shadow-lg w-full"
@@ -98,7 +93,7 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Free WiFi</li>
               </ul>
               <Button className="w-full" asChild>
-                <Link href={user ? '/plan/basic' : '/join'}>Choose Plan</Link>
+                <Link href={user ? '/plan/basic' : '/join?redirect=/plan/basic'}>Choose Plan</Link>
               </Button>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-md border-2 border-primary">
@@ -112,7 +107,7 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Personalized workout plan</li>
               </ul>
               <Button className="w-full" asChild>
-                <Link href={user ? '/plan/pro' : '/join'}>Choose Plan</Link>
+                <Link href={user ? '/plan/pro' : '/join?redirect=/plan/pro'}>Choose Plan</Link>
               </Button>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-md">
@@ -126,7 +121,7 @@ export default async function HomePage() {
                 <li className="mb-2">✓ Nutrition consultation</li>
               </ul>
               <Button className="w-full" asChild>
-                <Link href={user ? '/plan/elite' : '/join'}>Choose Plan</Link>
+                <Link href={user ? '/plan/elite' : '/join?redirect=/plan/elite'}>Choose Plan</Link>
               </Button>
             </div>
           </div>
@@ -146,7 +141,7 @@ export default async function HomePage() {
               supportive. I've never felt better!"
             </p>
             <div className="flex items-center">
-              <Image
+              <ServerImage
                 src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=christian-buehner-DItYlc26zVI-unsplash.jpg"
                 alt="Sarah J."
                 width={100}
@@ -176,7 +171,9 @@ export default async function HomePage() {
             asChild
             className="bg-white hover:bg-gray-100 text-lg px-8 py-3 text-black dark:text-black"
           >
-            <Link href="/join">Sign Up Now</Link>
+            <Link href={user ? '/membership' : '/join'}>
+              {user ? 'Get Membership' : 'Sign Up Now'}
+            </Link>
           </Button>
         </div>
       </section>

@@ -19,7 +19,7 @@ export default async function ClassesPage({
   searchParams: Promise<{ q: string; category: string }>
 }) {
   const { q, category } = await searchParams
-
+  
   const classes = await prisma.class.findMany({
     where: {
       AND: [

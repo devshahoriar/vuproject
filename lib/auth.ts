@@ -4,6 +4,7 @@ import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import sendMail from './sendEmail'
 
+
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
@@ -54,9 +55,9 @@ export const auth = betterAuth({
   session: {
     cookieCache: {
       enabled: true,
-      maxAge: 5 * 60,
+      maxAge: 3600,
     },
-    expiresIn: 60 * 60 * 24 * 7,
+    expiresIn: 3600,
     updateAge: 60 * 60 * 24 * 2,
   },
   advanced: {
@@ -66,5 +67,6 @@ export const auth = betterAuth({
       },
     },
   },
-  trustedOrigins: ['http://localhost:3000', 'https://vuproject.vercel.app'],
+  trustedOrigins: [process.env.NEXT_PUBLIC_BETTER_AUTH_URL!],
+  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL!,
 })

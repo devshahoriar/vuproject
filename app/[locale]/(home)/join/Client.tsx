@@ -18,7 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { signIn, signUp, useSession } from '@/lib/auth-client'
 import { Facebook, Instagram, Loader, Twitter } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { FormEvent, useEffect, useState } from 'react'
 
@@ -30,6 +30,7 @@ export const JoinPage = () => {
   const [error, setError] = useState('')
   const [loginError, setLoginError] = useState('')
   const { data } = useSession()
+  const searchParams = useSearchParams();
 
   const { replace, refresh } = useRouter()
   useEffect(() => {
@@ -40,6 +41,9 @@ export const JoinPage = () => {
 
   const _hendelRegister = async (e: FormEvent) => {
     e.preventDefault()
+    const params = new URLSearchParams(searchParams);
+    let redirect = params.get('redirect');
+    if(!redirect) redirect = '/'
     await signUp.email(
       {
         email: registerData?.email,
@@ -49,7 +53,7 @@ export const JoinPage = () => {
       {
         onSuccess: () => {
           refresh()
-          replace('/')
+          replace(redirect)
           setLoading(false)
         },
         onError: (v) => {
@@ -66,11 +70,16 @@ export const JoinPage = () => {
 
   const _hendelLogin = async (e: FormEvent) => {
     e.preventDefault()
+    const params = new URLSearchParams(searchParams);
+    let redirect = params.get('redirect');
+    if(!redirect) redirect = '/'
+  
+  
     setLoading(true)
     const { error } = await signIn.email({
       email: loginData.email,
       password: loginData.pass,
-      callbackURL: '/',
+      callbackURL: redirect,
     })
     if (error) {
       setLoginError(error?.message as string)
