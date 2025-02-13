@@ -4,7 +4,7 @@ import { Sidebar } from '@/components/admin-panel/sidebar'
 import { useSidebar } from '@/hooks/use-sidebar'
 import { useStore } from '@/hooks/use-store'
 import { cn } from '@/lib/utils'
-import { UserRole } from '@prisma/client'
+import { UserRole } from '@/prisma/out'
 import { create } from 'zustand'
 import { useEffect } from 'react'
 

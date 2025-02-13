@@ -1,5 +1,5 @@
 import prisma from '@/prisma/db'
-import { UserRole } from '@prisma/client'
+import { UserRole } from '@/prisma/out'
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import sendMail from './sendEmail'

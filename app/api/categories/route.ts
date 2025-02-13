@@ -4,7 +4,7 @@ import prisma from '@/prisma/db';
 import { z } from 'zod';
 import { getSession } from '@/lib/auth-client';
 import { headers } from 'next/headers';
-import { UserRole } from '@prisma/client';
+import { UserRole } from '@/prisma/out';
 import { revalidateTag } from 'next/cache';
 
 const categorySchema = z.object({

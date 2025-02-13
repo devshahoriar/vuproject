@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 import { getSession } from '@/lib/auth-client'
-import { UserRole } from '@prisma/client'
+import { UserRole } from '@/prisma/out'
 import { headers } from 'next/headers'
 import FileMeneger from '@/lib/FileMeneger'
 import prisma from '@/prisma/db'

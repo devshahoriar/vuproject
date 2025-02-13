@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getSession } from '@/lib/auth-client'
 import prisma from '@/prisma/db'
-import { UserRole } from '@prisma/client'
+import { UserRole } from '@/prisma/out'
 import { headers } from 'next/headers'
 
 export async function PATCH(

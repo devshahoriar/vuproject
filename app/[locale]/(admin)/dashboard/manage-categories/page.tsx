@@ -7,9 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { getLoginUser, getSession } from '@/lib/auth-client'
+import { getLoginUser } from '@/lib/auth-client'
 import { getCategoryWithCountOfClass } from '@/query/get/category'
-import { UserRole } from '@prisma/client'
+import { UserRole } from '@/prisma/out'
 import { headers } from 'next/headers'
 import { NewCategoryForm } from './NewCategoryForm'
 
