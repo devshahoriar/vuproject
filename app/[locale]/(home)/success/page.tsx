@@ -1,9 +1,10 @@
 import { redirect } from 'next/navigation';
 import { getLoginUser } from '@/lib/auth-client';
 import prisma from '@/prisma/db';
-import { MembershipType } from '@prisma/client';
+
 import { headers } from 'next/headers';
 import stripe from '@/lib/stripe';
+import { MembershipType } from '@/prisma/out';
 
 async function validatePayment(sessionId: string, userId: string) {
   try {
