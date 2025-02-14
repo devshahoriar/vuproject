@@ -18,9 +18,8 @@ async function clearDatabase() {
 
 async function restoreData(backupFile: string) {
     try {
-        // Read and parse backup file
-        const backupPath = path.resolve(backupFile)
-        const rawData = fs.readFileSync(backupPath, 'utf-8')
+
+        const rawData = fs.readFileSync(backupFile, 'utf-8')
         const data = JSON.parse(rawData)
 
         // Clear existing data
@@ -59,12 +58,13 @@ async function restoreData(backupFile: string) {
     }
 }
 
-// Check if backup file is provided as command line argument
-const backupFile = process.argv[2]
-if (!backupFile) {
-    console.error('Please provide the backup file path as an argument')
-    process.exit(1)
-}
+// Replace the hardcoded backup file path with proper path resolution
+
+
+const targetBackup = './backup-2025-02-13T10-39-04-939Z.json'
+
+
+
 
 // Execute restore
-restoreData(backupFile)
+restoreData(targetBackup)

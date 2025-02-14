@@ -10,7 +10,7 @@
     "db:sync": "prisma generate --no-engine"
   },
   "dependencies": {
-    "@prisma/client": "^6.2.1",
+    "@prisma/client": "^6.3.1",
     "@prisma/extension-accelerate": "^1.2.1",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-avatar": "^1.1.2",
@@ -33,6 +33,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.0",
+    "date-fns": "^4.1.0",
     "framer-motion": "^11.18.2",
     "imagekit": "^5.2.0",
     "immer": "^10.1.1",

@@ -21,6 +21,7 @@ export const {
   forgetPassword,
   changePassword,
   resetPassword,
+  updateUser
 } = createAuthClient({
   baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL!,
   plugins: [inferAdditionalFields<typeof auth>()],

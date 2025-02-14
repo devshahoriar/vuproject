@@ -5,6 +5,7 @@ import prisma from '@/prisma/db';
 import { headers } from 'next/headers';
 import stripe from '@/lib/stripe';
 import { MembershipType } from '@/prisma/out';
+import Link from 'next/link';
 
 async function validatePayment(sessionId: string, userId: string) {
   try {
@@ -67,12 +68,12 @@ export default async function SuccessPage({
         <p className="text-xl mb-8">
           Thank you for your purchase. Your membership has been activated.
         </p>
-        <a
-          href="/dashboard"
+        <Link
+          href="/classes"
           className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700"
         >
-          Go to Dashboard
-        </a>
+          Now Enroll a class
+        </Link>
       </div>
     );
   } catch (error) {
