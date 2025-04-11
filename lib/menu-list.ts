@@ -1,11 +1,11 @@
 import { UserRole } from '@/prisma/out'
 import {
   Blinds,
+  Grid2x2Plus,
   Home,
   LayoutGrid,
   LucideIcon,
   Settings,
-  SquarePen,
   Tag,
   Users,
 } from 'lucide-react'
@@ -62,25 +62,9 @@ export function getMenuList(role: UserRole): Group[] {
       groupLabel: 'Contents',
       menus: [
         {
-          href: '',
-          label: 'posts',
-          icon: SquarePen,
-          submenus: [
-            {
-              href: '/posts',
-              label: 'All Posts',
-            },
-            {
-              href: '/posts/new',
-              label: 'New Post',
-            },
-          ],
-        },
-
-        {
-          href: '/tags',
-          label: 'Tags',
-          icon: Tag,
+          href: '/dashboard//equpments',
+          label: 'Equpments',
+          icon: Grid2x2Plus ,
         },
         ...(role === UserRole.USER
           ? [

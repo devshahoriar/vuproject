@@ -76,11 +76,12 @@ model Verification {
 }
 
 model File {
-  id     Int     @id @default(autoincrement())
-  fileId String
-  url    String
-  Class  Class[]
-  User   User[]
+  id        Int         @id @default(autoincrement())
+  fileId    String
+  url       String
+  Class     Class[]
+  User      User[]
+  Equipment Equipment[]
 }
 
 model ClassCategory {
@@ -126,4 +127,31 @@ model Payment {
   updatedAt      DateTime       @updatedAt
 
   @@map("payment")
+}
+
+model Equipment {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  desc      String
+  imageId   Int
+  image     File     @relation(fields: [imageId], references: [id])
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  remarks   String?
+}
+
+
+model EquipmentUses{
+  id Int @id @default(autoincrement())
+  equipmentId Int
+  equipment Equipment @relation(fields: [equipmentId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  startTime DateTime
+  endTime DateTime
+  remarks String?
+  createdAt DateTime @default(now())
+  classId Int
+  class Class @relation(fields: [classId], references: [id])
 }

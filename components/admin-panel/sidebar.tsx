@@ -6,7 +6,7 @@ import { useSidebar } from '@/hooks/use-sidebar'
 import { useStore } from '@/hooks/use-store'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import { LuBicepsFlexed } from 'react-icons/lu'
+import { Target } from 'lucide-react'
 
 export function Sidebar() {
   const sidebar = useStore(useSidebar, (x) => x)
@@ -34,8 +34,9 @@ export function Sidebar() {
           variant="link"
           asChild
         >
+
           <Link href="/dashboard" className="flex items-center gap-1">
-            <LuBicepsFlexed className="w-6 h-6" />
+          <Target  className="w-6 h-6" />
             <h1
               className={cn(
                 'font-bold text-lg whitespace-nowrap transition-[transform,opacity,display] ease-in-out duration-300 text-black dark:text-white',
