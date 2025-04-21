@@ -7,7 +7,7 @@ if (!process.env.STRIPE_SECRET_KEY) {
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2025-01-27.acacia', // Update to the latest stable version
+  apiVersion: '2025-01-27.acacia' as any, // Update to the latest stable version
 })
 
 export default stripe

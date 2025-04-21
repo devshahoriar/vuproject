@@ -35,7 +35,7 @@ const AdminEqupmentPage = async () => {
   return (
     <ContentLayout title="Equipments">
       <div className="mb-4 flex justify-between items-center">
-        <div className="text-muted-foreground">Total Equipments: {0}</div>
+        <div className="text-muted-foreground">Total Equipments: {eqs.length}</div>
         <AddEquipment />
       </div>
 
