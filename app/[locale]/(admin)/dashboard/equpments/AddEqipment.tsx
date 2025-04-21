@@ -62,6 +62,7 @@ export default function AddEquipment() {
   })
 
   const isLoading = form.formState.isSubmitting
+  
 
   async function onSubmit(values: EquipmentFormValues) {
     try {

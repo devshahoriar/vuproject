@@ -1,12 +1,12 @@
 import { UserRole } from '@/prisma/out'
 import {
+  BadgeDollarSign,
   Blinds,
   Grid2x2Plus,
   Home,
   LayoutGrid,
   LucideIcon,
   Settings,
-  Tag,
   Users,
 } from 'lucide-react'
 
@@ -61,11 +61,7 @@ export function getMenuList(role: UserRole): Group[] {
     {
       groupLabel: 'Contents',
       menus: [
-        {
-          href: '/dashboard//equpments',
-          label: 'Equpments',
-          icon: Grid2x2Plus ,
-        },
+        // only user can see this menu
         ...(role === UserRole.USER
           ? [
               {
@@ -76,8 +72,20 @@ export function getMenuList(role: UserRole): Group[] {
               },
             ]
           : []),
+
+        // only admin can see this menu
         ...(role === UserRole.ADMIN
           ? [
+              {
+                href: '/dashboard/equpments',
+                label: 'Equipments',
+                icon: Grid2x2Plus,
+              },
+              {
+                href: '/dashboard/payments',
+                label: 'Payments',
+                icon: BadgeDollarSign,
+              },
               {
                 href: '',
                 label: 'Class',
@@ -108,6 +116,8 @@ export function getMenuList(role: UserRole): Group[] {
           : []),
       ],
     },
+
+    //all user can see this menu
     {
       groupLabel: '',
       menus: [

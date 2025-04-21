@@ -29,12 +29,13 @@ model User {
   enrolledClassId Int?     @unique
   profileImage    File?    @relation(fields: [profileImageId], references: [id])
 
-  memberships     MembershipType @default(USER)
+  memberships     MembershipType  @default(USER)
   Session         Session[]
   Account         Account[]
-  teachingClasses Class[]        @relation("InstructorClass")
-  enrolledClass   Class?         @relation("StudentClass", fields: [enrolledClassId], references: [id])
+  teachingClasses Class[]         @relation("InstructorClass")
+  enrolledClass   Class?          @relation("StudentClass", fields: [enrolledClassId], references: [id])
   payments        Payment[]
+  EquipmentUses   EquipmentUses[]
 
   @@unique([email])
   @@map("user")
@@ -101,10 +102,11 @@ model Class {
   schedule     String
   coverImageId Int
 
-  coverImage File          @relation(fields: [coverImageId], references: [id])
-  instructor User          @relation("InstructorClass", fields: [instructorId], references: [id])
-  category   ClassCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  students   User[]        @relation("StudentClass")
+  coverImage    File            @relation(fields: [coverImageId], references: [id])
+  instructor    User            @relation("InstructorClass", fields: [instructorId], references: [id])
+  category      ClassCategory   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  students      User[]          @relation("StudentClass")
+  EquipmentUses EquipmentUses[]
 }
 
 enum MembershipType {
@@ -120,7 +122,7 @@ model Payment {
   user           User           @relation(fields: [userId], references: [id])
   amount         Float
   currency       String         @default("usd")
-  status         String // success, failed, pending
+  status         String 
   sessionId      String         @unique
   membershipType MembershipType
   createdAt      DateTime       @default(now())
@@ -130,28 +132,28 @@ model Payment {
 }
 
 model Equipment {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  desc      String
-  imageId   Int
-  image     File     @relation(fields: [imageId], references: [id])
-  active    Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  remarks   String?
+  id            Int             @id @default(autoincrement())
+  name          String          @unique
+  desc          String
+  imageId       Int
+  image         File            @relation(fields: [imageId], references: [id])
+  active        Boolean         @default(true)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  remarks       String?
+  EquipmentUses EquipmentUses[]
 }
 
-
-model EquipmentUses{
-  id Int @id @default(autoincrement())
+model EquipmentUses {
+  id          Int       @id @default(autoincrement())
   equipmentId Int
-  equipment Equipment @relation(fields: [equipmentId], references: [id])
-  userId String
-  user User @relation(fields: [userId], references: [id])
-  startTime DateTime
-  endTime DateTime
-  remarks String?
-  createdAt DateTime @default(now())
-  classId Int
-  class Class @relation(fields: [classId], references: [id])
+  equipment   Equipment @relation(fields: [equipmentId], references: [id])
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  startTime   DateTime
+  endTime     DateTime
+  remarks     String?
+  createdAt   DateTime  @default(now())
+  classId     Int
+  class       Class     @relation(fields: [classId], references: [id])
 }
