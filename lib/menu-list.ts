@@ -2,11 +2,17 @@ import { UserRole } from '@/prisma/out'
 import {
   BadgeDollarSign,
   Blinds,
+  CalendarDays,
+  CreditCard,
   Grid2x2Plus,
+  GraduationCap,
   Home,
   LayoutGrid,
   LucideIcon,
+  School2,
   Settings,
+  User,
+  UserCheck,
   Users,
 } from 'lucide-react'
 
@@ -30,103 +36,132 @@ type Group = {
 }
 
 export function getMenuList(role: UserRole): Group[] {
+  // Common menu items for all roles
+  const commonMenuItems: Menu[] = [
+    {
+      href: '/dashboard',
+      label: 'Dashboard',
+      icon: LayoutGrid,
+      submenus: [],
+    },
+    {
+      href: '/',
+      label: 'Go to Site',
+      icon: Home,
+      submenus: [],
+    },
+  ]
+
+  // Role-specific menu items
+  const roleSpecificMenus: Record<UserRole, Menu[]> = {
+    // Admin Menu Items
+    ADMIN: [
+      {
+        href: '/dashboard/equpments',
+        label: 'Equipment',
+        icon: Grid2x2Plus,
+      },
+      {
+        href: '/dashboard/payments',
+        label: 'Payments',
+        icon: BadgeDollarSign,
+      },
+      {
+        href: '',
+        label: 'Classes',
+        icon: School2,
+        submenus: [
+          {
+            href: '/dashboard/manage-categories',
+            label: 'Categories',
+          },
+          {
+            href: '/dashboard/manage-class',
+            label: 'Classes',
+          },
+        ],
+      },
+      {
+        href: '',
+        label: 'User Management',
+        icon: Users,
+        submenus: [
+          {
+            href: '/dashboard/manage-users',
+            label: 'All Users',
+          },
+          {
+            href: '/dashboard/instructors',
+            label: 'Instructors',
+          },
+        ],
+      },
+    ],
+
+    // Instructor Menu Items
+    INSTRUCTOR: [
+      {
+        href: '/dashboard/my-class',
+        label: 'My Classes',
+        icon: School2,
+      },
+      {
+        href: '/dashboard/attendance',
+        label: 'Attendance',
+        icon: UserCheck,
+      },
+    ],
+
+    // Regular User Menu Items
+    USER: [
+      {
+        href: '/dashboard/my-membership',
+        label: 'My Membership',
+        icon: CreditCard,
+      },
+      {
+        href: '/dashboard/enrolled-classes',
+        label: 'My Classes',
+        icon: CalendarDays,
+      },
+      {
+        href: '/dashboard/payment-history',
+        label: 'Payment History',
+        icon: BadgeDollarSign,
+      },
+    ],
+  }
+
+  // Account section visible to all users
+  const accountSection: Menu[] = [
+    {
+      href: '/dashboard/account',
+      label: 'Account Settings',
+      icon: Settings,
+    },
+  ]
+
   return [
+    // Common navigation section
     {
-      groupLabel: '',
-      menus: [
-        {
-          href: '/dashboard',
-          label: 'Dashboard',
-          icon: LayoutGrid,
-          submenus: [],
-        },
-        {
-          href: '/',
-          label: 'Go to Site',
-          icon: Home,
-          submenus: [],
-        },
-        ...(role === UserRole.USER
-          ? [
-              {
-                href: '/admin',
-                label: 'Admin Panel',
-                icon: Settings,
-                submenus: [],
-              },
-            ]
-          : []),
-      ],
+      groupLabel: 'Navigation',
+      menus: commonMenuItems,
     },
+    
+    // Role-specific section
     {
-      groupLabel: 'Contents',
-      menus: [
-        // only user can see this menu
-        ...(role === UserRole.USER
-          ? [
-              {
-                href: '/admin',
-                label: 'Admin Panel',
-                icon: Settings,
-                submenus: [],
-              },
-            ]
-          : []),
-
-        // only admin can see this menu
-        ...(role === UserRole.ADMIN
-          ? [
-              {
-                href: '/dashboard/equpments',
-                label: 'Equipments',
-                icon: Grid2x2Plus,
-              },
-              {
-                href: '/dashboard/payments',
-                label: 'Payments',
-                icon: BadgeDollarSign,
-              },
-              {
-                href: '',
-                label: 'Class',
-                icon: Blinds,
-                submenus: [
-                  {
-                    href: '/dashboard/manage-categories',
-                    label: 'Categories',
-                  },
-                  {
-                    href: '/dashboard/manage-class',
-                    label: 'Classes',
-                  },
-                ],
-              },
-              {
-                href: '',
-                label: 'Users',
-                icon: Users,
-                submenus: [
-                  {
-                    href: '/dashboard/manage-users',
-                    label: 'Manage Users',
-                  },
-                ],
-              },
-            ]
-          : []),
-      ],
+      groupLabel: role === UserRole.ADMIN 
+        ? 'Administration' 
+        : role === UserRole.INSTRUCTOR 
+          ? 'Instructor Tools' 
+          : 'Member Area',
+      menus: roleSpecificMenus[role],
     },
-
-    //all user can see this menu
+    
+    // Account section
     {
-      groupLabel: '',
-      menus: [
-        {
-          href: '/dashboard/account',
-          label: 'Account',
-          icon: Settings,
-        },
-      ],
+      groupLabel: 'Account',
+      menus: accountSection,
     },
   ]
 }

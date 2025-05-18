@@ -10,8 +10,11 @@ import {
 } from '@/components/ui/card'
 
 import prisma from '@/prisma/db'
+import { getLoginUser } from '@/lib/auth-client'
 import { Calendar, Clock, Users } from 'lucide-react'
+import { headers } from 'next/headers'
 import { SearchBox, SelectExType } from './client'
+import { JoinClassButton } from './join-class-button'
 
 export default async function ClassesPage({
   searchParams,
@@ -19,6 +22,7 @@ export default async function ClassesPage({
   searchParams: Promise<{ q: string; category: string }>
 }) {
   const { q, category } = await searchParams
+  const currentUser = await getLoginUser(headers)
   
   const classes = await prisma.class.findMany({
     where: {
@@ -116,9 +120,14 @@ export default async function ClassesPage({
                   } className='whitespace-pre-line'>Schedule: {gymClass.schedule.split(',').slice(0,3).join(',')}...</p>
                 </div>
               </div>
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full">Book Class</Button>
+            </CardContent>            <CardFooter>
+              <JoinClassButton 
+                classId={gymClass.id}
+                enrolledClassId={currentUser?.enrolledClassId || null}
+                userRole={currentUser?.role || null}
+                membership={currentUser?.memberships || null}
+                isLoggedIn={!!currentUser}
+              />
             </CardFooter>
           </Card>
         ))}

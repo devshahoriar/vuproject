@@ -37,6 +37,18 @@ export const getLoginUser = cache(async (header: typeof headers) => {
   return u
 })
 
-export const notIsAdmin = (user: any) => {
+export const isAdmin = (user: any): boolean => {
+  return user?.role === 'ADMIN'
+}
+
+export const isInstructor = (user: any): boolean => {
+  return user?.role === 'INSTRUCTOR'
+}
+
+export const isRegularUser = (user: any): boolean => {
+  return user?.role === 'USER'
+}
+
+export const notIsAdmin = (user: any): boolean => {
   return user?.role !== 'ADMIN'
 }

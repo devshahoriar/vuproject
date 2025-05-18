@@ -11,7 +11,8 @@ import { getMenuList } from '@/lib/menu-list'
 import { cn } from '@/lib/utils'
 import { useRole } from './admin-panel-layout'
 import { signOut } from '@/lib/auth-client'
-
+import { Badge } from '@/components/ui/badge'
+import { UserRole } from '@/prisma/out'
 
 interface MenuProps {
   isOpen: boolean | undefined
@@ -23,9 +24,21 @@ export function Menu({ isOpen }: MenuProps) {
   const {replace} = useRouter()
   const menuList = getMenuList(role)
 
+  const roleColor = {
+    [UserRole.ADMIN]: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+    [UserRole.INSTRUCTOR]: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
+    [UserRole.USER]: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
+  }
+  
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
       <nav className="mt-3 h-[98%] w-full">
+        <div className="px-4 mb-6">
+          <Badge variant="outline" className={cn("px-3 py-1 w-full justify-center", roleColor[role])}>
+            {role === UserRole.ADMIN ? "Administrator" : 
+             role === UserRole.INSTRUCTOR ? "Instructor" : "Member"}
+          </Badge>
+        </div>
         <ul className="flex flex-col min-h-[calc(100vh-48px-36px-16px-32px)] lg:min-h-[calc(100vh-32px-40px-32px)] items-start space-y-1 px-2">
           {menuList.map(({ groupLabel, menus }, index) => (
             <li className={cn('w-full', groupLabel ? 'pt-5' : '')} key={index}>
@@ -80,10 +93,10 @@ export function Menu({ isOpen }: MenuProps) {
           ))}
           <li className="w-full grow flex items-end">
             <Button
-               onClick={async () => {
-                          await signOut()
-                          replace('/')
-                        }}
+              onClick={async () => {
+                await signOut()
+                replace('/')
+              }}
               variant="outline"
               className="w-full justify-center h-10 mt-5"
             >

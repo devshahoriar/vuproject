@@ -1,5 +1,5 @@
-import { ContentLayout } from '@/components/admin-panel/content-layout'
-import { getLoginUser, notIsAdmin, USER } from '@/lib/auth-client'
+import ProtectedPage from '@/components/shared/ProtectedPage'
+import { getLoginUser } from '@/lib/auth-client'
 import prisma from '@/prisma/db'
 import { countUser, getAllUser } from '@/query/get/user'
 import { UserRole } from '@/prisma/out'
@@ -7,18 +7,10 @@ import { GraduationCap, Shield, Users } from 'lucide-react'
 import { headers } from 'next/headers'
 import { UsersTable } from './client'
 
+export const dynamic = 'force-dynamic'
 
 const ManageUser = async () => {
-
-  const user = await getLoginUser(headers) as USER
-
-  if (notIsAdmin(user)) {
-    return (
-      <ContentLayout title="Users">
-        <h1>You have not permission this page.</h1>
-      </ContentLayout>
-    )
-  }
+  const user = await getLoginUser(headers)
 
   const [totalUser, adminCount, instructorCount, users] = await Promise.all([
     countUser(),
@@ -26,9 +18,11 @@ const ManageUser = async () => {
     prisma.user.count({ where: { role: UserRole.INSTRUCTOR } }),
     getAllUser(),
   ])
-
   return (
-    <ContentLayout title="Users">
+    <ProtectedPage 
+      permission="manage:users" 
+      title="User Management"
+      description="Manage gym members and user accounts">
       <div className="bg-background py-6 px-4 rounded-md w-full">
         <h2 className="text-xl font-semibold mb-4">Manage Users</h2>
         {/* Stats Grid */}
@@ -68,10 +62,10 @@ const ManageUser = async () => {
           </div>
         </div>
         <div className="mt-6">
-          <UsersTable users={users} currentUserId={user.id} />
+          <UsersTable users={users} currentUserId={user?.id} />
         </div>
       </div>
-    </ContentLayout>
+    </ProtectedPage>
   )
 }
 

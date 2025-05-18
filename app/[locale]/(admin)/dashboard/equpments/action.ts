@@ -3,6 +3,8 @@
 import { deleteFile, fileUpload } from '@/lib/FileMeneger'
 import prisma from '@/prisma/db'
 import { EquipmentFormValues } from './AddEqipment'
+import { revalidatePath } from 'next/cache'
+
 export const saveEqupment = async (data: EquipmentFormValues) => {
   let upImageId: string = ''
   try {
@@ -25,13 +27,43 @@ export const saveEqupment = async (data: EquipmentFormValues) => {
         name: name,
         active: active,
         remarks: remarks,
-
         imageId: nImg.id,
       },
     })
+    revalidatePath('/dashboard/equpments')
     return true
   } catch (error) {
     !!upImageId && (await deleteFile(upImageId))
+    throw error
+  }
+}
+
+export const updateEquipment = async (data: { 
+  id: number;
+  name: string;
+  desc: string;
+  active: boolean;
+  remarks?: string;
+}) => {
+  try {
+    const { id, active, desc, name, remarks } = data
+    
+    await prisma.equipment.update({
+      where: {
+        id: id
+      },
+      data: {
+        desc,
+        name,
+        active,
+        remarks: remarks || null,
+      },
+    })
+    
+    revalidatePath('/dashboard/equpments')
+    return true
+  } catch (error) {
+    console.error("Error updating equipment:", error)
     throw error
   }
 }
