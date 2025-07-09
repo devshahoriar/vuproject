@@ -12,6 +12,9 @@ import {
 } from '@/components/ui/table'
 import { getLoginUser } from '@/lib/auth-client'
 import { headers } from 'next/headers'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { History } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
@@ -47,7 +50,15 @@ const AdminEqupmentPage = async () => {
         <div className='text-muted-foreground'>
           Total Equipments: {eqs.length}
         </div>
-        <AddEquipment />
+        <div className='flex gap-2'>
+          <Link href="/dashboard/equpments/history">
+            <Button variant="outline">
+              <History className="mr-2 h-4 w-4" />
+              View History
+            </Button>
+          </Link>
+          <AddEquipment />
+        </div>
       </div>
 
       <Table>

@@ -29,13 +29,15 @@ model User {
   enrolledClassId Int?     @unique
   profileImage    File?    @relation(fields: [profileImageId], references: [id])
 
-  memberships     MembershipType  @default(USER)
-  Session         Session[]
-  Account         Account[]
-  teachingClasses Class[]         @relation("InstructorClass")
-  enrolledClass   Class?          @relation("StudentClass", fields: [enrolledClassId], references: [id])
-  payments        Payment[]
-  EquipmentUses   EquipmentUses[]
+  memberships        MembershipType     @default(USER)
+  Session            Session[]
+  Account            Account[]
+  teachingClasses    Class[]            @relation("InstructorClass")
+  enrolledClass      Class?             @relation("StudentClass", fields: [enrolledClassId], references: [id])
+  payments           Payment[]
+  EquipmentUses      EquipmentUses[]
+  reportedHistories  EquipmentHistory[] @relation("ReportedBy")
+  resolvedHistories  EquipmentHistory[] @relation("ResolvedBy")
 
   @@unique([email])
   @@map("user")
@@ -132,16 +134,17 @@ model Payment {
 }
 
 model Equipment {
-  id            Int             @id @default(autoincrement())
-  name          String          @unique
+  id            Int                @id @default(autoincrement())
+  name          String             @unique
   desc          String
   imageId       Int
-  image         File            @relation(fields: [imageId], references: [id])
-  active        Boolean         @default(true)
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  image         File               @relation(fields: [imageId], references: [id])
+  active        Boolean            @default(true)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
   remarks       String?
   EquipmentUses EquipmentUses[]
+  history       EquipmentHistory[]
 }
 
 model EquipmentUses {
@@ -156,4 +159,39 @@ model EquipmentUses {
   createdAt   DateTime  @default(now())
   classId     Int
   class       Class     @relation(fields: [classId], references: [id])
+}
+
+enum EquipmentHistoryType {
+  MAINTENANCE
+  REPAIR
+  DAMAGE
+  DESTROYED
+  MALFUNCTION
+  REPLACEMENT
+}
+
+enum EquipmentHistoryStatus {
+  REPORTED
+  IN_PROGRESS
+  RESOLVED
+  NEEDS_REPLACEMENT
+}
+
+model EquipmentHistory {
+  id           Int                    @id @default(autoincrement())
+  equipmentId  Int
+  equipment    Equipment              @relation(fields: [equipmentId], references: [id])
+  reportedById String
+  reportedBy   User                   @relation("ReportedBy", fields: [reportedById], references: [id])
+  title        String
+  description  String
+  type         EquipmentHistoryType
+  status       EquipmentHistoryStatus @default(REPORTED)
+  damagedBy    String?
+  repairCost   Float?
+  resolvedAt   DateTime?
+  resolvedById String?
+  resolvedBy   User?                  @relation("ResolvedBy", fields: [resolvedById], references: [id])
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
 }

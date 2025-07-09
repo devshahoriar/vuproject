@@ -14,6 +14,7 @@ import {
   User,
   UserCheck,
   Users,
+  Wrench,
 } from 'lucide-react'
 
 type Submenu = {
@@ -57,9 +58,19 @@ export function getMenuList(role: UserRole): Group[] {
     // Admin Menu Items
     ADMIN: [
       {
-        href: '/dashboard/equpments',
+        href: '',
         label: 'Equipment',
         icon: Grid2x2Plus,
+        submenus: [
+          {
+            href: '/dashboard/equpments',
+            label: 'Manage Equipment',
+          },
+          {
+            href: '/dashboard/equpments/history',
+            label: 'Equipment History',
+          },
+        ],
       },
       {
         href: '/dashboard/payments',
@@ -106,6 +117,21 @@ export function getMenuList(role: UserRole): Group[] {
         href: '/dashboard/attendance',
         label: 'Attendance',
         icon: UserCheck,
+      },
+      {
+        href: '',
+        label: 'Equipment',
+        icon: Wrench,
+        submenus: [
+          {
+            href: '/dashboard/equpments/report',
+            label: 'Report Issue',
+          },
+          {
+            href: '/dashboard/equpments/history',
+            label: 'View History',
+          },
+        ],
       },
     ],
 

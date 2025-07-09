@@ -5,6 +5,7 @@ export type Permission =
   | 'manage:users'      // Can view and edit all users
   | 'manage:instructors' // Can assign instructor roles  
   | 'manage:equipment'  // Can add/edit equipment
+  | 'view:equipment'    // Can view equipment and report issues
   | 'manage:classes'    // Can create/edit classes
   | 'manage:categories' // Can create/edit class categories
   | 'view:payments'     // Can view all payment history
@@ -18,12 +19,14 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     'manage:users',
     'manage:instructors',
     'manage:equipment',
+    'view:equipment',
     'manage:classes',
     'manage:categories',
     'view:payments'
   ],
   INSTRUCTOR: [
     'track:attendance',
+    'view:equipment',
     'view:own-classes'
   ],
   USER: [
