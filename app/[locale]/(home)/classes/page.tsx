@@ -15,6 +15,8 @@ import { Calendar, Clock, Users } from 'lucide-react'
 import { headers } from 'next/headers'
 import { SearchBox, SelectExType } from './client'
 import { JoinClassButton } from './join-class-button'
+import { EnrolledBadge } from './enrolled-badge'
+import { getUserEnrolledClass } from './actions'
 
 export default async function ClassesPage({
   searchParams,
@@ -23,6 +25,9 @@ export default async function ClassesPage({
 }) {
   const { q, category } = await searchParams
   const currentUser = await getLoginUser(headers)
+  
+  // Get user enrollment status directly from database to ensure it's up-to-date
+  const userEnrollmentData = await getUserEnrolledClass()
   
   const classes = await prisma.class.findMany({
     where: {
@@ -89,9 +94,9 @@ export default async function ClassesPage({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {classes.map(async (gymClass) => (
-          <Card key={gymClass.id}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">        {classes.map(async (gymClass) => (
+          <Card key={gymClass.id} className="relative">
+            <EnrolledBadge isEnrolled={userEnrollmentData?.enrolledClassId === gymClass.id} />
             <CardHeader>
               <ServerImage
                 src={gymClass.coverImage.url}
@@ -123,9 +128,9 @@ export default async function ClassesPage({
             </CardContent>            <CardFooter>
               <JoinClassButton 
                 classId={gymClass.id}
-                enrolledClassId={currentUser?.enrolledClassId || null}
-                userRole={currentUser?.role || null}
-                membership={currentUser?.memberships || null}
+                enrolledClassId={userEnrollmentData?.enrolledClassId || null}
+                userRole={userEnrollmentData?.role || null}
+                membership={userEnrollmentData?.memberships || null}
                 isLoggedIn={!!currentUser}
               />
             </CardFooter>

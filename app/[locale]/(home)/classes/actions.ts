@@ -6,16 +6,47 @@ import { MembershipType, UserRole } from '@/prisma/out'
 import { revalidatePath } from 'next/cache'
 import { cookies, headers } from 'next/headers'
 
+export async function getUserEnrolledClass() {
+  try {
+    const user = await getLoginUser(headers)
+    
+    if (!user) {
+      return null
+    }
+    
+    // Get fresh data directly from database
+    const userData = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: { 
+        enrolledClassId: true,
+        role: true,
+        memberships: true
+      }
+    })
+    
+    return userData
+  } catch (error) {
+    console.error('Error getting user enrolled class:', error)
+    return null
+  }
+}
+
 export async function joinClass(classId: number) {
   try {
-    const user = await getLoginUser(headers())
+    const user = await getLoginUser(headers)
     
     if (!user) {
       return { success: false, error: 'You must be logged in to join a class' }
     }
     
+    // Get fresh user data to ensure membership status is up to date
+    const freshUserData = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: { memberships: true }
+    })
+    
     // Check if the user has an active membership
-    if (user.memberships === MembershipType.USER) {
+    if (!freshUserData || freshUserData.memberships === MembershipType.USER) {
       return { 
         success: false, 
         error: 'You need an active membership to join classes. Please upgrade your membership plan.' 

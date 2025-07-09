@@ -58,7 +58,7 @@ export default function ContactPage() {
               </div>
               <div className="flex items-center">
                 <Phone className="w-6 h-6 mr-2 text-red-600" />
-                <p>(555) 123-4567</p>
+                <p>01791665458</p>
               </div>
               <div className="flex items-center">
                 <Mail className="w-6 h-6 mr-2 text-red-600" />

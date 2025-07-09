@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { MembershipType, UserRole } from "@/prisma/out"
 import { joinClass } from "./actions"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 
@@ -21,15 +21,17 @@ export function JoinClassButton({
   userRole, 
   membership,
   isLoggedIn
-}: JoinClassButtonProps) {
-  const [isLoading, setIsLoading] = useState(false)
+}: JoinClassButtonProps) {  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   
   const isEnrolled = enrolledClassId === classId
   const isInstructor = userRole === UserRole.INSTRUCTOR
   const hasValidMembership = membership && membership !== MembershipType.USER
-  
-  const handleJoinClass = async () => {
+  // Only do a soft refresh when mounted - hard navigation is causing issues
+  useEffect(() => {
+    router.refresh();
+  }, [])
+    const handleJoinClass = async () => {
     if (!isLoggedIn) {
       router.push(`/join?redirect=/classes`)
       return
@@ -40,11 +42,8 @@ export function JoinClassButton({
       return
     }
     
-    if (!hasValidMembership) {
-      toast.error("You need an active membership to join classes")
-      router.push('/membership')
-      return
-    }
+    // Skip the client-side membership check entirely and let the server action handle it
+    // This ensures we're using the most up-to-date data from the database
     
     try {
       setIsLoading(true)
@@ -62,13 +61,12 @@ export function JoinClassButton({
       setIsLoading(false)
     }
   }
-  
-  return (
+    return (
     <Button 
       className="w-full" 
       onClick={handleJoinClass}
       disabled={isLoading || isInstructor}
-      variant={isEnrolled ? "secondary" : "default"}
+      variant={isEnrolled ? "destructive" : "default"}
     >
       {isLoading ? "Processing..." : isEnrolled ? "Leave Class" : "Join Class"}
     </Button>

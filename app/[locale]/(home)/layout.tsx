@@ -86,8 +86,10 @@ const UserPageLayout = async (
                     <MapPin className="w-5 h-5 mr-2" /> 123 Fitness Street,
                     Gymville, GY 12345
                   </p>
-                  <p className="flex items-center mb-2">
-                    <Phone className="w-5 h-5 mr-2" /> (555) 123-4567
+                  <p className="flex items-center mb-2"> 
+                    
+                    <Phone className="w-5 h-5 mr-2" /> 
+                    01791665458
                   </p>
                   <p className="flex items-center">
                     <Mail className="w-5 h-5 mr-2" /> info@fitzone.com

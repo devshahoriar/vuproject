@@ -90,10 +90,7 @@ export function getMenuList(role: UserRole): Group[] {
             href: '/dashboard/manage-users',
             label: 'All Users',
           },
-          {
-            href: '/dashboard/instructors',
-            label: 'Instructors',
-          },
+          
         ],
       },
     ],
