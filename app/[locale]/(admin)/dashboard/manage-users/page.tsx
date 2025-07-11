@@ -62,7 +62,7 @@ const ManageUser = async () => {
           </div>
         </div>
         <div className="mt-6">
-          <UsersTable users={users} currentUserId={user?.id} />
+          <UsersTable users={users} currentUserId={user?.id as any} />
         </div>
       </div>
     </ProtectedPage>

@@ -38,6 +38,7 @@ model User {
   EquipmentUses      EquipmentUses[]
   reportedHistories  EquipmentHistory[] @relation("ReportedBy")
   resolvedHistories  EquipmentHistory[] @relation("ResolvedBy")
+  equipmentInstructions EquipmentInstruction[] @relation("InstructorInstructions")
 
   @@unique([email])
   @@map("user")
@@ -145,6 +146,21 @@ model Equipment {
   remarks       String?
   EquipmentUses EquipmentUses[]
   history       EquipmentHistory[]
+  instructions  EquipmentInstruction[]
+}
+
+model EquipmentInstruction {
+  id             Int       @id @default(autoincrement())
+  equipmentId    Int
+  equipment      Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  instructorId   String
+  instructor     User      @relation("InstructorInstructions", fields: [instructorId], references: [id])
+  title          String
+  description    String
+  youtubeUrl     String?
+  safetyNotes    String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model EquipmentUses {

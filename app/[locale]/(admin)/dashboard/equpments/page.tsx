@@ -10,11 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { Badge } from '@/components/ui/badge'
 import { getLoginUser } from '@/lib/auth-client'
 import { headers } from 'next/headers'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { History } from 'lucide-react'
+import { History, BookOpen } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
@@ -29,6 +30,11 @@ const getAllEquipments = async () => {
       image: {
         select: {
           url: true,
+        },
+      },
+      _count: {
+        select: {
+          instructions: true,
         },
       },
     },
@@ -67,6 +73,7 @@ const AdminEqupmentPage = async () => {
             <TableHead>Name</TableHead>
             <TableHead>Description</TableHead>
             <TableHead>Status</TableHead>
+            <TableHead>Instructions</TableHead>
             <TableHead>Remarks</TableHead>
             <TableHead>Image</TableHead>
             <TableHead>Actions</TableHead>
@@ -78,6 +85,11 @@ const AdminEqupmentPage = async () => {
               <TableCell>{equipment.name}</TableCell>
               <TableCell>{equipment.desc}</TableCell>
               <TableCell>{equipment.active ? 'Active' : 'Inactive'}</TableCell>
+              <TableCell>
+                <Badge variant={equipment._count.instructions > 0 ? 'default' : 'secondary'}>
+                  {equipment._count.instructions} instruction{equipment._count.instructions !== 1 ? 's' : ''}
+                </Badge>
+              </TableCell>
               <TableCell>{equipment.remarks || '-'}</TableCell>
               <TableCell>
                 {equipment.image?.url ? (
@@ -91,7 +103,15 @@ const AdminEqupmentPage = async () => {
                 )}
               </TableCell>
               <TableCell>
-                <EditEquipment equipment={equipment} />
+                <div className="flex gap-2">
+                  <Link href={`/dashboard/equpments/instructions/${equipment.id}`}>
+                    <Button variant="outline" size="sm">
+                      <BookOpen className="mr-1 h-3 w-3" />
+                      Instructions
+                    </Button>
+                  </Link>
+                  <EditEquipment equipment={equipment} />
+                </div>
               </TableCell>
             </TableRow>
           ))}
