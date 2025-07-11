@@ -2,6 +2,7 @@ import { UserRole } from '@/prisma/out'
 import {
   BadgeDollarSign,
   Blinds,
+  BookOpen,
   CalendarDays,
   CreditCard,
   Grid2x2Plus,
@@ -43,6 +44,12 @@ export function getMenuList(role: UserRole): Group[] {
       href: '/dashboard',
       label: 'Dashboard',
       icon: LayoutGrid,
+      submenus: [],
+    },
+    {
+      href: '/dashboard/equipment-instructions',
+      label: 'Equipment Instructions',
+      icon: BookOpen,
       submenus: [],
     },
     {
