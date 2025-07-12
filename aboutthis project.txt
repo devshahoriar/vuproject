@@ -1,0 +1,857 @@
+# FitZone Gym Management System
+
+## Chapter 1: Introduction
+
+### 1.1 Problem and Motivation
+
+In most modern fitness centers and gym facilities, member management, attendance tracking, and equipment monitoring are still handled through manual processes or outdated systems. This creates numerous challenges that significantly impact operational efficiency and member satisfaction:
+
+**Current Industry Problems:**
+- **Manual Attendance Tracking**: Many gyms still rely on paper-based sign-in sheets or basic card-swipe systems that are time-consuming, error-prone, and provide limited insights into member behavior and facility usage patterns.
+
+- **Equipment Management Issues**: Gym equipment maintenance is often reactive rather than proactive, leading to unexpected breakdowns, safety hazards, and member dissatisfaction. Equipment usage instructions are typically provided through static posters or verbal explanations, which are inconsistent and often inadequate.
+
+- **Fragmented Payment Systems**: Most gyms use separate systems for membership payments, class bookings, and additional services, creating confusion for both members and staff while making financial tracking and reporting cumbersome.
+
+- **Limited Member Engagement**: Traditional gym systems provide minimal interaction between members and the facility, resulting in poor communication about class schedules, equipment availability, maintenance updates, and member progress tracking.
+
+- **Administrative Overhead**: Gym staff spend excessive time on manual administrative tasks such as generating reports, tracking attendance, managing class enrollments, and handling membership renewals, reducing time available for member service and facility improvement.
+
+- **Data Security and Accessibility**: Paper-based systems and legacy software pose significant risks for data loss, security breaches, and limited accessibility. Staff cannot access critical information remotely, and data backup and recovery processes are often inadequate.
+
+- **Scalability Limitations**: As gyms grow or expand to multiple locations, manual systems become increasingly difficult to manage, leading to inconsistencies in service delivery and operational inefficiencies.
+
+To address these critical challenges, I have developed a comprehensive web-based gym management system that digitizes and streamlines all aspects of fitness center operations. This system is fully responsive and accessible from mobile devices, tablets, and desktop computers, ensuring that users can access essential functions regardless of their location or device preference. The system maintains secure, centralized records that can be accessed instantly without time-consuming manual processes.
+
+### 1.2 Purpose and Objectives
+
+#### 1.2.1 Purpose
+
+The primary purpose of the FitZone Gym Management System is to create a comprehensive, web-based solution that revolutionizes how fitness centers operate and interact with their members. The system is designed to be fully responsive, flexible, and accessible from any internet-connected device, eliminating the constraints of location-specific access.
+
+**Core System Characteristics:**
+- **Web-Based Architecture**: Enables access from anywhere with an internet connection, supporting remote management and member self-service capabilities
+- **Multi-Platform Compatibility**: Optimized for mobile phones, tablets, and desktop computers with consistent user experience across all devices
+- **Real-Time Data Processing**: Instant updates and synchronization across all system components ensure data accuracy and immediate availability
+- **Role-Based Access Control**: Sophisticated permission system that provides appropriate access levels for gym owners, staff, instructors, and members
+
+**Primary Operational Goals:**
+The system aims to automate gym attendance tracking by providing digital check-in capabilities for members and classes. Members can be marked present or absent through various methods including instructor-managed attendance, self-check-in systems, and automated equipment usage tracking. The attendance data is automatically calculated and stored in the database, generating comprehensive reports without manual intervention.
+
+Member engagement is enhanced through real-time notifications about class schedules, equipment maintenance, membership status, and attendance patterns. The system provides members with detailed insights into their gym usage, helping them track progress and maintain consistent workout routines.
+
+For gym administrators and staff, the system generates automated reports for attendance tracking, equipment usage, financial transactions, and member analytics. These reports can be customized by date range, member demographics, class types, and various other parameters, providing valuable insights for business decision-making.
+
+#### 1.2.2 Objectives
+
+The FitZone Gym Management System is designed to achieve the following specific objectives:
+
+**Data Management Objectives:**
+- **Eliminate Duplicate Data Entry**: Implement a centralized database system that ensures each piece of information is entered once and automatically propagated throughout the system, reducing errors and administrative overhead
+- **Automated Calculations**: Provide real-time calculation of attendance percentages, membership fees, equipment usage statistics, and financial summaries without manual intervention
+- **Error Reduction**: Minimize human errors through automated processes, data validation, and consistent workflows across all system modules
+
+**Operational Efficiency Objectives:**
+- **Paperless Operations**: Completely eliminate paper-based processes for attendance tracking, membership management, equipment monitoring, and administrative tasks
+- **Time Optimization**: Reduce time spent on routine administrative tasks by at least 75% through automation and streamlined workflows
+- **Enhanced Security**: Implement role-based access control, secure authentication, and encrypted data transmission to protect sensitive member and business information
+
+**Member Experience Objectives:**
+- **Improved Accessibility**: Provide 24/7 access to member portals, class schedules, and facility information through responsive web interfaces
+- **Real-Time Updates**: Deliver instant notifications about class changes, equipment status, membership renewals, and facility announcements
+- **Self-Service Capabilities**: Enable members to manage their profiles, view attendance history, book classes, and handle routine account maintenance independently
+
+**Business Intelligence Objectives:**
+- **Comprehensive Reporting**: Generate detailed analytics on member behavior, equipment utilization, class popularity, and revenue patterns
+- **Predictive Insights**: Provide data-driven recommendations for facility improvements, class scheduling optimization, and member retention strategies
+- **Performance Monitoring**: Track key performance indicators (KPIs) for facility operations, staff productivity, and member satisfaction
+
+### 1.3 Goals
+
+The following strategic goals were established during the system design and development process to ensure the FitZone Gym Management System meets both immediate operational needs and long-term business objectives:
+
+**Automation and Efficiency Goals:**
+- **Reduce Manual Workload**: Minimize manual data entry, paper-based processes, and repetitive administrative tasks by implementing comprehensive automation throughout the system
+- **Improve Data Accuracy**: Eliminate human errors inherent in manual processes by implementing automated data validation, calculation, and reporting mechanisms
+- **Enhance System Reliability**: Ensure consistent and accurate output through standardized processes, automated backups, and robust error handling
+
+**User Experience Goals:**
+- **Intuitive Interface Design**: Create a completely menu-driven, user-friendly interface that requires minimal training for effective use, enabling even non-technical users to operate the system efficiently
+- **Universal Accessibility**: Design the system to accommodate users with varying technical expertise levels, ensuring that the system acts as a catalyst for achieving organizational objectives rather than a barrier
+- **Responsive Design**: Provide optimal user experience across all device types and screen sizes, maintaining functionality and aesthetics from mobile phones to large desktop displays
+
+**System Integration Goals:**
+- **Seamless Compatibility**: Ensure the system integrates smoothly with existing gym infrastructure, payment processors, and third-party services without disrupting current operations
+- **Scalable Architecture**: Design the system architecture to accommodate future growth, additional features, and integration with emerging fitness technology and IoT devices
+- **Cross-Platform Functionality**: Maintain consistent performance and feature availability across different operating systems, browsers, and mobile platforms
+
+**Maintenance and Enhancement Goals:**
+- **Simplified Maintenance**: Design the system architecture to minimize ongoing maintenance requirements while maximizing system uptime and performance
+- **Future-Proof Design**: Implement modern development practices and technologies that support easy feature additions, updates, and technology migrations
+- **Cost-Effective Operation**: Optimize system resources and operational costs while maintaining high performance and reliability standards
+
+**Business Continuity Goals:**
+- **High Reliability**: Ensure maximum system uptime through robust infrastructure, automated backups, and disaster recovery procedures
+- **Data Security**: Implement comprehensive security measures to protect sensitive member information, financial data, and business intelligence
+- **Compliance Standards**: Meet industry standards for data protection, accessibility, and business operations in the fitness industry
+
+### 1.4 System Features
+
+The FitZone Gym Management System incorporates a comprehensive set of features designed to address every aspect of modern fitness center operations:
+
+**Core System Characteristics:**
+- **Fully Automated Web-Based Platform**: Eliminates manual processes through intelligent automation and provides easy accessibility from any internet-connected device
+- **Universal Compatibility**: No software installation required - operates seamlessly in any modern web browser with consistent functionality across all platforms
+- **Zero Paperwork Operations**: Completely eliminates paper-based processes and the associated risks of data loss, damage, or human error in manual record-keeping
+- **Error Prevention Systems**: Advanced data validation and duplicate detection mechanisms ensure data integrity and eliminate common input errors
+
+**User Interface and Experience Features:**
+- **Intuitive Design**: Simple, clean interface that requires minimal training for effective use across all user roles and technical expertise levels
+- **Secure Data Management**: Multi-layered security protocols ensure all member information, financial data, and business records remain safe and confidential
+- **Instant Data Access**: Current and historical records are available immediately, supporting real-time decision-making and member service
+- **Global Accessibility**: Available 24/7 from any location worldwide with internet connectivity, supporting remote management and member self-service
+
+**Member-Centric Features:**
+- **Personal Dashboard**: Members can easily view their daily attendance, class schedules, membership status, and usage patterns through personalized interfaces
+- **Real-Time Notifications**: Automated alerts for class schedules, membership renewals, equipment maintenance, and important facility announcements
+- **Progress Tracking**: Comprehensive attendance analytics and usage statistics help members track their fitness journey and maintain consistent workout routines
+- **Self-Service Capabilities**: Members can update personal information, manage class enrollments, and access facility information independently
+
+**Administrative and Operational Features:**
+- **Comprehensive Reporting**: Generate detailed reports on attendance patterns, equipment utilization, financial performance, and member analytics with customizable parameters
+- **Equipment Management**: Full lifecycle tracking of gym equipment including maintenance schedules, usage statistics, issue reporting, and replacement planning
+- **Financial Integration**: Seamless payment processing, subscription management, and financial reporting with support for multiple payment methods and currencies
+- **Class Management**: Complete system for creating, scheduling, and managing fitness classes with instructor assignment and member enrollment capabilities
+
+### 1.5 System Requirements
+
+#### 1.5.1 Hardware Requirements
+
+**Development Environment:**
+- **Primary Development Machine**: Modern desktop computer or laptop with minimum 8GB RAM and SSD storage for optimal development experience
+- **Display Requirements**: Minimum 1920x1080 resolution display for effective code editing and testing across multiple screen sizes
+- **Network Infrastructure**: Stable broadband internet connection (minimum 25 Mbps) for cloud services, version control, and remote collaboration
+
+**Production Environment:**
+- **Server Infrastructure**: Cloud-based hosting solution (AWS, Vercel, or DigitalOcean) with auto-scaling capabilities to handle varying user loads
+- **Database Server**: PostgreSQL-compatible server with minimum 4GB RAM and SSD storage for optimal query performance
+- **CDN Integration**: Content Delivery Network for global asset distribution and improved loading speeds
+- **Load Balancing**: Distributed architecture to ensure high availability and performance during peak usage periods
+
+**Client-Side Requirements:**
+- **End-User Devices**: Any device with a modern web browser - smartphones, tablets, laptops, or desktop computers
+- **Minimum Browser Support**: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+ for optimal compatibility and security
+- **Network Connection**: Minimum 1 Mbps internet connection for basic functionality, 5 Mbps recommended for optimal experience
+- **Storage Requirements**: Minimal local storage needed - system operates primarily through cloud-based infrastructure
+
+#### 1.5.2 Software Requirements
+
+**Backend Technology Stack:**
+- **Runtime Environment**: Node.js 18+ LTS for server-side JavaScript execution and optimal performance
+- **Web Framework**: Next.js 15 with App Router for modern React-based full-stack development
+- **Database System**: PostgreSQL 14+ for robust relational data management and ACID compliance
+- **ORM Framework**: Prisma for type-safe database operations and schema management
+- **Caching Layer**: Redis 6+ for session management and performance optimization
+
+**Frontend Development Stack:**
+- **JavaScript Framework**: React 19+ with TypeScript for type-safe, component-based user interface development
+- **Styling Framework**: Tailwind CSS for utility-first styling and responsive design implementation
+- **UI Component Library**: Radix UI for accessible, unstyled components with custom theming capabilities
+- **Animation Library**: Framer Motion for smooth transitions and micro-interactions
+
+**Development Tools and Environment:**
+- **Code Editor**: Visual Studio Code with TypeScript, Prisma, and React extensions for enhanced development experience
+- **Version Control**: Git with GitHub for collaborative development and code management
+- **Package Manager**: PNPM for efficient dependency management and workspace organization
+- **Build Tools**: Next.js built-in bundling with Webpack and SWC for optimized production builds
+
+**Production and Deployment:**
+- **Hosting Platform**: Vercel, AWS, or DigitalOcean for scalable web application deployment
+- **Database Hosting**: Managed PostgreSQL service (AWS RDS, DigitalOcean Managed Databases, or Supabase)
+- **File Storage**: ImageKit or AWS S3 for optimized image storage and delivery
+- **Email Services**: Resend or SendGrid for transactional email delivery
+- **Payment Processing**: Stripe for secure payment processing and subscription management
+
+**Security and Monitoring:**
+- **Authentication**: Better Auth for secure user authentication and session management
+- **SSL Certification**: Automatic HTTPS encryption for all data transmission
+- **Error Monitoring**: Sentry or similar service for real-time error tracking and performance monitoring
+- **Analytics**: Privacy-focused analytics solution for user behavior insights and system performance tracking
+
+## Project Overview
+Building upon the foundational requirements and objectives outlined above, FitZone represents a comprehensive web-based gym management system that addresses the critical pain points identified in modern fitness center operations. This system serves as both a customer-facing website and an administrative dashboard for managing all aspects of a fitness center, providing a unified platform that streamlines operations while enhancing member experience.
+
+## Key Features
+
+### 🏠 Public Website
+- **Landing Page**: Modern, responsive homepage with hero section featuring gym facilities
+- **Membership Plans**: Multiple tier plans (Basic $29/month, Pro $49/month, Elite $79/month)
+- **About Us**: Information about the gym, trainers, and mission
+- **Contact Page**: Location, hours, and contact information
+- **User Authentication**: Sign up, login, password recovery, and email verification
+
+### 👥 User Management System
+- **Multi-Role Support**: 
+  - **USER**: Regular gym members
+  - **INSTRUCTOR**: Fitness trainers and class instructors
+  - **ADMIN**: Full system administrators
+- **User Profiles**: Complete profile management with images
+- **Membership Types**: USER, BASIC, PRO, ELIT with different access levels
+
+### 💳 Payment & Subscription Management
+- **Stripe Integration**: Secure payment processing for memberships
+- **Multiple Plans**: Flexible pricing tiers with different features
+- **Payment History**: Complete transaction tracking
+- **Subscription Management**: Automatic renewals and plan upgrades
+
+### 🏃 Class Management
+- **Class Categories**: Organize fitness classes by type (Cardio, Strength, Yoga, etc.)
+- **Class Scheduling**: Instructors can create and manage classes
+- **Student Enrollment**: Members can join available classes
+- **Attendance Tracking**: Digital attendance system for class participation
+
+### 🏋️ Equipment Management
+- **Equipment Inventory**: Complete database of gym equipment with images
+- **Equipment Instructions**: Step-by-step usage guides with YouTube videos
+- **Equipment History**: Track maintenance, repairs, and issues
+- **Issue Reporting**: Users can report equipment problems
+- **Status Tracking**: Monitor equipment condition (Good, Has Issues, Needs Replacement, Inactive)
+- **Maintenance Records**: Track repair costs and resolution status
+
+### 📊 Dashboard System
+**Admin Dashboard:**
+- Equipment management (add, edit, deactivate)
+- User management (view all members, assign roles)
+- Payment tracking and reports
+- Class and category management
+- Equipment history and maintenance overview
+
+**Instructor Dashboard:**
+- My Classes overview
+- Student attendance tracking
+- Equipment issue reporting
+- Equipment usage instructions
+
+**User Dashboard:**
+- My membership status and details
+- Enrolled classes
+- Equipment usage instructions
+- Personal profile management
+
+### 🌐 Internationalization
+- **Multi-language Support**: English and Bengali languages
+- **Localized Content**: Dynamic content translation
+- **Cultural Adaptation**: Supports different cultural contexts
+
+## Technical Architecture
+
+### Frontend Technologies
+- **Next.js 15**: React framework with App Router
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first CSS framework
+- **Radix UI**: Accessible component library
+- **Framer Motion**: Smooth animations
+- **React Hook Form**: Form management with validation
+- **Zod**: Schema validation
+
+### Backend Technologies
+- **Server Actions**: Next.js server-side functions
+- **Better Auth**: Modern authentication system
+- **Prisma ORM**: Database management and queries
+- **PostgreSQL**: Primary database
+- **Redis**: Caching and session management
+
+### Key Integrations
+- **Stripe**: Payment processing
+- **ImageKit**: Image upload and optimization
+- **Resend**: Email services
+- **NextJS TopLoader**: Loading indicators
+
+### File Structure
+```
+/app/[locale]/
+├── (admin)/          # Dashboard routes for all user roles
+├── (home)/           # Public website routes
+└── api/              # API routes (mainly for auth)
+
+/components/
+├── admin-panel/      # Dashboard-specific components
+├── shared/           # Reusable components
+├── ui/               # Base UI components
+└── providers/        # Context providers
+
+/lib/                 # Utility functions and configurations
+/prisma/             # Database schema and migrations
+/locales/            # Internationalization files
+/query/              # Data fetching functions
+```
+
+## Database Schema
+The system uses a comprehensive relational database with the following main entities:
+- **Users**: Member profiles and authentication
+- **Classes**: Fitness class information and scheduling
+- **Equipment**: Gym equipment inventory and specifications
+- **EquipmentHistory**: Maintenance and issue tracking
+- **EquipmentUses**: Usage tracking and attendance
+- **Payments**: Transaction and subscription records
+- **Files**: Image and document management
+
+## Development Approach
+- **Server-First**: Leverages Next.js server components and actions
+- **Type Safety**: Full TypeScript implementation
+- **Component-Based**: Modular, reusable UI components
+- **Database-First**: Prisma schema drives application structure
+- **Progressive Enhancement**: Works without JavaScript for core features
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+
+## Deployment & Environment
+- **Package Manager**: PNPM for efficient dependency management
+- **Development Tools**: ESLint, Prettier, TypeScript compiler
+- **Image Optimization**: Next.js Image component with ImageKit
+- **Caching Strategy**: Redis for session and data caching
+- **Security**: CSRF protection, secure authentication, input validation
+
+## Project Goals
+This gym management system aims to:
+1. **Digitize Operations**: Replace manual processes with automated systems
+2. **Improve Member Experience**: Easy membership management and class booking
+3. **Streamline Administration**: Centralized dashboard for gym management
+4. **Equipment Maintenance**: Proactive equipment monitoring and maintenance tracking
+5. **Financial Management**: Transparent payment processing and subscription tracking
+6. **Scalability**: Built to handle growing membership and multiple locations
+
+## Target Users
+- **Gym Owners**: Complete business management solution
+- **Gym Members**: Easy access to services and information
+- **Fitness Instructors**: Class and student management tools
+- **Gym Staff**: Daily operations and member support
+
+This project demonstrates modern web development practices while solving real-world business challenges in the fitness industry.
+
+## Detailed System Architecture
+
+### Frontend Architecture
+The frontend follows a modern component-based architecture using Next.js 15 with the App Router pattern. The application is structured as a monorepo with clear separation of concerns:
+
+**Component Hierarchy:**
+- **UI Components** (`/components/ui/`): Base components built on Radix UI primitives including buttons, forms, dialogs, tables, cards, and navigation elements
+- **Shared Components** (`/components/shared/`): Reusable business logic components like EquipmentHistoryForm, ProtectedPage, PaymentButton, and ThemeControl
+- **Admin Panel Components** (`/components/admin-panel/`): Specialized dashboard components for equipment management, user navigation, and administrative oversight
+
+**State Management:**
+- **Zustand**: Lightweight state management for client-side state
+- **React Hook Form**: Form state management with Zod validation
+- **Server State**: Leveraged through Next.js Server Components and Server Actions
+- **Theme Management**: Next-themes for dark/light mode switching
+
+**Styling Architecture:**
+- **Tailwind CSS**: Utility-first CSS framework with custom configuration
+- **CSS Variables**: For dynamic theming and color management
+- **Responsive Design**: Mobile-first approach with breakpoint-specific styling
+- **Animation**: Framer Motion for smooth transitions and micro-interactions
+
+### Backend Architecture
+
+**Database Design:**
+The PostgreSQL database is designed with a normalized relational schema optimized for gym operations:
+
+```sql
+-- Core User Management
+User Table:
+- Multi-role support (USER, ADMIN, INSTRUCTOR)
+- Profile management with image uploads
+- Membership type tracking
+- Suspension capabilities for account management
+
+-- Class Management System
+Class Table:
+- Instructor assignment and management
+- Category-based organization
+- Duration and scheduling information
+- Student enrollment tracking
+
+ClassCategory Table:
+- Hierarchical class organization
+- Flexible categorization system
+
+-- Equipment Management
+Equipment Table:
+- Complete equipment inventory
+- Status tracking (active/inactive)
+- Image and description management
+- Maintenance notes and remarks
+
+EquipmentHistory Table:
+- Comprehensive maintenance tracking
+- Issue reporting and resolution
+- Cost tracking for repairs
+- Status progression (REPORTED → IN_PROGRESS → RESOLVED)
+- Multiple issue types (MAINTENANCE, REPAIR, DAMAGE, DESTROYED, MALFUNCTION, REPLACEMENT)
+
+EquipmentUses Table:
+- Usage tracking and attendance correlation
+- Time-based usage records
+- Class and user association
+
+EquipmentInstruction Table:
+- Step-by-step usage guides
+- YouTube video integration
+- Safety notes and warnings
+- Instructor-created content
+
+-- Payment and Subscription Management
+Payment Table:
+- Stripe integration for secure transactions
+- Multiple currency support
+- Subscription type tracking
+- Payment status management
+
+-- File Management
+File Table:
+- Centralized file storage with ImageKit
+- URL management and optimization
+- Association with multiple entities
+```
+
+**Server Actions Architecture:**
+The application uses Next.js Server Actions as the primary backend API, providing type-safe server-side operations:
+
+```typescript
+// Equipment Management Actions
+- createEquipment(): Add new equipment with image upload
+- updateEquipment(): Modify equipment details and status
+- deleteEquipment(): Remove equipment from inventory
+- getEquipmentWithHistory(): Retrieve equipment with maintenance records
+
+// Equipment History Actions
+- createEquipmentHistory(): Report equipment issues
+- updateEquipmentHistoryStatus(): Progress issue resolution
+- getEquipmentHistory(): Retrieve maintenance records
+
+// Class Management Actions
+- createClass(): Instructor class creation
+- enrollStudent(): Student class enrollment
+- markAttendance(): Digital attendance tracking
+
+// User Management Actions
+- updateUserRole(): Admin role assignment
+- suspendUser(): Account suspension management
+- getUsersByRole(): Role-based user retrieval
+
+// Payment Actions
+- createPaymentSession(): Stripe checkout session creation
+- processPayment(): Payment processing and verification
+- updateSubscription(): Membership plan changes
+```
+
+### Authentication and Authorization
+
+**Authentication Flow:**
+The system implements a comprehensive authentication system using Better Auth:
+
+1. **Registration Process:**
+   - Email-based registration with verification
+   - Phone number validation (optional)
+   - Profile image upload capability
+   - Automatic role assignment (default: USER)
+
+2. **Login System:**
+   - Email/password authentication
+   - Session management with Redis
+   - Remember me functionality
+   - Account lockout protection
+
+3. **Password Management:**
+   - Secure password hashing with bcrypt
+   - Password reset via email tokens
+   - Password strength requirements
+   - Account recovery mechanisms
+
+**Authorization Matrix:**
+```typescript
+// Role-based permissions system
+ADMIN Permissions:
+- manage:equipment (CRUD operations)
+- manage:users (view, edit, suspend, role assignment)
+- manage:classes (create, edit, delete, assign instructors)
+- manage:payments (view all transactions, refunds)
+- view:analytics (comprehensive reporting)
+
+INSTRUCTOR Permissions:
+- manage:own-classes (create, edit own classes)
+- view:students (enrolled students only)
+- manage:attendance (mark student attendance)
+- report:equipment-issues (maintenance reporting)
+- view:equipment-instructions (safety guidelines)
+
+USER Permissions:
+- view:own-profile (personal information)
+- manage:own-membership (subscription management)
+- enroll:classes (join available classes)
+- view:equipment-instructions (usage guidelines)
+- view:own-payments (personal transaction history)
+```
+
+### Payment Integration Architecture
+
+**Stripe Integration:**
+The payment system is built around Stripe's robust payment processing platform:
+
+```typescript
+// Payment Flow Architecture
+1. Plan Selection:
+   - Basic Plan ($29/month): Standard gym access
+   - Pro Plan ($49/month): Includes group classes
+   - Elite Plan ($79/month): Full access with personal training
+
+2. Checkout Process:
+   - Stripe Checkout session creation
+   - Secure payment processing
+   - Automatic subscription creation
+   - Email confirmation and receipts
+
+3. Subscription Management:
+   - Plan upgrades and downgrades
+   - Proration calculations
+   - Cancellation handling
+   - Failed payment recovery
+
+4. Webhook Processing:
+   - Real-time payment status updates
+   - Membership activation/deactivation
+   - Dunning management for failed payments
+```
+
+**Payment Security:**
+- PCI DSS compliance through Stripe
+- Secure API key management
+- Webhook signature verification
+- Transaction encryption and logging
+
+### Equipment Management System
+
+**Equipment Lifecycle Management:**
+The equipment management system provides comprehensive tracking from acquisition to disposal:
+
+```typescript
+// Equipment Status Flow
+1. Equipment Registration:
+   - Initial equipment entry with specifications
+   - Image upload and documentation
+   - QR code generation for quick access
+   - Initial condition assessment
+
+2. Usage Tracking:
+   - Real-time usage monitoring
+   - User association and time tracking
+   - Class-based equipment allocation
+   - Usage pattern analysis
+
+3. Maintenance Management:
+   - Preventive maintenance scheduling
+   - Issue reporting by users and staff
+   - Maintenance cost tracking
+   - Vendor management and service records
+
+4. Issue Resolution Workflow:
+   REPORTED → IN_PROGRESS → RESOLVED/NEEDS_REPLACEMENT
+   - Automatic notifications to maintenance staff
+   - Priority-based issue handling
+   - Cost estimation and approval workflows
+   - Completion verification and sign-off
+
+5. Equipment Retirement:
+   - End-of-life assessment
+   - Disposal documentation
+   - Replacement planning and procurement
+```
+
+**Equipment Instruction System:**
+Comprehensive safety and usage instruction management:
+
+```typescript
+// Instruction Components
+1. Step-by-Step Guides:
+   - Detailed written instructions
+   - Visual aids and diagrams
+   - Video demonstrations (YouTube integration)
+   - Beginner to advanced progressions
+
+2. Safety Protocols:
+   - Mandatory safety checks
+   - Warning systems and alerts
+   - Emergency procedures
+   - Injury prevention guidelines
+
+3. Instructor Content Management:
+   - Instructor-created content
+   - Peer review and approval process
+   - Version control and updates
+   - Multi-language support
+```
+
+### Class Management and Attendance System
+
+**Class Architecture:**
+The class management system supports various fitness program types:
+
+```typescript
+// Class Types and Categories
+1. Cardio Classes:
+   - Spinning/Cycling
+   - Aerobics and Dance
+   - HIIT (High-Intensity Interval Training)
+   - Running and Treadmill Classes
+
+2. Strength Training:
+   - Weight Lifting Workshops
+   - Bodybuilding Classes
+   - Functional Fitness
+   - CrossFit-style Workouts
+
+3. Flexibility and Recovery:
+   - Yoga (various styles)
+   - Pilates
+   - Stretching and Mobility
+   - Meditation and Mindfulness
+
+4. Specialty Programs:
+   - Senior Fitness
+   - Youth Programs
+   - Rehabilitation Classes
+   - Nutrition Workshops
+```
+
+**Attendance Tracking System:**
+Digital attendance management with comprehensive reporting:
+
+```typescript
+// Attendance Features
+1. Real-time Check-in:
+   - Instructor-managed attendance
+   - Student self-check-in options
+   - Late arrival tracking
+   - Early departure notifications
+
+2. Attendance Analytics:
+   - Individual student progress tracking
+   - Class popularity analysis
+   - Instructor performance metrics
+   - Capacity optimization insights
+
+3. Automated Reporting:
+   - Daily attendance summaries
+   - Weekly and monthly reports
+   - Trend analysis and forecasting
+   - Integration with membership benefits
+```
+
+### User Experience and Interface Design
+
+**Design Philosophy:**
+The user interface follows modern design principles with a focus on accessibility and usability:
+
+```typescript
+// Design System Components
+1. Color Palette:
+   - Primary: Red (#dc2626) - Energy and motivation
+   - Secondary: Gray scales for neutral elements
+   - Success: Green for positive actions
+   - Warning: Yellow for attention items
+   - Error: Red variants for error states
+
+2. Typography Hierarchy:
+   - Poppins font family for Latin text
+   - Hind Siliguri for Bengali language support
+   - Responsive font sizing with clamp() functions
+   - Clear information hierarchy
+
+3. Component Design:
+   - Card-based layouts for content organization
+   - Consistent spacing and padding
+   - Subtle shadows and borders
+   - Smooth hover and focus states
+
+4. Responsive Breakpoints:
+   - Mobile-first approach
+   - Tablet optimization (768px+)
+   - Desktop enhancement (1024px+)
+   - Large screen adaptation (1280px+)
+```
+
+**Accessibility Features:**
+- ARIA labels and descriptions
+- Keyboard navigation support
+- Screen reader compatibility
+- High contrast mode support
+- Focus management and indicators
+
+### Internationalization Implementation
+
+**Multi-language Architecture:**
+The application supports multiple languages with dynamic content loading:
+
+```typescript
+// Language Support Structure
+1. Language Files:
+   - English (en.ts): Primary language
+   - Bengali (bn.ts): Secondary language support
+   - Namespace organization for different sections
+   - Pluralization rules and formatting
+
+2. Content Management:
+   - Server-side translation loading
+   - Client-side language switching
+   - Context-aware translations
+   - Date and number localization
+
+3. Cultural Adaptations:
+   - Currency formatting (USD, BDT)
+   - Date format preferences
+   - Cultural color associations
+   - Text direction support (future RTL)
+```
+
+### Performance Optimization
+
+**Frontend Performance:**
+- Next.js Image optimization with lazy loading
+- Component code splitting and dynamic imports
+- Service Worker implementation for offline support
+- CDN integration through ImageKit
+- Bundle size optimization with tree shaking
+
+**Backend Performance:**
+- Database query optimization with Prisma
+- Redis caching for frequently accessed data
+- Database connection pooling
+- Indexed queries for performance-critical operations
+- Background job processing for heavy operations
+
+**Monitoring and Analytics:**
+- Error tracking and logging
+- Performance monitoring with Web Vitals
+- User behavior analytics
+- Database performance monitoring
+- Payment transaction tracking
+
+### Security Implementation
+
+**Application Security:**
+```typescript
+// Security Measures
+1. Authentication Security:
+   - Secure password hashing (bcrypt)
+   - Session management with Redis
+   - CSRF protection on forms
+   - Rate limiting on sensitive endpoints
+
+2. Data Protection:
+   - Input validation with Zod schemas
+   - SQL injection prevention through Prisma
+   - XSS protection with React's built-in sanitization
+   - File upload validation and restrictions
+
+3. API Security:
+   - Server Action authentication checks
+   - Role-based authorization middleware
+   - Secure environment variable management
+   - HTTPS enforcement in production
+
+4. Payment Security:
+   - PCI DSS compliance through Stripe
+   - Webhook signature verification
+   - Secure API key storage
+   - Transaction encryption
+```
+
+### Development Workflow and Best Practices
+
+**Code Quality Standards:**
+```typescript
+// Development Practices
+1. TypeScript Implementation:
+   - Strict type checking enabled
+   - Custom type definitions for business logic
+   - Interface segregation principles
+   - Generic type usage for reusability
+
+2. Component Architecture:
+   - Single Responsibility Principle
+   - Props interface definitions
+   - Error boundary implementation
+   - Loading state management
+
+3. Testing Strategy:
+   - Unit tests for utility functions
+   - Component testing with React Testing Library
+   - Integration tests for critical user flows
+   - End-to-end testing for payment flows
+
+4. Code Organization:
+   - Feature-based folder structure
+   - Consistent naming conventions
+   - Import/export organization
+   - Documentation and comments
+```
+
+**Deployment and DevOps:**
+- Continuous Integration with GitHub Actions
+- Environment-specific configurations
+- Database migration management
+- Asset optimization and minification
+- Error monitoring and alerting
+
+### Future Enhancement Roadmap
+
+**Phase 1 Enhancements:**
+- Mobile application development (React Native)
+- Advanced reporting and analytics dashboard
+- Integration with fitness tracking devices
+- Automated billing and invoicing system
+
+**Phase 2 Enhancements:**
+- Multi-location support for gym chains
+- Advanced booking and scheduling system
+- Integration with nutrition tracking apps
+- Virtual class streaming capabilities
+
+**Phase 3 Enhancements:**
+- AI-powered workout recommendations
+- IoT equipment integration
+- Advanced member engagement features
+- Comprehensive business intelligence tools
+
+### System Requirements and Specifications
+
+**Development Environment:**
+```bash
+# Required Software
+- Node.js 18+ (LTS recommended)
+- PostgreSQL 14+
+- Redis 6+
+- PNPM package manager
+- Git version control
+
+# Development Tools
+- VS Code with TypeScript extensions
+- Prisma Studio for database management
+- Stripe CLI for webhook testing
+- ImageKit account for asset management
+```
+
+**Production Environment:**
+- Vercel/AWS/DigitalOcean deployment
+- PostgreSQL database with connection pooling
+- Redis cluster for caching
+- CDN for static asset delivery
+- SSL certificate for HTTPS
+
+**Performance Benchmarks:**
+- Page load time: < 2 seconds
+- Database query response: < 100ms
+- Payment processing: < 5 seconds
+- Image loading: Progressive with lazy loading
+- Mobile responsiveness: 100% compatibility
+
+This comprehensive gym management system represents a modern approach to fitness center operations, combining user-friendly interfaces with robust backend functionality to create an all-in-one solution for gym owners, instructors, and members alike. 

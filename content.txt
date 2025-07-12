@@ -1,0 +1,1082 @@
+Chapter 1
+
+Introduction
+1.1 Problem and Motivation
+In most educational institutions the attendance is taken manually. It is not only time
+consuming, but it is also unsecure and unreliable and it can be lost. Some institutions are
+using punch card for attendance while this will be difficult for teachers to keep track of the
+large number of students because by using punch card, a student can help the other students
+or his/her friend to punch their card even the other student may be absent or come late in
+class, so it is not reliable. To overcome these problems I have developed a better system
+which is web based; it is fully responsive where a user can use in mobile, tablets and different
+computer systems. In this system records are kept safe and secure and the attendance
+information of particular or all students of particular semester can be accessed easily and
+without time consuming.
+
+1.2 Purpose and Objectives
+1.2.1 Purpose
+The main characteristic of my developed system is that it is web based, fully responsive and
+flexible. It can be accessed from any computer no matter where you are. Its purpose is to
+make a web based attendance software for a University to make it more easy for teachers to
+take regular class attendance of the students and generate attendance report without any
+human effort. The daily attendance of students is taken automatically by selecting student
+name and program according to exam-session. If the student is present then the ‘Present’
+radio button is clicked and similarly if the student is absent then the ‘Absent’ radio button is
+clicked instead of the ‘Present’ radio button, and by clicking the ‘Submit’ button information
+will be stored in database. The attendance report will be generated automatically without
+consuming time which is reliable and there will be not any mistakes. Students will be aware
+of their attendance percentage regularly and will be notified in case of absence.
+1
+
+1.2.2 Objectives
+The main objectives of online attendance management system are :
+
+
+
+Eliminate duplicate data entry and errors in time and attendance entries.
+
+
+
+Eliminate paperwork and save time.
+
+
+
+Automatic calculation of attendance.
+
+
+
+Increase security.
+
+
+
+Better student attendance management
+
+
+
+Less administrative work
+
+1.3 Goals
+The following goals were kept in mind while designing the new system:
+
+
+
+To reduce the manual works required to be done in the existing system.
+
+
+
+To avoid errors inherent in the manual works and hence make the output consistent and
+correct.
+
+
+
+To make the system complete menu-driven and hence user-friendly. This is necessary so
+that even non-programmers can use the system effectively and system can act as catalyst
+in achieving objective.
+
+
+
+To make the systems compatibility i.e. it should “fit in” in the total, integrated system.
+
+
+
+To design the system in such a way that reduces feature maintenance and enhancement
+times and efforts.
+
+
+
+To make the system reliable, understandable and cost effective.
+
+1.4 Features
+
+
+Automated and web-based for easy accessibility.
+
+
+
+No compatibility issues - all you need is an internet connection.
+
+
+
+Eliminates paperwork and the risk of making errors while tracking attendance on paper.
+
+
+
+Eliminate duplicate data entry and errors in attendance
+
+
+
+Simple and easy to use
+
+
+
+Records are kept safe and confidential
+
+
+
+Current and previous years' records are available in an instant
+
+
+
+Available via the internet at all times and from any location
+
+
+
+Users can easily view their daily attendance
+
+2
+
+1.5 Requirements
+1.5.1 Hardware
+
+
+A desktop computer or laptop
+
+1.5.2 Software
+
+
+XAMPP
+
+
+
+Sublime text editor
+
+
+
+Windows 7
+
+
+
+32 bit operating system
+
+3
+
+Chapter 2
+
+Project Analysis
+2.1 Study and weaknesses of current system
+In the present system all work is done on paper. The whole semester’s attendance is stored in
+attendance sheet and at the end of the semester the reports are generated. We are not
+interested in generating report in the middle of the semester or as per the requirement because
+it takes more time in calculation.
+
+2.1.1 Disadvantages of current system
+
+
+Not user Friendly: The existing system is not user friendly because the
+retrieval of data is very slow and data is not maintained efficiently.
+
+
+
+Difficulty in report generating: We require more calculations to generate the report
+so it is generated at the end of the semester.
+
+
+
+Manual control: All calculations to generate report is done manually so there is
+greater chance of errors.
+
+
+
+Lots of paperwork: Existing system requires lot of paper work. Loss of even a single
+record can lead to difficult situation because all the papers are needed to generate the
+reports.
+
+
+
+Time consuming: Every work is done manually so we cannot generate report in
+the middle of the semester or as per the requirement because it is very time
+consuming.
+
+2.1.2 Benefits of new system
+
+
+User Friendly: The proposed system is user friendly because the retrieval and
+storing of data is fast and data is maintained efficiently. Moreover the graphical user
+interface is provided in the proposed system, which provides user to deal with the
+system very easily.
+4
+
+
+
+Reports are easily generated: Reports can be easily generated in the proposed
+system so user can generate the report as per the requirement or in the middle of
+the semester.
+
+
+
+No paper work: The proposed system requires no paper work. All the data is kept
+into the computer immediately and reports can be generated through computers.
+Moreover work becomes very easy because there is no need to keep data on papers.
+
+
+
+Computer operator control: Computer operator control will be there so no
+chance of errors. Moreover storing and retrieving of information is easy. So work
+can be done speedily and in time.
+
+2.2 Feasibility Study
+
+
+Economical feasibility: The system being developed is economic with respect to
+university’s point of view. It is cost effective in the sense that it has eliminated the
+paper work completely. The system is also time effective because the calculations are
+automated which are made at the end of the semester or as per the user requirement.
+The result obtained contains minimum errors and are highly accurate.
+
+
+
+Technical feasibility: The technical requirement for the system is economic and it
+does not use any other additional Hardware and software.
+
+
+
+Behavioral Feasibility: The system working is quite easy to use and learn due to its
+simple but attractive interface. User requires no special training for operating the
+system.
+
+2.3 Related works and background
+In early years punch card was used for data storage, it is also known as Hollerith cards,
+through these cards companies were able to store and access via entering the card into the
+computer system [1].
+Now a day also it is used as one of the most popular attendance system. Employees are using
+this card for in and out, they only need to wave the punch card near a reader then it will
+ensure the presence of employee [2].
+Many desktop applications for attendance has been developed there are some examples:
+1. Desktop application for attendance developed to take daily attendance of students.
+Then information of a particular class is stored by the operators that will be provided
+5
+
+by the teacher. Saurabh Kumar Jain, Uma Joshi, and Bhumpesh Kumar Sharma
+developed the software. The technology which they used for their application is
+Language:-VB.NET and Backend:-MS Access [3].
+
+2. Jainetal has developed a desktop application in which when the lecturer start the
+application then all registered lists of students of particular course will be displayed.
+The attendance is done by clicking of checkbox next to student’s name that are
+present, and then for marking their presence a register button is clicked [4].
+
+6
+
+Chapter 3
+
+Tools and Technologies
+3.1 XAMPP
+XAMPP is a free and open source cross-platform web server solution stack package
+developed by Apache Friends, consisting mainly of the Apache HTTP Server, MariaDB
+database, and interpreters for scripts written in the PHP and Perl programming languages.
+XAMPP stands for Cross-Platform (X), Apache (A), MariaDB (M), PHP (P) and Perl (P). It
+is a simple, lightweight Apache distribution that makes it extremely easy for developers to
+create a local web server for testing and deployment purposes. Everything needed to set up a
+web server – server application (Apache), database (MariaDB), and scripting language (PHP)
+– is included in an extractable file. XAMPP is also cross-platform, which means it works
+equally well on Linux, Mac and Windows [5].
+
+3.1.1 Apache server
+The Apache HTTP Server, informally called Apache, is the world’s most popular web server
+software that in 2009 it became the first web server software to serve more than 100 million
+websites. The Apache development began in early 1995 and originally based on the NCSA
+HTTP server. Apache is developed and maintained by an open community of developers
+under the patronage of the Apache Software Foundation. Mostly used on a Unix-like system,
+the software is also available for a vast variety of operating systems, including Microsoft
+Windows, Open VMS, eComStation, NetWare and TPF. In my project I have used apache
+version of 2.4.23
+
+3.1.2 PhpMyAdmin
+It is an open source tool and also, it is free written in PHP, XHTML, CSS, and JavaScript
+planned to manage the administration of MySQL by using of a web. It is able to perform
+various missions like creating, modifying databases, tables, fields, executing SQL statements
+or managing and supervise users. In my project I have used PhpMyAdmin version of 4.8.0.1
+7
+
+3.1.3 MySQL
+SQL stands for Structured Query Language. MySQL is an open source Relational Database
+Management System (RDBMS); it is a popular database for use in web applications, and is a
+central part of the greatly used LAMP (Linux, Apache, MySQL, and Perl/PHP/Python) opensource web application software stack.
+MySQL is used by many applications like, WordPress, Joomla, TYPO3, Drupal, MyBB,
+phpBB, MODX and other software. Numerous large scale websites including Google,
+YouTube, Facebook, Twitter, and Flickr are also using MySQL. In my project I have used
+MySQL version of 5.0.11
+
+3.1.4 PHP
+It stands for PHP: Hypertext Preprocessor but, originally stood for Personal Home Page. It is
+a server side scripting language designed for web development, as well as used for general
+purpose language. It was created in 1994 by Rasmus Lerdorf, in the present time the
+reference execution of PHP is produced by the PHP group.
+In January 2013, PHP was installed on more than 240 million websites, and 2.1 million web
+servers. The PHP code can be combined with several web frameworks and templating
+engines or simply it can be mixed with HTML code.
+The PHP code is generally processed by a PHP interpreter, which is commonly executed as
+native module of web server or a Common Gateway Interface (CGI) executable. After
+interpretation and execution of the PHP code, the results will be sent by web server to its
+client. There are many versions of the PHP, and the version. In my project I have used PHP
+version 5.6.24
+
+3.2 Sublime Text 3 editor
+Sublime Text is a cross platform source code editor written in C++ and python. It originally
+supports plenty of programming and markup languages, and its functionality can be increased
+via users with plugins.
+Sublime Text 3 has two main features that are symbol pane management and symbol
+indexing. Through pane management users are to move between panes by hotkeys and
+symbol indexing 10 enable sublime Text to scan files and build an index to make easy the
+features Goto Symbol and Goto Definition in project.
+8
+
+3.3 HTML and CSS
+HTML stands for Hypertext Markup Language and CSS stands for Cascading Style Sheets
+are the crucial technologies for creating web pages. HTML supplies the structure of the page,
+and CSS the layout, for diversity of devices. Together with scripting and graphics, HTML
+and CSS are the fundamental of building Web Applications and Web pages.
+HTML provides designers and developers the following facilities,
+
+
+To design forms for directing transactions with remote services, for use in making
+reservation, searching for information, ordering products, and others.
+
+
+
+Retrieving online information through hypertext links.
+
+
+
+To include video and sound clips, spread sheets, and other applications straight in
+their documents.
+
+
+
+Designer can publish online documents with text, headings, tables, photos and others.
+
+CSS describes the Web pages presentation, involving layout, colors, and fonts. It enables the
+designer to adjust the presentation to various types of devices, like a small screens, large
+screens, or printers.
+CSS is separate from HTML, and their separation makes it easy to preserve and maintain
+sites, share style sheets across pages, and accommodate pages to various environments [6].
+
+3.4 Javascript
+JavaScript often abbreviated as JS, is a high-level, interpreted programming language. It is a
+language which is also characterized as dynamic, weakly typed, prototype-based and multiparadigm.
+Alongside HTML and CSS, JavaScript is one of the three core technologies of the World
+Wide Web. JavaScript enables interactive web pages and thus is an essential part of web
+applications. The vast majority of websites use it, and all major web browsers have a
+dedicated JavaScript engine to execute it.
+As a multi-paradigm language, JavaScript supports event-driven, functional, and imperative
+(including object-oriented and prototype-based) programming styles. It has an API for
+working with text, arrays, dates, regular expressions, and basic manipulation of the DOM, but
+the language itself does not include any I/O, such as networking, storage, or graphics
+facilities, relying for these upon the host environment in which it is embedded. JavaScript
+was influenced by programming languages such as Self and Scheme [7].
+9
+
+3.5 Frameworks
+3.5.1 Bootstrap
+Bootstrap is front-end framework and collection of tools and mechanisms for building web
+applications. It consists of HTML and CSS based design templates for navigations, forms,
+buttons, typography, and other interface elements, and also JavaScript extensions.
+Bootstrap is free and open source, and its purpose is to make easy the development of
+dynamic websites and web applications.
+Bootstrap was developed by Mark Otto and Jacob Thomton and named Twitter Bluprint.
+Before Bootstrap framework, designers were using different libraries for interface
+development, which had many inconsistencies and their maintenance were difficult.
+On 31 Jan, 2012, Bootstrap 2 was released. This framework has brought many changes to the
+existing components and, also, added 12 column grid layout and responsive design
+constituents. On August, 19, 2013, Bootstrap 3 was announced, which moved to first
+approach of mobile and using a flat design [8].
+
+3.5.2 JavaScript Framework (jQuery)
+JQuery is JavaScript library intended to make simple the client-side scripting of HTML. It is
+the most popular JavaScript framework, which is free and open-source software licensed
+under the MIT License [9].
+Several of the largest companies that are using jQuery include:
+
+
+Google
+
+
+
+IBM
+
+
+
+Microsoft and
+
+
+
+Netflix
+
+3.6 Web Template
+A website template (web template) is a pre designed webpage which any developer can use to
+plug-in their own text and text and script component and images into that to create a website.
+Website Templates are generally built with HTML and CSS code. By using web templates
+everyone is allowed to setup a website without hiring a professional web designer or
+developer [10].
+10
+
+Chapter 4
+
+System Modules
+4.1 Module Types
+The online attendance management system project has mainly three modules. Each type of
+user has his/her own login session to enter the corresponding module and perform certain
+tasks that are allowed to him/her.
+
+
+Admin Module
+
+
+
+Teacher Module
+
+
+
+Student Module
+
+4.2 Admin Module
+The Admin is a person who runs and manages the system. The admin has full access to the
+system.
+
+4.2.1 Admin Functionalities
+
+
+Add/modify/delete/view student information
+
+
+
+Add/modify/delete/view teacher information
+
+
+
+Add/configure course
+
+
+
+Course allocation
+
+
+
+Modify/delete/view allocated course information
+
+
+
+Student registration
+
+
+
+View student attendance information
+
+
+
+Change his/her user account password
+
+The following figure illustrates the admin module.
+
+11
+
+Figure 4.1: Admin module
+
+4.3 Teacher Module
+The main aim of the attendance system is fulfilled by teachers. Teacher can surface according
+his/her current or previous course details and fill the attendance daily for his/her course.
+12
+
+4.3.1 Teacher Functionalities
+
+
+Take attendance according to the assigned course
+
+
+
+Edit attendance that was previously taken
+
+
+
+View attendance report
+
+
+
+View student information
+
+
+
+View teacher information
+
+
+
+Change his/her user account password
+
+The following figure illustrates the teacher module.
+
+Figure 4.2: Teacher module
+13
+
+4.4 Student Module
+All student have unique username and password to access the system. After login into system
+student can view their attendance report according to their semester. In this management
+system they get notification, if they had missed their attendance for three days consecutively.
+
+4.4.1 Student Functionalities
+
+
+View individual attendance report
+
+
+
+View notification
+
+
+
+Change his/her user account password
+
+The following figure illustrates the student module.
+
+Figure 4.3: Student module
+
+14
+
+Chapter 5
+
+Front-end Design of the System
+5.1 Home Screen
+This is the home screen of the proposed attendance management system. There are three log
+in link such as Admin, Teacher and Student. Controller of management system use ‘Admin’
+link, Teacher staffs use ‘Teacher’ link and Students usually use ‘Student’ link to sign in and
+access their user account.
+
+Figure 5.1: Home screen
+
+15
+
+5.2 Admin Module
+5.2.1 Admin Sign in
+Before entering into the Admin module system, the admin must login. For this purpose the
+log in page is created. This log in form is made for security purpose i.e. only authenticated
+admins of different departments have access into the system.
+
+Figure 5.2: Admin sign in
+
+5.2.2 Admin Dashboard
+In admin dashboard the admin can create course allocation with corresponding teacher of the
+related department. The admin can add, view, edit and delete course allocation list, teacher
+information and student information. The admin can also register students for a new exam
+session and semester and can view attendance information of the students.
+
+Figure 5.3: Admin dashboard
+16
+
+5.2.2.1 Student List
+This is the student screen which provides information about student’s data such as Student
+Name, Department, Batch, Semester, Session, Mobile, Birthdate etc. The Insert button
+enables the user to enter new entries similarly Update button enables the user to edit / modify,
+whereas, Delete button is used for deleting the record. There is also a search box panel to
+search for students of particular semester. The admin can also export the information in the
+form of PDF, CSV, Excel and can print the information directly.
+
+Figure 5.4: Student list (For Admin)
+
+The admin can search for particular student info by selecting program, session and semester.
+
+Figure 5.5: Student list according to search (For Admin)
+17
+
+5.2.2.2 New Student Entry
+New entry of a student can be done through filling the following form that appears in a modal
+window.
+
+Figure 5.6: New student entry
+18
+
+5.2.2.3 Updating Student Information
+Student’s data is updated from the form shown below that appears in a modal window.
+
+Figure 5.7: Updating student information
+19
+
+5.2.2.4 Teacher List
+This is the teacher screen which provides information about teacher’s data such as Teacher
+ID, Name, Department, Designation, Mobile, Address, Admin area etc. The Insert button
+enables the user to enter new entries similarly Update button enables the user to edit / modify,
+whereas, Delete button is used for deleting the record. The admin can also export the
+information in the form of PDF, CSV, Excel and can print the information directly.
+
+Figure 5.8: Teacher list (For Admin)
+
+5.2.2.5 New Teacher Entry
+New teacher entry can be done by filling the following form that appears in a modal window.
+
+Figure 5.9: New teacher entry
+20
+
+5.2.2.6 Updating Teacher Information
+Teacher’s data is updated from the form shown below that appears in a modal window.
+
+Figure 5.10: Updating teacher information
+
+5.2.2.7 New Course Entry
+New entry of a course can be done through filling the following form.
+
+Figure 5.11: New course entry
+
+5.2.2.8 Course Configuration
+For a new exam session courses can be configured through filling the following form.
+
+21
+
+Figure 5.12: Course configuration
+
+5.2.2.9 Course Allocation List
+This is the screen which provides information about allocated course for an exam session.
+The Insert button enables the user to allocate course similarly Update button enables the user
+to edit / modify, whereas, Delete button is used for deleting the record. There is also a search
+box panel to view allocated courses of particular exam session and semester. The admin can
+also export the information in the form of PDF, CSV, Excel and can print the information
+directly.
+
+Figure 5.13: Course allocation list
+
+The admin can search for particular allocated course info by selecting program, exam session,
+semester, section and course code.
+22
+
+Figure 5.14: Course allocation list according to search
+
+5.2.2.10 Course Allocation
+The admin can allocate course for a new exam session through filling the following form that
+appears in a modal window.
+
+Figure 5.15: Course allocation
+
+23
+
+5.2.2.11 Updating Allocated Course
+The admin can update allocated course from the form shown below that appears in a modal
+window.
+
+Figure 5.16: Updating allocated course
+
+5.2.2.12 Student Registration
+Step-1: To register a new student the admin needs to first fill the following form before
+registration by typing student id and selecting exam session.
+
+Figure 5.17: Student registration step-1
+
+Step-2: The admin can select the regular courses of current semester as well as previous
+semesters’ courses for retake/improvement for registration. The previous semesters’ courses
+24
+
+will be explored by clicking the semester name or hidden by clicking the circle button (as in
+the 1st semester course table in Figure 5.18). As previous semesters only those semesters will
+be appeared that are below the current semester of the student. Because a student cannot
+apply for retake/improvement for upper semesters.
+
+Figure 5.18: Student registration step-2
+
+5.2.2.13 Student Attendance Information
+Attendance information for particular semester: The admin can view attendance information
+for a particular semester by selecting program, exam session, semester, section and course
+code from the dropdown list. The admin can also export the information in the form of PDF,
+CSV, Excel and can print the information directly.
+
+25
+
+Figure 5.19: Semester-wise attendance information (For Admin)
+
+Attendance information for particular date: The admin can view and export attendance
+information for a particular date by selecting program, exam session, semester, section,
+course code and date from the dropdown list.
+
+Figure 5.20: Date-wise attendance information (For Admin)
+
+5.3 Teacher Module
+This is the important part of the student attendance management system. All the teacher staffs
+with corresponding departments are allowed to take attendance based on course allocation
+that the admin had set.
+26
+
+5.3.1 Teacher Sign in
+Only authenticated teachers are allowed to login into teacher module. In this case, he or she
+has just put their username and password in the Teacher login form box.
+
+Figure 5.21: Teacher sign in
+
+5.3.2 Teacher Dashboard
+In teacher dashboard the teachers can take attendance based on courses allocated to them and
+view teacher information, student information and student attendance information. The
+teachers can also edit the previous attendance records of the courses allocated to them for a
+particular date.
+
+Figure 5.22: Teacher dashboard
+
+27
+
+5.3.2.1 Student List
+The teacher can view students’ information such as Student Name, Department, Batch,
+Semester, Session, Mobile, Birthdate etc. and can export the information in the form of PDF,
+CSV, Excel and can also print the information directly. There is also a search box panel to
+search for students of particular semester.
+
+Figure 5.23: Student list (For Teacher)
+
+The teacher can search for particular student info by selecting program, session and semester.
+
+Figure 5.24: Student list according to search (For Teacher)
+
+5.3.2.2 Teacher List
+Teachers can view all teacher’s public data such as Teacher ID, Name, Department,
+Designation, Mobile, Address, Admin area etc. The teacher can also export the information in
+the form of PDF, CSV, Excel and can print the information directly.
+28
+
+Figure 5.25: Teacher list (For Teacher)
+
+5.3.2.3 Taking Attendance
+Step-1: Teacher needs to select program, exam session, semester, section, course code, date
+and class test (if there is a class test on the particular date) from the dropdown list for taking
+attendance.
+
+Figure 5.26: Taking attendance step-1
+
+After selecting all the fields student list will be appeared for taking attendance. There teacher
+can view student list, total number of classes of the corresponding course and the number of
+classes that a student has attended. There is also a column that shows every student’s
+previous class’ status and in case of consecutive absence an integer number is shown that
+indicates number of last consecutive absence.
+
+29
+
+Figure 5.27: Form for taking attendance
+Step-2: Now teacher can take attendance by clicking the radio button labeled as ‘Present’ and
+‘Absent’. By default it is set to ‘Present’. Teacher can also generate excel file of the
+attendance form by clicking the ‘Generate excel file’ button so that in case of internet failure
+he/she can take the same attendance on excel sheet and when internet will be available then
+this sheet can be uploaded and data will be inserted into the database from the excel sheet.
+
+Figure 5.28: Taking attendance step-2
+
+Step-3: After submitting the form the teacher needs to confirm the submission in order to
+complete attendance taking process.
+
+Figure 5.29: Taking attendance step-3
+
+30
+
+5.3.2.4 Editing Attendance
+In “Edit Attendance” a teacher who had taken attendance previously can edit attendance.
+Step-1: Teacher needs to select program, exam session, semester, section, course code and
+date from the dropdown list for editing attendance.
+
+Figure 5.30: Editing attendance step-1
+
+After selecting all the fields attendance list for a particular date is appeared for editing.
+
+Figure 5.31: Form with previous attendance records
+Step-2: Now teacher can edit attendance by clicking the radio button labeled as ‘Present’ and
+‘Absent’.
+
+Figure 5.32: Editing attendance step-2
+31
+
+Step-3:After submitting the form the teacher needs to confirm the submission in order to
+complete attendance editing process.
+
+Figure 5.33: Editing attendance step-3
+
+5.3.2.5 Student Attendance Information
+Attendance information for particular semester: The teacher can view attendance information
+for a particular semester by selecting program, exam session, semester, section and course
+code from the dropdown list. The teacher can also export the information in the form of PDF,
+CSV, Excel and can print the information directly.
+
+Figure 5.34: Semester-wise attendance information (For Teacher)
+
+Attendance information for particular date: The teacher can view and export attendance
+information for a particular date by selecting program, exam session, semester, section,
+course code and date from the dropdown list.
+32
+
+Figure 5.35: Date-wise attendance info (For Teacher)
+
+5.4 Student Module
+5.4.1 Student Sign in
+Before entering into the Student module system, the student must login. For this purpose the
+log in page is created. This log in form is made for security purpose i.e. only authenticated
+students of different departments have access into the system.
+
+Figure 5.36: Student sign in
+
+5.4.2 Student Dashboard
+In student dashboard the student can view notification of the courses where he/she was
+absent. The student can also view the attendance report of a particular course.
+
+33
+
+Figure 5.37: Student dashboard
+
+5.4.2.1 Notification
+Step-1: The student can view notification by clicking the notification tab.
+
+Figure 5.38: Viewing notification step-1
+
+Step-2: By clicking the blue colored link student can view the complete message.
+
+34
+
+Figure 5.39: Viewing notification step-2
+
+After clicking the link a modal window will appear along with the message.
+
+Figure 5.40: Student notification message
+
+5.4.2.2 Attendance Information
+The student can view attendance information by selecting semester, exam session and course
+code from the dropdown list. The student can also export the information in the form of PDF,
+CSV, Excel and can print the information directly.
+
+35
+
+Figure 5.41: Attendance information
+
+36
+
+Chapter 6
+
+Database Design of the System
+6.1 Introduction
+To achieve the flow of data and data processing task, I have created a database named vuams
+and inside this database thirteen entities have been created as mentioned below.
+
+6.1.1 department entity
+
+Table 6.1: department entity
+
+6.1.2 program entity
+
+Table 6.2: program entity
+
+37
+
+6.1.3 semester entity
+
+Table 6.3: semester entity
+
+6.1.4 student_info entity
+
+Table 6.4: student_info entity
+
+6.1.5 teacher_info entity
+
+Table 6.5: teacher_info entity
+
+38
+
+6.1.6 course_list entity
+
+Table 6.6: course_list entity
+
+6.1.7 course entity
+
+Table 6.7: course entity
+
+6.1.8 course_allocation entity
+
+Table 6.8: course_allocation entity
+
+39
+
+6.1.9 registration entity
+
+Table 6.9: registration entity
+
+6.1.10 attendance entity
+
+Table 6.10: attendance entity
+
+6.1.11 notice entity
+
+Table 6.11: notice entity
+
+40
+
+6.1.12 user entity
+
+Table 6.12: user entity
+
+6.1.13 user_student entity
+
+Table 6.13: user_student entity
+
+41
+
+6.2 Entity Relationship Diagram
+
+Figure 6.1: E-R diagram
+
+42
+
+Chapter 7
+
+Back-end Design of the System
+7.1 Data Flow Diagram
+A data flow diagram (DFD) is a graphical representation of the "flow" of data through a
+system, modelling its process aspects. A DFD is often used as a preliminary step to create an
+overview of the system without going into great detail, which can later be elaborated. DFDs
+can also be used for the visualization of data processing (structured design).
+A DFD shows what kind of information will be input to and output from the system, how the
+data will advance through the system, and where the data will be stored. It does not show
+information about process timing or whether processes will operate in sequence or in parallel,
+unlike a traditional structured flowchart which focuses on control flow, or a UML activity
+workflow diagram, which presents both control and data flows as a unified model [11].
+The Data flow diagram (DFD) contains some symbol for drawing the data flow diagram.
+
+7.1.1 Data Flow Diagram Symbol
+Symbol
+
+Description
+Data Flow – Data flow are pipelines through the packets of information
+flow.
+Process: A Process or task performed by the system.
+Entity: Entity are object of the system. A source or destination data of a
+system.
+Data Store: A place where data to be stored.
+Figure 7.1: DFD symbol
+
+43
+
+7.1.2 Context Level DFD – 0 Level
+A context level DFD (Data Flow Diagram) is the most basic form of DFD. It aims to show
+how the entire system works at a glance. It shows all user module who operate the system.
+There is only one process in the system and all the data flows either into or out of this
+process. Context level DFD’s demonstrates the interactions between the process and external
+entities. They do not contain Data Stores. Some of the benefits of a Context Diagram are:
+
+
+Shows the overview of the boundaries of a system
+
+
+
+No technical knowledge is required to understand with the simple notation
+
+
+
+Simple to draw, amend and elaborate as its limited notation
+
+The online attendance management system context level data flow diagram shows there are
+three users to run the system- Admin, Teacher and Student.
+
+0-Level DFD: Context Level
+
+Figure 7.2: 0-Level DFD
+
+44
+
+7.1.3 Admin – Data Flow Diagram
+
+Figure 7.3: Admin DFD
+
+45
+
+7.1.4 Teacher – Data Flow Diagram
+
+Figure 7.4: Teacher DFD
+
+46
+
+7.1.5 Student – Data Flow Diagram
+
+Figure 7.5: Student DFD
+
+47
+
+Chapter 8
+
+Conclusion and Future Work
+8.1 Conclusion
+In this work , the web based attendance management system is developed using PHP serverside scripting language and CSS, HTML, JavaScript for designing which fully meets the
+system’s goals. This system provides a user friendly attendance management for the students
+and overcomes many limitations incorporated in attendance, this system saves a great amount
+of time and reduces errors which may occur during attendance calculation.
+The system I have developed is fully responsive. Some other benefits are:
+
+ It is a dynamic and flexible system
+ It excludes paperwork and the possibility of making mistakes while using paper for
+taking attendance
+
+ It is very user friendly and handy
+ The records of current and previous semesters are available in an instant.
+
+8.2 Future Work
+The “Online Attendance Management System” is a potential project. This project has gone
+through extensive research work. But there is always scope for enhancements in any system,
+especially in the ever–changing world of computers. I also have some plans to make my
+project more usable and user friendly. Some of them are as follows:
+
+
+To add online payment system like mobile banking, PayPal, Payoneer to manage
+online registration fee to make it more usable.
+
+
+
+To improve the GUI to make it look better and make the system more advanced by
+following MVC pattern.
+
+
+
+To add student forum so that the students can share and discuss on various issues
+among themselves.
+
+
+
+To increase the security of the website, database efficiency to make the system faster.
+48
+
+References
+[1]
+
+Punch Card, available at:
+https://www.computerhope.com/jargon/p/punccard.htm
+
+[2]
+
+[BIOENABLE] Punch card attendance system, available at:
+https://www.bioenabletech.com/punch-card-attendance-system.html
+
+[3]
+
+[ACADAMIA] Attendance Management System, available at:
+https://www.academia.edu/5198743/Attendance_Management_System
+
+[4]
+
+S. K. Jain, U. Joshi, and B. K. Sharma, “Attendance Management System,”
+Masters Project Report, Rajasthan Technical University, Kota
+
+[5]
+
+XAMPP, available at: https://en.wikipedia.org/wiki/XAMPP
+
+[6]
+
+[W3C] HTML & CSS, available at: https://www.w3schools.com
+
+[7]
+
+JavaScript, available at: https://en.wikipedia.org/wiki/JavaScript
+
+[8]
+
+Bootstrap (front-end framework), available at: https://getBootstrap.com
+
+[9]
+
+JQuery, available at: https://jquery.com
+
+[10]
+
+What are Website Templates? Available at:
+https://allwebcodesign.com/website-templates.htm
+
+[11]
+
+Data flow Diagram, available at:
+https://en.wikipedia.org/wiki/Data_flow_diagram
+
+49
+
+

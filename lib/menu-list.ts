@@ -1,21 +1,18 @@
 import { UserRole } from '@/prisma/out'
 import {
   BadgeDollarSign,
-  Blinds,
   BookOpen,
   CalendarDays,
   CreditCard,
   Grid2x2Plus,
-  GraduationCap,
   Home,
   LayoutGrid,
   LucideIcon,
   School2,
   Settings,
-  User,
   UserCheck,
   Users,
-  Wrench,
+  Wrench
 } from 'lucide-react'
 
 type Submenu = {
