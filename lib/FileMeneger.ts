@@ -1,9 +1,9 @@
 import ImageKit from 'imagekit'
 
 var FileMeneger = new ImageKit({
-  publicKey: process.env.IMAGE_KIT_PUBLIC_KEY!,
-  privateKey: process.env.IMAGE_KIT_PRIVET_KEY!,
-  urlEndpoint: process.env.IMAGE_KIT_URL!,
+  publicKey: process.env.IMAGEKIT_PRIVET_KEY!,
+  privateKey: process.env.IMAGEKIT_PUBLIC_KEY!,
+  urlEndpoint: process.env.IMAGEKIT_URL!,
 })
 
 export const fileUpload = async ({

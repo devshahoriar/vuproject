@@ -3,11 +3,8 @@ import Image from 'next/image'
 import getPlaceholderImage from '@/lib/getPlaceholderImage'
 import ClientImage from './ClientImage'
 
-const ServerImage = ({ src, ...props }: ServerImageProps) => {
-  const bldata = getPlaceholderImage(src)
-  return (
-    <ClientImage blFun={bldata} {...props} src={src} />
-  )
+const ServerImage = ({ ...props }: ServerImageProps) => {
+  return <Image {...props} />
 }
 
 type ServerImageProps = {

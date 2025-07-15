@@ -6,16 +6,16 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     equipmentId: string
-  }
+  }>
 }
 
 const getEquipmentWithInstructions = async (equipmentId: number) => {
   return prisma.equipment.findUnique({
-    where: { 
+    where: {
       id: equipmentId,
-      active: true // Only show active equipment
+      active: true, // Only show active equipment
     },
     include: {
       instructions: {
@@ -33,8 +33,8 @@ const getEquipmentWithInstructions = async (equipmentId: number) => {
 }
 
 const PublicEquipmentInstructionsPage = async ({ params }: PageProps) => {
-  const equipmentId = parseInt(params.equipmentId)
-  
+  const equipmentId = parseInt((await params).equipmentId)
+
   if (isNaN(equipmentId)) {
     notFound()
   }
@@ -46,22 +46,22 @@ const PublicEquipmentInstructionsPage = async ({ params }: PageProps) => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <Link href="/classes">
-          <Button variant="outline">
-            <ArrowLeft className="mr-2 h-4 w-4" />
+    <div className='container mx-auto px-4 py-8'>
+      <div className='mb-6'>
+        <Link href='/classes'>
+          <Button variant='outline'>
+            <ArrowLeft className='mr-2 h-4 w-4' />
             Back to Classes
           </Button>
         </Link>
       </div>
 
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">How to Use {equipment.name}</h1>
-        <p className="text-muted-foreground text-lg">{equipment.desc}</p>
+      <div className='mb-8'>
+        <h1 className='text-3xl font-bold mb-2'>How to Use {equipment.name}</h1>
+        <p className='text-muted-foreground text-lg'>{equipment.desc}</p>
       </div>
 
-      <EquipmentInstructionView 
+      <EquipmentInstructionView
         instructions={equipment.instructions}
         equipmentName={equipment.name}
       />

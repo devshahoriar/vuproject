@@ -16,6 +16,9 @@ const nextConfig: NextConfig = {
       {
         hostname: 'ik.imagekit.io',
       },
+      {
+        hostname:"placehold.co"
+      }
     ],
   },
   eslint: {

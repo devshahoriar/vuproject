@@ -1,10 +1,15 @@
 import { PrismaClient } from './out'
+import bcrypt from 'bcrypt'
 
 
 const prisma = new PrismaClient()
 
 async function main() {
   console.log('Seeding database...')
+
+  // Hash the common password for all users
+  const commonPassword = 'asdfghjkl'
+  const hashedPassword = await bcrypt.hash(commonPassword, 10)
 
   // Create sample files for equipment and classes
   let treadmillImage = await prisma.file.findFirst({
@@ -68,18 +73,103 @@ async function main() {
 
   // Create a sample instructor user if they don't exist
   const instructor = await prisma.user.upsert({
-    where: { email: 'instructor@example.com' },
+    where: { email: 'admin@gmail.com' },
     update: {},
     create: {
       id: 'instructor-1',
       name: 'John Instructor',
-      email: 'instructor@example.com',
+      email: 'admin@gmail.com',
       phone: '+1234567890',
       emailVerified: true,
       role: 'INSTRUCTOR',
       memberships: 'PRO',
       createdAt: new Date(),
       updatedAt: new Date(),
+    }
+  })
+
+  // Create the instructor's account with password
+  await prisma.account.upsert({
+    where: { 
+      id: 'instructor-account-1'
+    },
+    update: {
+      password: hashedPassword,
+    },
+    create: {
+      id: 'instructor-account-1',
+      accountId: instructor.email,
+      providerId: 'credential',
+      userId: instructor.id,
+      password: hashedPassword,
+    }
+  })
+
+  // Create admin user
+  const admin = await prisma.user.upsert({
+    where: { email: 'admin@admin.com' },
+    update: {},
+    create: {
+      id: 'admin-1',
+      name: 'Admin User',
+      email: 'admin@admin.com',
+      phone: '+1234567891',
+      emailVerified: true,
+      role: 'ADMIN',
+      memberships: 'ELIT',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
+  })
+
+  // Create the admin's account with password
+  await prisma.account.upsert({
+    where: { 
+      id: 'admin-account-1'
+    },
+    update: {
+      password: hashedPassword,
+    },
+    create: {
+      id: 'admin-account-1',
+      accountId: admin.email,
+      providerId: 'credential',
+      userId: admin.id,
+      password: hashedPassword,
+    }
+  })
+
+  // Create test user
+  const testUser = await prisma.user.upsert({
+    where: { email: 'shuvo@gmail.com' },
+    update: {},
+    create: {
+      id: 'user-1',
+      name: 'Shuvo Test User',
+      email: 'shuvo@gmail.com',
+      phone: '+1234567892',
+      emailVerified: true,
+      role: 'USER',
+      memberships: 'BASIC',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
+  })
+
+  // Create the test user's account with password
+  await prisma.account.upsert({
+    where: { 
+      id: 'user-account-1'
+    },
+    update: {
+      password: hashedPassword,
+    },
+    create: {
+      id: 'user-account-1',
+      accountId: testUser.email,
+      providerId: 'credential',
+      userId: testUser.id,
+      password: hashedPassword,
     }
   })
 
@@ -154,6 +244,10 @@ async function main() {
   })
 
   console.log('Database seeded successfully!')
+  console.log('Created users:')
+  console.log('- Admin: admin@admin.com (password: asdfghjkl)')
+  console.log('- Instructor: admin@gmail.com (password: asdfghjkl)')
+  console.log('- Test User: shuvo@gmail.com (password: asdfghjkl)')
 }
 
 main()

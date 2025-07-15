@@ -37,14 +37,20 @@ const ActiveLink = ({
 
 const MobileNav = () => {
   const path = usePathname()
-  const { data } = useSession()
+  const { data, isPending } = useSession()
   const user = data?.user
   const { refresh } = useRouter()
   const [open, setOpen] = useState(false)
   const pathName = usePathname()
+  
   useEffect(() => {
     setOpen(false)
   }, [pathName])
+
+  // Don't render if session is still loading
+  if (isPending) {
+    return null
+  }
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild className="md:hidden">
@@ -56,35 +62,33 @@ const MobileNav = () => {
         <SheetHeader className="hidden">
           <SheetTitle>{''}</SheetTitle>
         </SheetHeader>
-        <SheetContent>
-          <div>
-            <Link href="/" className="text-4xl font-bold ">
-              Fit<span className="text-primary">Zone</span>
-            </Link>
-            <div className="flex flex-col mt-36 items-center text-2xl gap-5">
-              <ActiveLink href="/" path={path} title="Home" />
-              <ActiveLink href="/classes" path={path} title="Classes" />
-              <ActiveLink href="/membership" path={path} title="Membership" />
-              <ActiveLink href="/about" path={path} title="About" />
-              <ActiveLink href="/contact" path={path} title="Contact" />
-              {user ? (
-                <Button
-                  onClick={async () => {
-                    await signOut()
-                    setOpen(false)
-                    refresh()
-                  }}
-                >
-                  Log Out
-                </Button>
-              ) : (
-                <Button asChild className="">
-                  <Link href="/join">Join Now</Link>
-                </Button>
-              )}
-            </div>
+        <div>
+          <Link href="/" className="text-4xl font-bold ">
+            Fit<span className="text-primary">Zone</span>
+          </Link>
+          <div className="flex flex-col mt-36 items-center text-2xl gap-5">
+            <ActiveLink href="/" path={path} title="Home" />
+            <ActiveLink href="/classes" path={path} title="Classes" />
+            <ActiveLink href="/membership" path={path} title="Membership" />
+            <ActiveLink href="/about" path={path} title="About" />
+            <ActiveLink href="/contact" path={path} title="Contact" />
+            {user ? (
+              <Button
+                onClick={async () => {
+                  await signOut()
+                  setOpen(false)
+                  refresh()
+                }}
+              >
+                Log Out
+              </Button>
+            ) : (
+              <Button asChild className="">
+                <Link href="/join">Join Now</Link>
+              </Button>
+            )}
           </div>
-        </SheetContent>
+        </div>
       </SheetContent>
     </Sheet>
   )

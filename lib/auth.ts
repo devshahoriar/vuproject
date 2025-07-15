@@ -5,7 +5,9 @@ import { prismaAdapter } from 'better-auth/adapters/prisma'
 import sendMail from './sendEmail'
 
 
+
 export const auth = betterAuth({
+  // secret: process.env.BETTER_AUTH_SECRET || "f9696b4ddbb202d2ad4685712951482799ec9dcafcf2a0510bb161c8ae3938d1",
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),
@@ -13,7 +15,7 @@ export const auth = betterAuth({
     enabled: true,
     sendResetPassword: async (user, url) => {
       const result = await sendMail(
-        user.email,
+        (user as any)?.email,
         'Reset Password',
         `Click here to reset your password: ${url}`
       )
@@ -67,6 +69,6 @@ export const auth = betterAuth({
       },
     },
   },
-  trustedOrigins: [process.env.NEXT_PUBLIC_BETTER_AUTH_URL!],
-  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL!,
+  trustedOrigins: [process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "http://localhost:3000"],
+  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "http://localhost:3000",
 })

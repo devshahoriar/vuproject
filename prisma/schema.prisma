@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
   output   = "./out"
@@ -29,16 +30,17 @@ model User {
   enrolledClassId Int?     @unique
   profileImage    File?    @relation(fields: [profileImageId], references: [id])
 
-  memberships        MembershipType     @default(USER)
-  Session            Session[]
-  Account            Account[]
-  teachingClasses    Class[]            @relation("InstructorClass")
-  enrolledClass      Class?             @relation("StudentClass", fields: [enrolledClassId], references: [id])
-  payments           Payment[]
-  EquipmentUses      EquipmentUses[]
-  reportedHistories  EquipmentHistory[] @relation("ReportedBy")
-  resolvedHistories  EquipmentHistory[] @relation("ResolvedBy")
+  memberships           MembershipType         @default(USER)
+  teachingClasses       Class[]                @relation("InstructorClass")
+  enrolledClass         Class?                 @relation("StudentClass", fields: [enrolledClassId], references: [id])
+  payments              Payment[]
+  EquipmentUses         EquipmentUses[]
+  reportedHistories     EquipmentHistory[]     @relation("ReportedBy")
+  resolvedHistories     EquipmentHistory[]     @relation("ResolvedBy")
   equipmentInstructions EquipmentInstruction[] @relation("InstructorInstructions")
+
+  sessions Session[]
+  accounts Account[]
 
   @@unique([email])
   @@map("user")
@@ -52,7 +54,12 @@ model Session {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+
   @@map("session")
+  @@unique([token])
 }
 
 model Account {
@@ -67,6 +74,12 @@ model Account {
   expiresAt    DateTime?
   password     String?
 
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
   @@map("account")
 }
 
@@ -75,6 +88,9 @@ model Verification {
   identifier String
   value      String
   expiresAt  DateTime
+
+  createdAt DateTime?
+  updatedAt DateTime?
 
   @@map("verification")
 }
@@ -125,7 +141,7 @@ model Payment {
   user           User           @relation(fields: [userId], references: [id])
   amount         Float
   currency       String         @default("usd")
-  status         String 
+  status         String
   sessionId      String         @unique
   membershipType MembershipType
   createdAt      DateTime       @default(now())
@@ -135,14 +151,14 @@ model Payment {
 }
 
 model Equipment {
-  id            Int                @id @default(autoincrement())
-  name          String             @unique
+  id            Int                    @id @default(autoincrement())
+  name          String                 @unique
   desc          String
   imageId       Int
-  image         File               @relation(fields: [imageId], references: [id])
-  active        Boolean            @default(true)
-  createdAt     DateTime           @default(now())
-  updatedAt     DateTime           @updatedAt
+  image         File                   @relation(fields: [imageId], references: [id])
+  active        Boolean                @default(true)
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
   remarks       String?
   EquipmentUses EquipmentUses[]
   history       EquipmentHistory[]
@@ -150,17 +166,17 @@ model Equipment {
 }
 
 model EquipmentInstruction {
-  id             Int       @id @default(autoincrement())
-  equipmentId    Int
-  equipment      Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
-  instructorId   String
-  instructor     User      @relation("InstructorInstructions", fields: [instructorId], references: [id])
-  title          String
-  description    String
-  youtubeUrl     String?
-  safetyNotes    String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id           Int       @id @default(autoincrement())
+  equipmentId  Int
+  equipment    Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  instructorId String
+  instructor   User      @relation("InstructorInstructions", fields: [instructorId], references: [id])
+  title        String
+  description  String
+  youtubeUrl   String?
+  safetyNotes  String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 }
 
 model EquipmentUses {

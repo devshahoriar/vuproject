@@ -5,3 +5,4 @@ onlyBuiltDependencies:
   - esbuild
   - prisma
   - sharp
+  - unrs-resolver

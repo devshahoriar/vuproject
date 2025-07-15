@@ -29,7 +29,7 @@ export default async function HomePage() {
           </div>
           <div className="md:w-1/2">
             <ServerImage
-              src="https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=sam-moghadam-khamseh-vOZP2LojrHI-unsplash.jpg"
+              src="/imgs/home.jpg"
               alt="Gym Interior"
               width={600}
               height={400}

@@ -8,6 +8,24 @@ import { Button } from "@/components/ui/button";
 
 export function ModeToggle() {
   const { setTheme, theme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <Button
+        className="rounded-full w-8 h-8 bg-background mr-2"
+        variant="outline"
+        size="icon"
+      >
+        <SunIcon className="w-[1.2rem] h-[1.2rem]" />
+        <span className="sr-only">Switch Theme</span>
+      </Button>
+    );
+  }
 
   return (
     <Button

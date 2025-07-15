@@ -113,7 +113,7 @@ const UserPageLayout = async (
             </div>
             <div className="border-t border-gray-800 mt-8 pt-8 text-center">
               <p>
-                &copy; {new Date().getFullYear()} FitZone. All rights reserved.
+                &copy; 2024 FitZone. All rights reserved.
               </p>
             </div>
           </div>
