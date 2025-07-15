@@ -32,7 +32,7 @@ export function UserNav() {
           className="relative h-8 w-8 rounded-full"
         >
           <Avatar className="h-8 w-8">
-            <AvatarImage src={user?.image} alt="Avatar" />
+            <AvatarImage src={user?.image as string} alt="Avatar" />
             <AvatarFallback className="bg-transparent uppercase">
               {user?.name?.substring(0, 2)}
             </AvatarFallback>
